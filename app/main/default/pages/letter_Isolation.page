@@ -2,44 +2,54 @@
 
 <apex:image url="{!$Resource.letterhead}"/><br />
 <br />
+<div align="center"><b>NOTICE OF PUBLIC HEALTH ISOLATION ORDER</b></div>
 <br />
-Attention: {!HAE_Individual__c.First_Name__c}<br />
-{!HAE_Individual__c.Address1__c}<br/>
-{!HAE_Individual__c.City__c}, {!HAE_Individual__c.State__c}&nbsp;&nbsp;{!HAE_Individual__c.Zip__c}<br/><br/>
 
-
-The Larimer County Department of Health and Environment (LCDHE or “health department”) has determined that you are presumptive positive for 2019 Novel Coronavirus disease, referred to in this document as “COVID-19”.
+The Larimer County Department of Health and Environment (LCDHE or “health department”) has determined that you are presumptive
+positive for 2019 Novel Coronavirus disease, referred to in this document as “COVID-19”.
 <br /><br />
-Because you have developed symptoms, LCDHE requires you remain isolated pursuant to the legal authority set forth in § 25-1-506 (3)(b)(VI), Colorado Revised Statutes.
+Because you have developed symptoms, LCDHE requires you remain isolated pursuant to the legal authority set forth in § 25-1-506
+(3)(b)(VI), Colorado Revised Statutes.
 <br /><br />
-Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to comply with all of the following requirements:
+Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to comply
+with the following requirements:
 <br />
-<ol>
-    <li>You shall cooperate with health care professionals in the administration of necessary infection control actions and shall allow daily contact with health care professionals who are providing your care to assess whether you continue to be infectious.</li>
-    <li>You shall remain at home until the following release criteria is met:</li>
-        <ul>
-            <li>If you have experienced symptoms:<br/>
-                <ol>
-                    <li>You have had no fever for at least 72 hours (that is three full days of no fever without the use of medicine that reduces fevers)<br />
-                    AND</li>
-                    <li>At least 10 days have passed since your symptoms first appeared<br />&nbsp;</li>
-                </ol>
-            </li>
-            <li>If you never experienced symptoms:<br />
-            <ol><li>At least 10 days have passed since your positive test result</li></ol>
-            </li>
-        </ul>
-</ol>
-<br /><br /> 
-You will not be issued a second letter releasing you from isolation. Once the release criteria listed above is met, you may resume your daily activities.  
-<br /><br /><br />
+<ul>
+    <li>You shall cooperate with LCDHE and allow daily contact with health care professionals who are providing your care to assess
+    whether you continue to be infectious.</li>
+    <li>You shall remain at the address listed above (or other address approved by LCDHE) until:
+    {10 days after onset of symptoms,or in the absence of symptoms, 10 days after test date}. <br />
+    Additionally, you must be fever-free for the last three days of your isolation period (days 8, 9 and 10) without the use of fever-reducing medications and have improvement in your symptoms.</li>
+</ul>
+LCDHE is tasked with protecting the health and welfare of the citizens of Colorado by investigating and controlling the causes
+of epidemic and communicable disease. This Public Health Isolation Order is necessary to control any potential transmission
+of disease to others. § 25-1-506 (3) (b) (VI), Colorado Revised Statutes. Immediate issuance of this Order is necessary for
+the preservation of public health, safety, or welfare, and observance of the requirements of the Administrative Procedure
+Act would be contrary to the public interest.<br /><br /><b>FAILURE TO COMPLY WITH THIS ORDER IS SUBJECT TO THE PENALTIES CONTAINED IN §25-1-514 and 25-1-516, COLORADO REVISED STATUTES,
+INCLUDING A FINE OF UP TO FIVE THOUSAND (5,000) DOLLARS AND IMPRISONMENT IN THE COUNTY JAIL FOR UP TO EIGHTEEN (18) MONTHS.</b>
+<br /><br />
+If you have questions about this isolation order, please contact the Joint Information Center at (970) 498-5500, or by email
+at <u>LarimerHealthFollowup@gmail.com</u>.
+<br />
+<br />
 
+<table width="100%">
+    <tr>
+        <td>
+            <apex:image url="{!$Resource.letterSignature}" height="75" width="200" /><br />
+            _______________________________<br />
+            Tom Gonzales, MPH, REHS<br />
+            Public Health Director<br />
+        </td>
+        <td align="right">
+            <br /><br />
+            <u>{!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}</u><br />
+            Date
+        </td>
+    </tr>
+</table>
+  
 
-<apex:image url="{!$Resource.letterSignature}" height="75" width="200"/><br />
-
-_______________________________<br />      
-Tom Gonzales, MPH, REHS<br />                     
-Public Health Director<br />
 
 
 </apex:page>
