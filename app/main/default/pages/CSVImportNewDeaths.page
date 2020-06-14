@@ -1,0 +1,13 @@
+<apex:page standardController="Document" extensions="CSVImportControllerDeaths">
+<div style="font-size:2em">Import Reported Deaths</div>
+<hr />
+<apex:messages />
+    <apex:form id="theForm">
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <apex:inputFile value="{!document.body}" filename="{!document.name}"/>
+                <apex:commandButton value="Save" action="{!saveToMemory}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

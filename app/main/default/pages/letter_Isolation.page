@@ -1,0 +1,45 @@
+<apex:page standardController="HAE_Individual__c" renderAs="pdf">
+
+<apex:image url="{!$Resource.letterhead}"/><br />
+<br />
+<br />
+Attention: {!HAE_Individual__c.First_Name__c}<br />
+{!HAE_Individual__c.Address1__c}<br/>
+{!HAE_Individual__c.City__c}, {!HAE_Individual__c.State__c}&nbsp;&nbsp;{!HAE_Individual__c.Zip__c}<br/><br/>
+
+
+The Larimer County Department of Health and Environment (LCDHE or “health department”) has determined that you are presumptive positive for 2019 Novel Coronavirus disease, referred to in this document as “COVID-19”.
+<br /><br />
+Because you have developed symptoms, LCDHE requires you remain isolated pursuant to the legal authority set forth in § 25-1-506 (3)(b)(VI), Colorado Revised Statutes.
+<br /><br />
+Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to comply with all of the following requirements:
+<br />
+<ol>
+    <li>You shall cooperate with health care professionals in the administration of necessary infection control actions and shall allow daily contact with health care professionals who are providing your care to assess whether you continue to be infectious.</li>
+    <li>You shall remain at home until the following release criteria is met:</li>
+        <ul>
+            <li>If you have experienced symptoms:<br/>
+                <ol>
+                    <li>You have had no fever for at least 72 hours (that is three full days of no fever without the use of medicine that reduces fevers)<br />
+                    AND</li>
+                    <li>At least 10 days have passed since your symptoms first appeared<br />&nbsp;</li>
+                </ol>
+            </li>
+            <li>If you never experienced symptoms:<br />
+            <ol><li>At least 10 days have passed since your positive test result</li></ol>
+            </li>
+        </ul>
+</ol>
+<br /><br /> 
+You will not be issued a second letter releasing you from isolation. Once the release criteria listed above is met, you may resume your daily activities.  
+<br /><br /><br />
+
+
+<apex:image url="{!$Resource.letterSignature}" height="75" width="200"/><br />
+
+_______________________________<br />      
+Tom Gonzales, MPH, REHS<br />                     
+Public Health Director<br />
+
+
+</apex:page>
