@@ -1,4 +1,4 @@
-<apex:page standardController="HAE_Individual__c" renderAs="pdf">
+<apex:page standardController="HAE_Case_Interview__c" renderAs="pdf">
 
     <apex:image url="{!$Resource.letterhead}" />
     <br />
@@ -18,7 +18,7 @@
     <br />
     <br />
      Debe seguir los términos descritos en esta Orden de cuarentena de salud pública hasta el
-    DATE. Después de esta fecha, puede reanudar sus actividades normales de acuerdo con las pautas locales.<br />
+    <b>{!MONTH(HAE_Case_Interview__c.Infectious_End_Date__c)}/{!DAY(HAE_Case_Interview__c.Infectious_End_Date__c)}/{!YEAR(HAE_Case_Interview__c.Infectious_End_Date__c)}</b>. Después de esta fecha, puede reanudar sus actividades normales de acuerdo con las pautas locales.<br />
     <br /><b>Vigilancia de la salud</b>
     <br />
     <ul>

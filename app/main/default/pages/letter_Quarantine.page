@@ -1,4 +1,4 @@
-<apex:page standardController="HAE_Individual__c" renderAs="pdf">
+<apex:page standardController="HAE_Case_Interview__c" renderAs="pdf">
 
     <apex:image url="{!$Resource.letterhead}" />
     <br />
@@ -39,7 +39,7 @@
         activities (e.g. take a walk) as long as you maintain a minimum three-foot distance from any other individual.</li>
     </ul>
     <br />
-        Follow the terms of this Public Health Quarantine Order through <b>DATE</b>, at which time you may resume all normal activities.
+        Follow the terms of this Public Health Quarantine Order through <b>{!MONTH(HAE_Case_Interview__c.Infectious_End_Date__c)}/{!DAY(HAE_Case_Interview__c.Infectious_End_Date__c)}/{!YEAR(HAE_Case_Interview__c.Infectious_End_Date__c)}</b>, at which time you may resume all normal activities.
     <br /><br />
 <apex:image width="100%" url="{!$Resource.letterFooter}" /><br /><br /><br />
 <apex:image width="100%" url="{!$Resource.letterFooter}" /><br />

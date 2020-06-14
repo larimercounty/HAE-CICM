@@ -1,28 +1,50 @@
 global class sendIndividualEmails {
 
-    webservice static void sendCorrectLetter(String theIndividual ){
+    webservice static void sendCorrectLetter(String theIndividual, String theCase ){
 
-        HAE_Individual__c thePerson = [Select Id, Full_Name__c from HAE_Individual__c where Id =:theIndividual];
+        HAE_Case_Interview__c theInterview = [Select Id, LetterLanguage__c, Date_of_Symptoms__c, Infectious_End_Date__c, Primary_Case_Interview__c from HAE_Case_Interview__c where HAE_Individual__c =:theIndividual AND  HAE_Case__c =:theCase];
         
-        sendIsolationEmail(theIndividual);
-        sendIsolationEmailSpanish(theIndividual);
-        sendQuarantineEmail(theIndividual);
-        sendQuarantineEmailSpanish(theIndividual);
+        
+        if(theInterview.Primary_Case_Interview__c)
+        {
+            if(theInterview.LetterLanguage__c == 'Spanish')
+            {
+                sendQuarantineEmailSpanish(theInterview.Id);
+            }
+            else 
+            {
+                sendQuarantineEmail(theInterview.Id);
+            }
+        }
+        else 
+        {
+            if(theInterview.Date_of_Symptoms__c != null)
+            {
+
+                if(theInterview.LetterLanguage__c == 'Spanish')
+                {
+                    sendIsolationEmailSpanish(theInterview.Id);
+                }
+                else 
+                {
+                    sendIsolationEmail(theInterview.Id);
+                }
+            }
+            
+        }
         
     }
 
 
 
-    webservice static void sendIsolationEmail(String theIndividual ){
+    webservice static void sendIsolationEmail(String theInterview ){
 
         List<String> EmailIds = new List<String>();
         EmailIds.add('schreujs@co.larimer.co.us');
         EmailIds.add('alamont@larimer.org');
         
-        HAE_Individual__c thePerson = [Select Id, Full_Name__c from HAE_Individual__c where Id =:theIndividual];
-        
         PageReference theDoc = Page.letter_Isolation;
-        theDoc.getParameters().put('Id',theIndividual);
+        theDoc.getParameters().put('Id',theInterview);
         Blob b = theDoc.getContentAsPDF();
 
         String body ='Hello<br /><br />';
@@ -52,16 +74,15 @@ global class sendIndividualEmails {
         Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
     }
 
-     webservice static void sendIsolationEmailSpanish(String theIndividual ){
+     webservice static void sendIsolationEmailSpanish(String theInterview ){
 
         List<String> EmailIds = new List<String>();
         EmailIds.add('schreujs@co.larimer.co.us');
         EmailIds.add('alamont@larimer.org');
         
-        HAE_Individual__c thePerson = [Select Id, Full_Name__c from HAE_Individual__c where Id =:theIndividual];
         
         PageReference theDoc = Page.letter_Isolation_Spanish;
-        theDoc.getParameters().put('Id',theIndividual);
+        theDoc.getParameters().put('Id',theInterview);
         Blob b = theDoc.getContentAsPDF();
 
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
@@ -92,16 +113,15 @@ global class sendIndividualEmails {
         Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
     }
 
-     webservice static void sendQuarantineEmail(String theIndividual ){
+     webservice static void sendQuarantineEmail(String theInterview ){
 
         List<String> EmailIds = new List<String>();
         EmailIds.add('schreujs@co.larimer.co.us');
         EmailIds.add('alamont@larimer.org');
         
-        HAE_Individual__c thePerson = [Select Id, Full_Name__c from HAE_Individual__c where Id =:theIndividual];
-        
+         
         PageReference theDoc = Page.letter_Quarantine;
-        theDoc.getParameters().put('Id',theIndividual);
+        theDoc.getParameters().put('Id',theInterview);
         Blob b = theDoc.getContentAsPDF();
         
         String body ='Hello<br /><br />';
@@ -130,16 +150,14 @@ global class sendIndividualEmails {
         Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
     }
 
-     webservice static void sendQuarantineEmailSpanish(String theIndividual ){
+     webservice static void sendQuarantineEmailSpanish(String theInterview ){
 
         List<String> EmailIds = new List<String>();
         EmailIds.add('schreujs@co.larimer.co.us');
         EmailIds.add('alamont@larimer.org');
         
-        HAE_Individual__c thePerson = [Select Id, Full_Name__c from HAE_Individual__c where Id =:theIndividual];
-        
         PageReference theDoc = Page.letter_Quarantine_Spanish;
-        theDoc.getParameters().put('Id',theIndividual);
+        theDoc.getParameters().put('Id',theInterview);
         Blob b = theDoc.getContentAsPDF();
 
         String body='Hola,<br /><br />';

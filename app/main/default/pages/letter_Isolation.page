@@ -1,4 +1,4 @@
-<apex:page standardController="HAE_Individual__c" renderAs="pdf">
+<apex:page standardController="HAE_Case_Interview__c" renderAs="pdf">
 
 <apex:image url="{!$Resource.letterhead}"/><br />
 <br />
@@ -18,7 +18,7 @@ with the following requirements:
     <li>You shall cooperate with LCDHE and allow daily contact with health care professionals who are providing your care to assess
     whether you continue to be infectious.</li>
     <li>You shall remain at the address listed above (or other address approved by LCDHE) until:
-    {10 days after onset of symptoms,or in the absence of symptoms, 10 days after test date}. <br />
+    <b>{!MONTH(HAE_Case_Interview__c.Infectious_End_Date__c)}/{!DAY(HAE_Case_Interview__c.Infectious_End_Date__c)}/{!YEAR(HAE_Case_Interview__c.Infectious_End_Date__c)}</b>. <br />
     Additionally, you must be fever-free for the last three days of your isolation period (days 8, 9 and 10) without the use of fever-reducing medications and have improvement in your symptoms.</li>
 </ul>
 LCDHE is tasked with protecting the health and welfare of the citizens of Colorado by investigating and controlling the causes
