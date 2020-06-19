@@ -26,9 +26,9 @@ trigger noteForTeamLead on HAE_Case_Activity__c (after insert, after update) {
             body += '\n<p/>Please review the note as soon as you are able';
             body += '\n<p/>';
             body += '\n<p/>Case Note Details:';
-            body += '\n<p/>Case Note Entered - '+ '(' + newRec.Case_Note__c +')';               
+            //body += '\n<p/>Case Note Entered - '+ '(' + newRec.Case_Note__c +')';               
             body += '\n<p/>Case Status - ' + '(' + newRec.Case_Status__c + ')';
-            body += '\n<p/>Case ID# - ' + '(' + newRec.Case_ID__c +')';
+            body += '\n<p/>CEDRS Case ID# - ' + '(' + newRec.CEDRS_ID__c +')';
             body += '\n<p/>System Link: https://larimerhealth.lightning.force.com/';
             body += '\n<p/>';
             //body += '\n<p/>If for some reason you are unable to contact this individual within the next two hours, please contact the Case Contacting Team Lead.'; 

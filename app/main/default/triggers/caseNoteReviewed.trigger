@@ -33,10 +33,10 @@ for (HAE_Case_Activity__c newRec : trigger.new)
             body += '\n<p/>A Case Note on your interview has been cleared';
             body += '\n<p/>';
             body += '\n<p/>Case Details:';
-            body += '\n<p/>Case Note - ' + '(' + newRec.Case_Note__c +')';
-            body += '\n<p/>CICM Case ID# - ' + '(' + newRec.Case_ID__c + ')';         
+            //body += '\n<p/>Case Note - ' + '(' + newRec.Case_Note__c +')';
+            body += '\n<p/>CEDRS Case ID# - ' + '(' + newRec.CEDRS_ID__c + ')';         
             body += '\n<p/>CICM Case Status - ' + '(' + newRec.Case_Status__c + ')';
-            body += '\n<p/>Current Case Interviewer - ' + '(' + newRec.Interviewer__c +')';
+            //body += '\n<p/>Current Case Interviewer - ' + '(' + newRec.Interviewer__c +')'; This is pulling Field ID not the name - gotta fix later
             body += '\n<p/>System Link: https://larimerhealth.lightning.force.com/';
             body += '\n<p/>';             
             body += '\n<p/>' + 'Thank you.';

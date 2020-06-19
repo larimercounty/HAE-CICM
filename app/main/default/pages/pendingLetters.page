@@ -1,0 +1,7 @@
+<apex:page readonly="true"
+  showheader="false"
+  sidebar="false"
+  doctype="html-5.0"
+  title="Letters To Send">
+    <skuid:page page="report_lettersToSend"/>
+</apex:page>

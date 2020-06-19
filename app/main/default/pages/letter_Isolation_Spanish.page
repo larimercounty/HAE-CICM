@@ -14,7 +14,7 @@ Con vigencia inmediata, para proteger la salud del público y evitar una mayor p
 cumplir con los siguientes requisitos:
 <br />
 <ul>
-<li>Deberá permanecer en autoaislamiento hasta:<b>{!MONTH(HAE_Case_Interview__c.Infectious_End_Date__c)}/{!DAY(HAE_Case_Interview__c.Infectious_End_Date__c)}/{!YEAR(HAE_Case_Interview__c.Infectious_End_Date__c)}</b></li>
+<li>Deberá permanecer en autoaislamiento hasta:<b>{!MONTH(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!DAY(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!YEAR(HAE_Case_Interview__c.Iso_Quar_Until__c)}</b>.</li>
 <li>También debe estar libre de fiebre durante los últimos tres días de su período de aislamiento (días 8, 9 y 10) sin el
     uso de medicamentos para reducir la fiebre y mejorar sus síntomas. </li>
 <li>Deberá cooperar con LCDHE y permitir el contacto

@@ -1,52 +1,70 @@
 global class sendIndividualEmails {
 
-    webservice static void sendCorrectLetter(String theIndividual, String theCase ){
+    webservice static String sendCorrectLetter(String theInterviewToUse ){
 
-        HAE_Case_Interview__c theInterview = [Select Id, LetterLanguage__c, Date_of_Symptoms__c, Infectious_End_Date__c, Primary_Case_Interview__c from HAE_Case_Interview__c where HAE_Individual__c =:theIndividual AND  HAE_Case__c =:theCase];
+        String returnMsg ='';
+
+        HAE_Case_Interview__c theInterview = [Select Id, EmailAddress__c, Current_Symptoms__c, LetterSent__c, LetterSent_Date__c, LetterSent_Type__c, LetterLanguage__c, Date_of_Symptoms__c, Infectious_End_Date__c, Primary_Case_Interview__c from HAE_Case_Interview__c where Id =:theInterviewToUse];
         
+        theInterview.LetterSent__c = true;
+        theInterview.LetterSent_Date__c = System.now();
+                
         
-        if(theInterview.Primary_Case_Interview__c)
+        if(theInterview.Primary_Case_Interview__c || theInterview.Current_Symptoms__c )
         {
             if(theInterview.LetterLanguage__c == 'Spanish')
             {
-                sendQuarantineEmailSpanish(theInterview.Id);
+                theInterview.LetterSent_Type__c = 'Isolation Letter - Spanish';
+                sendIsolationEmailSpanish(theInterview.Id,theInterview.EmailAddress__c);
+                returnMsg = 'Spanish Isolation Letter Transmitted';
             }
             else 
             {
-                sendQuarantineEmail(theInterview.Id);
+                theInterview.LetterSent_Type__c = 'Isolation Letter - English';
+                sendIsolationEmail(theInterview.Id,theInterview.EmailAddress__c);
+                returnMsg = 'English Isolation Letter Transmitted';
             }
         }
         else 
         {
-            if(theInterview.Date_of_Symptoms__c != null)
-            {
-
                 if(theInterview.LetterLanguage__c == 'Spanish')
                 {
-                    sendIsolationEmailSpanish(theInterview.Id);
+                    theInterview.LetterSent_Type__c = 'Quarantine Letter - Spanish';
+                    sendQuarantineEmailSpanish(theInterview.Id,theInterview.EmailAddress__c);
+                    returnMsg = 'Spanish Quarantine Letter Transmitted';
                 }
                 else 
                 {
-                    sendIsolationEmail(theInterview.Id);
-                }
-            }
-            
+                    theInterview.LetterSent_Type__c = 'Quarantine Letter - English';
+                    sendQuarantineEmail(theInterview.Id,theInterview.EmailAddress__c);
+                    returnMsg = 'English Quarantine Letter Transmitted';
+                }    
         }
         
+        update theInterview;
+
+        return returnMsg;
+
     }
 
 
 
-    webservice static void sendIsolationEmail(String theInterview ){
+    webservice static void sendIsolationEmail(String theInterview, String EmailAddress){
 
         List<String> EmailIds = new List<String>();
-        EmailIds.add('schreujs@co.larimer.co.us');
-        EmailIds.add('alamont@larimer.org');
+        EmailIds.add(EmailAddress);
         
+        OrgWideEmailAddress owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Health FollowUp'];
+
         PageReference theDoc = Page.letter_Isolation;
         theDoc.getParameters().put('Id',theInterview);
-        Blob b = theDoc.getContentAsPDF();
+        Blob b;
 
+         if(Test.isRunningTest()){
+                b = blob.valueOf('Unit.Test');
+            }else{
+                b = theDoc.getContentAsPDF();}
+                
         String body ='Hello<br /><br />';
         body += 'This is your follow up email from the conversation you had with the Larimer County Department of Health and Environment regarding COVID-19.<br/><br/>';
         body += 'If you are currently experiencing symptoms or have tested positive for coronavirus:<br/>';
@@ -71,19 +89,29 @@ global class sendIndividualEmails {
         email.setToAddresses( EmailIds  );
         email.setHtmlBody(body);
         email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa1});
+        email.setOrgWideEmailAddressId(owea.Id);
+       
         Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
     }
 
-     webservice static void sendIsolationEmailSpanish(String theInterview ){
+     webservice static void sendIsolationEmailSpanish(String theInterview, String EmailAddress ){
 
         List<String> EmailIds = new List<String>();
-        EmailIds.add('schreujs@co.larimer.co.us');
-        EmailIds.add('alamont@larimer.org');
+        EmailIds.add(EmailAddress);
         
+                
+        OrgWideEmailAddress owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Health FollowUp'];
+
+
         
         PageReference theDoc = Page.letter_Isolation_Spanish;
         theDoc.getParameters().put('Id',theInterview);
-        Blob b = theDoc.getContentAsPDF();
+        Blob b;
+
+         if(Test.isRunningTest()){
+                b = blob.valueOf('Unit.Test');
+            }else{
+                b = theDoc.getContentAsPDF();}
 
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
  
@@ -109,20 +137,28 @@ global class sendIndividualEmails {
         email.setSubject( 'Seguimiento del Departamento de Salud del Condado de Larimer');
         email.setToAddresses( EmailIds  );
         email.setHtmlBody(body);
+          email.setOrgWideEmailAddressId(owea.Id);
+      
         email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa1});
         Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
     }
 
-     webservice static void sendQuarantineEmail(String theInterview ){
+     webservice static void sendQuarantineEmail(String theInterview, String EmailAddress ){
 
         List<String> EmailIds = new List<String>();
-        EmailIds.add('schreujs@co.larimer.co.us');
-        EmailIds.add('alamont@larimer.org');
+        EmailIds.add(EmailAddress);
+                
+        OrgWideEmailAddress owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Health FollowUp'];
         
          
         PageReference theDoc = Page.letter_Quarantine;
         theDoc.getParameters().put('Id',theInterview);
-        Blob b = theDoc.getContentAsPDF();
+        Blob b;
+
+         if(Test.isRunningTest()){
+                b = blob.valueOf('Unit.Test');
+            }else{
+                b = theDoc.getContentAsPDF();}
         
         String body ='Hello<br /><br />';
         body += 'This is your follow up email from the conversation you had with the Larimer County Department of Health and Environment regarding COVID-19.<br/><br/>';
@@ -145,21 +181,30 @@ global class sendIndividualEmails {
         String addresses;
         email.setSubject( 'Followup from Larimer County Department of Health and Environment');
         email.setToAddresses( EmailIds  );
-        email.setPlainTextBody('Attached the Quarantine order .\nYou are required to follow all of the information in this order'  );
+        email.setHtmlBody(body);   
+          email.setOrgWideEmailAddressId(owea.Id);
+           
         email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa1});
         Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
     }
 
-     webservice static void sendQuarantineEmailSpanish(String theInterview ){
+     webservice static void sendQuarantineEmailSpanish(String theInterview, String EmailAddress ){
 
         List<String> EmailIds = new List<String>();
-        EmailIds.add('schreujs@co.larimer.co.us');
-        EmailIds.add('alamont@larimer.org');
+        EmailIds.add(EmailAddress);
+                
+        OrgWideEmailAddress owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Health FollowUp'];
+
+
         
         PageReference theDoc = Page.letter_Quarantine_Spanish;
         theDoc.getParameters().put('Id',theInterview);
-        Blob b = theDoc.getContentAsPDF();
+        Blob b;
 
+         if(Test.isRunningTest()){
+                b = blob.valueOf('Unit.Test');
+            }else{
+                b = theDoc.getContentAsPDF();}
         String body='Hola,<br /><br />';
         body += 'Este es su correo electrónico de seguimiento de la conversación que mantuvo con el Departamento de Salud y Medio Ambiente del Condado de Larimer con respecto a COVID-19.<br /><br />';
         body += 'Si actualmente experimenta síntomas o ha dado positivo por coronavirus:<br />';
@@ -186,6 +231,8 @@ global class sendIndividualEmails {
         email.setSubject( 'Seguimiento del Departamento de Salud del Condado de Larimer');
         email.setToAddresses( EmailIds  );
         email.setHtmlBody(body);
+          email.setOrgWideEmailAddressId(owea.Id);
+      
         email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa1});
         Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
     }
