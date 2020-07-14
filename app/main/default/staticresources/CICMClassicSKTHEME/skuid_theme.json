@@ -24,7 +24,8 @@
 		"sk-autocomplete-item-font": "normal, normal, 1em, null, undefined",
 		"sk-autocomplete-item-color": "black",
 		"sk-autocomplete-item-text-transform": "none",
-		"sk-autocomplete-item-selected-color": "black"
+		"sk-autocomplete-item-selected-color": "black",
+		"sk-page-background": "#eeece1"
 	},
 	"webFonts": {
 		"google": [],
@@ -51,7 +52,7 @@
 			}
 		}
 	},
-	"timeStamp": 1589923570088,
+	"timeStamp": 1593189763030,
 	"migrations": {
 		"millau": "1589922652242"
 	},

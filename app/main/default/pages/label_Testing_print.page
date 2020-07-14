@@ -1,0 +1,29 @@
+<apex:page standardcontroller="TestingSlot__c" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" >
+
+<script>
+
+function loadReceipt() {
+      
+      var receipt = 'c__label_Testing?id=' + '{!TestingSlot__c.Id}';
+      console.log(receipt);
+    
+      top.document.getElementById('pdf').setAttribute("src",receipt);
+      
+    setTimeout(function(){callPrint("pdf");},500);
+
+
+  }
+
+function callPrint(iframeId) {
+      var PDF = document.getElementById(iframeId);
+      PDF.focus();
+      PDF.contentWindow.print();
+  }
+
+</script>
+<html>
+<body onload="loadReceipt()">
+<iframe id="pdf" name="pdf" src="" style=""></iframe>
+</body>
+</html>
+</apex:page>

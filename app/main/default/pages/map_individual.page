@@ -1,0 +1,136 @@
+<apex:page standardController="HAE_Individual__c">
+<head>
+
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEmtACxAXYSJMe24fbyrtAADhonhqVXh8">
+</script>
+
+<script>
+function initMap(){
+  //
+}
+</script>
+      
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+
+$(document).ready(function() {
+
+
+
+  var map;
+
+  var marker;
+
+ 
+
+  var geocoder = new google.maps.Geocoder();
+  
+  console.log(address);
+
+  var address = "{!HAE_Individual__c.Address1__c} {!HAE_Individual__c.city__c} {!HAE_Individual__c.State__c} {!HAE_Individual__c.Zip__c}";
+  console.log(address);
+
+  var myLatLng = { lat: {!HAE_Individual__c.Latitude__c}, lng: {!HAE_Individual__c.Longitude__c}};
+
+  var infowindow = new google.maps.InfoWindow({
+
+  content: "<b>{!HAE_Individual__c.Full_Name__c}</b><br>" + address + " "
+
+  });
+
+
+/* ATTEMPT */
+//create map
+
+
+
+
+        
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: {!HAE_Individual__c.Latitude__c}, lng: {!HAE_Individual__c.Longitude__c}},
+          zoom: 15
+        });
+
+        //create marker
+
+        marker = new google.maps.Marker({
+
+            position: myLatLng,
+
+            map: map,
+
+            title: "{!HAE_Individual__c.Full_Name__c}"
+
+        });
+
+//add listeners
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(map,marker);
+        });
+        google.maps.event.addListener(infowindow, 'closeclick', function() {
+          map.setCenter(marker.getPosition());
+        });
+
+
+
+  function resizeIframe() {
+
+    var me = window.name;
+
+    if (me) {
+
+      var iframes = parent.document.getElementsByName(me);
+
+      if (iframes && iframes.length == 1) {
+
+        height = document.body.offsetHeight;
+
+        iframes[0].style.height = height + "px";
+
+      }
+
+    }
+
+  }
+
+ 
+
+});
+
+</script>
+ 
+
+<style>
+
+#map {
+
+  font-family: Arial;
+
+  font-size:12px;
+
+  line-height:normal !important;
+
+  height:450px;
+  
+  width:600px;
+  
+  background:transparent;
+
+}
+
+
+</style>
+ 
+
+</head>
+<body>
+
+<div id="map"></div>
+
+</body>  
+
+</apex:page>
