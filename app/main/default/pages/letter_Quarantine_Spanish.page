@@ -1,0 +1,80 @@
+<apex:page standardController="HAE_Case_Interview__c" renderAs="pdf">
+
+    <apex:image url="{!$Resource.letterhead}" />
+    <br />
+    <br />
+    <div align="center">
+        <b>AVISO DE ORDEN DE CUARENTENA DE SALUD PÚBLICA</b>
+    </div>
+    <br /> El Departamento de Salud Pública y Medio Ambiente del Condado de Larimer (LCDHE o "departamento de salud local") ha determinado
+    que recientemente ha estado en contacto cercano con una persona que presuntamente ha sido confirmada por laboratorio para
+    tener la enfermedad del nuevo coronavirus 2019, mencionada en este documento como "COVID-19". En base a esta exposición,
+    ha sido identificado como una persona con un alto riesgo de contraer COVID-19.<br />
+    <br />Con vigencia inmediata, para proteger la salud del público y evitar una mayor propagación de la enfermedad, se le ordena
+    poner en autocuarentena. Cuarentena significa separar
+    a un individuo o grupo que se cree razonablemente que ha estado expuesto a una enfermedad contagiosa, pero que aún no está
+    enfermo, de otros que no han estado expuestos, para evitar la posible propagación de la enfermedad contagiosa. Se le ordena
+    además que coopere con LCDHE como se indica a continuación:
+    <br />
+    <br />
+     Debe seguir los términos descritos en esta Orden de cuarentena de salud pública hasta el
+    <b>{!MONTH(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!DAY(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!YEAR(HAE_Case_Interview__c.Iso_Quar_Until__c)}</b>. Después de esta fecha, puede reanudar sus actividades normales de acuerdo con las pautas locales.<br />
+    <br /><b>Vigilancia de la salud</b>
+    <br />
+    <ul>
+        <li>Deberá cooperar con profesionales de la salud en la administración de acciones de control de infección necesarias y deberán
+        permitir el contacto diario con LCDHE para evaluar si ha desarrollado síntomas y puede ser infeccioso para otros. Si necesita
+        buscar atención médica por cualquier motivo, debe notificar al proveedor de atención médica que se encuentra actualmente
+        en cuarentena debido a una exposición al COVID-19.</li>
+    </ul>
+    <b>Restricciones de viajes y actividades públicas
+    </b>
+    <ul>
+        <li>No debe viajar en avión, barco, autobús de larga distancia o tren.</li>
+        <li>Cualquier otro viaje debe ser coordinado y aprobado por la salud pública.</li>
+        <li>Deberá separarse de los demás y evitar todas las actividades públicas.</li>
+        <li>No debe utilizar el transporte público, como el tren ligero, el autobús o el taxi.</li>
+        <li>No deberás ir a la escuela</li>
+        <li>Restrinja a los visitantes que no tienen una necesidad esencial de estar en el hogar</li>
+        <li>No deberá ir a trabajar. Trabajar desde una oficina en casa está permitido.</li>
+    </ul>
+<apex:image width="100%" url="{!$Resource.letterFooter}" /><br /><br /><br />
+<apex:image width="100%" url="{!$Resource.letterFooter}" /><br />
+<br />
+
+<br /> LCDHE tiene la tarea de proteger la salud y el bienestar de los ciudadanos de Colorado mediante la investigación y el control
+de las causas de epidemias y enfermedades transmisibles. Esta Orden de aislamiento de salud pública es necesaria para controlar
+cualquier posible transmisión de enfermedades a otros. § 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado. La emisión
+inmediata de esta Orden es necesaria para la preservación de la salud pública, la seguridad o el bienestar, y el cumplimiento
+de los requisitos de la Ley de Procedimiento Administrativo sería contrario al interés público.
+<br/>
+<br/>
+<b>EL INCUMPLIMIENTO DE ESTE PEDIDO ESTÁ SUJETO A LAS SANCIONES CONTENIDAS EN §25-1-514 Y 25-1-516, COLORADO REVISÓ LOS ESTATUTOS,
+    INCLUYENDO UNA MULTA DE HASTA CINCO MIL (5,000) DÓLARES Y ENCARCELOS EN LA CÁRCEL DEL CONDADO POR UP A DIECIOCHO (18)
+    MESES.</b>
+<br />
+<br /> Si tiene preguntas sobre esta orden, comuníquese con el Centro de información conjunta al (970) 498-5500,
+o por correo electrónico a
+<u>LarimerHealthFollowup@gmail.com</u>.
+<br />
+<br />
+
+    <table width="100%">
+        <tr>
+            <td>
+                <apex:image url="{!$Resource.letterSignature}" height="75" width="200" />
+                <br /> _______________________________
+                <br /> Tom Gonzales, MPH, REHS
+                <br /> Public Health Director
+                <br />
+            </td>
+            <td align="right">
+                <br />
+                <br />
+                <u>{!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}</u>
+                <br /> Date
+            </td>
+        </tr>
+    </table>
+
+</apex:page>

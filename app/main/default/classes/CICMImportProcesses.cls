@@ -75,11 +75,13 @@ global class CICMImportProcesses
             String calcResult ='';
             
             
-            if(MappedResult == 'Negative' || MappedResult == 'Not Detected' || MappedResult == 'Non-Reactive' || MappedResult == 'Nonreactive'  || MappedResult == 'UNDETECTED'   || MappedResult == 'Not detected (qualifier value)'){ calcResult = 'Negative';}
+            if(MappedResult == 'Negative' || MappedResult == 'NotDetected' || MappedResult == 'Not Detected' || MappedResult == 'Non-Reactive' || MappedResult == 'Nonreactive'  || MappedResult == 'UNDETECTED'   || MappedResult == 'Not detected (qualifier value)'){ calcResult = 'Negative';}
             
             if(MappedResult == 'Detected' || MappedResult == 'Reactive' || MappedResult == 'Positive'){calcResult = 'Positive';}
             
             if(MappedResult == 'Inconclusive'){calcResult = 'Inconclusive';}
+            
+            if(MappedResult == 'Test Not Performed'){calcResult = 'Exclude';}
 
             
             List< TestsPerformed__c > existingTest = new List< TestsPerformed__c >([Select Id,
@@ -470,5 +472,178 @@ webservice static String loadCaseRecord(String theRecord) {
     return returnMsg;
   
   }
+
+webservice static String loadHistoricalCaseRecord(String theRecord) {
+
+
+    String returnMsg ='';
+    system.debug('Passed String: ' + theRecord);
+    if(theRecord.length() > 10)
+    {
+   
+      
+        List<List<String>> data = RT_CSVReader.read(theRecord);
+        List<String> fields = data[0];
+        
+        system.debug('******* Start Field Split *******');
+        Integer count = 0;
+        for( String field : fields)
+        {
+           System.debug('' + count + ' ' + field);
+           count++; 
+        }
+        system.debug('******* End Field Split *******');
+        
+        HAE_Case__c newCase = new HAE_Case__c();
+        HAE_Individual__c newIndividual = new HAE_Individual__c();
+        HAE_Case_Contact__c newCaseContact = new HAE_Case_Contact__c();            
+        
+        if(fields.size()>0)
+        {
+            String eventId = fields[0];
+            System.debug(eventId);
+            
+            List< HAE_Case__c > existingCase = new List< HAE_Case__c >([Select Id from HAE_Case__c where Event_ID__c=:eventId]);   
+              
+            If(existingCase.size()>0)
+            {
+                returnMsg = 'Case Already Logged';
+                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.WARNING,'Record Already Exists For: ' + fields[0]+ ' : ' + fields[7] + ',' + fields[8] + ' skipping entry'));
+              
+            }
+            else
+            {
+            
+               
+                    try
+                    {
+                        if (fields[9]=='Gender') //If this happens, it is a header row
+                        { 
+                           CalloutException ex = new CalloutException();
+                           ex.setMessage('Header Row - Do Not Process');
+                           throw ex;
+
+                        }
+                    
+                        system.debug('collectiondate: ' + fields[4]);
+                        List<String> days = new List<String>();
+                        days = fields[4].split('/');
+                        if(days.size()==3)
+                        {
+                            
+                            Date collectionDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
+                            newCase.Specimen_Collection_Date__c = collectionDate;
+                        }
+                        
+                        //days = new List<String>();
+                        //days = fields[3].split('/');
+                        if(days.size()==3)
+                        {
+                            Date reportedDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
+                            newCase.Reported_Date__c = reportedDate;
+                        }
+                        
+                        
+                        //days = new List<String>();
+                        //days = fields[4].split('/');
+                        if(days.size()==3)
+                        {
+                            Date resultDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
+                            newCase.Result_Date__c = resultDate;
+                            
+                        }
+                        
+                        days = new List<String>();
+                        days = fields[10].split('/');
+                        if(days.size()==3)
+                        {
+                            Date dateOfBirth = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
+                            newIndividual.Date_of_Birth__c = dateOfBirth;
+                        }
+                          
+                       
+        
+        
+                        newCase.Event_ID__c = fields[0];
+                        newCase.Case_Status__c = 'History';
+                        newCase.CEDRS_Case_Status__c = fields[6];
+                        newCase.Disease__c = fields[2];
+                        //newCase.Specimen__c = fields[2];
+                        newIndividual.Last_Name__c = fields[7];
+                        newIndividual.First_Name__c = fields[8];
+                        newIndividual.Gender__c = fields[9];
+                        if(fields[13]=='Unknown') 
+                         {
+                             newIndividual.Race__c = 'Declined to answer';
+                         }
+                         else
+                          {
+                            if(fields[13]=='Other Race') 
+                            {
+                                newIndividual.Race__c = 'Declined to answer';
+                            }
+                            else
+                            {
+                                if(fields[13]=='Native Hawaiian or Other Pacific Islander')
+                                {
+                                     newIndividual.Race__c = 'Native Hawaiian/Other Pacific Islander';
+                                }
+                                else
+                                {
+                                    newIndividual.Race__c = fields[13];
+                                }
+                            }
+                         }
+                        
+                        //newIndividual.Race__c = fields[14];
+                        if(fields[15] == 'Not Hispanic or Latino') NewIndividual.Ethnicity__c = 'No';
+                        if(fields[15] == 'Hispanic or Latino') NewIndividual.Ethnicity__c = 'Yes';
+                        if(fields[15] == 'Unknown') NewIndividual.Ethnicity__c = '';   
+                                            
+                        //newIndividual.Ethnicity__c = fields[15];
+                        //newIndividual.Individual_Phone__c = fields[28];
+                        //newIndividual.address1__c = fields[29];
+                        //newIndividual.city__c = fields[31];
+                        //newIndividual.Longitude__c = Decimal.valueOf(fields[108]);
+                        //newIndividual.Latitude__c = Decimal.valueOf(fields[107]);
+                        //if(fields[32]=='Colorado' || fields[32]=='Colorado') { newIndividual.State__c = 'Colorado';}
+                        //newIndividual.zip__c = fields[33];
+                        
+                        insert newIndividual;
+                        
+                        newCase.Primary_Individual__c = newIndividual.Id;
+                        
+                        insert newCase;
+                        
+                        newCaseContact.HAE_Individual__c = newIndividual.Id;
+                        newCaseContact.HAE_Case__c = newCase.Id;
+                        newCaseContact.Primary_Individual__c = True;
+                        newCaseContact.Contact_Type__c = 'Case';
+                        
+                        ApexPages.addmessage(new ApexPages.message(ApexPages.severity.WARNING,'Inserting Records: ' + fields[0]+ ' : ' + fields[7] + ',' + fields[8]));
+                              
+                        
+                        insert newCaseContact;
+        
+                     }
+                     catch(Exception e)
+                     {
+                     
+                     }
+                 }
+        }
+  
+  
+    }
+    
+  
+   
+    
+    return returnMsg;
+  
+  }
+
+
+
 
 }

@@ -1,0 +1,7 @@
+<apex:page showheader="true"
+  sidebar="false"
+  readonly="true"
+  docType="html-5.0"
+  title="CICM Testing CheckIn">
+            <skuid:page page="testingCheckIn" />
+</apex:page>

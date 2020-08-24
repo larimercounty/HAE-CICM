@@ -56,4 +56,28 @@ static testmethod void test_emailServices(){
                 emailService.sendEmail('','Larimer CICM',body1,subject1);
 
          }        
-    }
+   
+public static testMethod void testBatchTestingNotification(){
+
+    
+        String CRON_EXP = '0 0 0 15 3 ? 2022';
+        
+                 String jobId = System.schedule('batchTestNotification', 
+                     CRON_EXP,  
+                        new sendDailyTestingRemindersSchedule()); 
+
+}
+
+public static testMethod void testNotification(){
+
+    
+        NotificationForTesting  theBatch = new NotificationForTesting();
+        
+         theBatch.query = 'SELECT Id, sendNotification__c, EmailToSendTo__c from TestingSlot__c where sendNotification__c = true limit 5';
+        
+       ID theBatchJob = Database.executeBatch(theBatch,9);
+    
+
+}
+   
+}

@@ -1,0 +1,3 @@
+<apex:page showHeader="false" sidebar="false">
+<skuid:page page="Testing_Registration_Public"/>
+</apex:page>

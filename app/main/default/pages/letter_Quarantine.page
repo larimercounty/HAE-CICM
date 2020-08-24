@@ -1,0 +1,80 @@
+<apex:page standardController="HAE_Case_Interview__c" renderAs="pdf">
+
+    <apex:image url="{!$Resource.letterhead}" />
+    <br />
+    <br />
+    <div align="center">
+        <b>NOTICE OF PUBLIC HEALTH QUARANTINE ORDER</b>
+    </div>
+    <br /> The Larimer County Department of Public Health and Environment (LCDHE or “local health department”) has determined that you
+    recently have been in close contact with an individual who has been presumptively lab-confirmed to have 2019 Novel Coronavirus
+    disease, referred to in this document as “COVID-19”. Based on this exposure, you have been identified as a person with a
+    high risk of contracting COVID- 19.<br />
+    <br />Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to you are ordered to self-quarantine. 
+    Quarantine means separating an individual or group reasonably believed to have been exposed to a communicable disease, but who is/are not yet ill, from others who have not been exposed,
+    to prevent the possible spread of the communicable disease. You are further ordered to cooperate with LCDHE as indicated
+    below:
+    <br />
+    <br /><b>Health Monitoring</b>
+    <br />
+    <ul>
+        <li>You shall cooperate with health care professionals in the administration of necessary infection control actions and shall
+        allow daily contact with LCDHE to assess whether you have developed symptoms and may be infectious to others. If you need
+        to seek medical care for any reason, you must notify the healthcare provider that you are currently in quarantine due to
+        an exposure to COVID-19.</li>
+    </ul>
+    <b>Travel and Public Activites Restrictions
+    </b>
+    <ul>
+        <li>You shall not travel by airplane, ship, long-distance bus, or train</li>
+        <li>Any other travel must be coordinated with and approved by public health</li>
+        <li>You shall separate yourself from others and avoid all public activities</li>
+        <li>You shall not use public transportation, such as light rail, bus, or taxi</li>
+        <li>You shall not go to school</li>
+        <li>Restrict visitors who do not have an essential need to be in the home</li>
+        <li>You shall not go to work. Working from a home office is permitted</li>
+        <li>If you do not have respiratory symptoms, the public health agency may authorize limited outdoor
+        activities (e.g. take a walk) as long as you maintain a minimum three-foot distance from any other individual.</li>
+    </ul>
+    <br />
+        Follow the terms of this Public Health Quarantine Order through <b>{!MONTH(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!DAY(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!YEAR(HAE_Case_Interview__c.Iso_Quar_Until__c)}</b>, at which time you may resume all normal activities.
+    <br /><br />
+<apex:image width="100%" url="{!$Resource.letterFooter}" /><br /><br /><br />
+<apex:image width="100%" url="{!$Resource.letterFooter}" /><br />
+<br />
+
+LCDHE is tasked with protecting the health and welfare of the citizens of Colorado by investigating and controlling the causes
+of epidemic and communicable disease. This Public Health Isolation Order is necessary to control any potential transmission
+of disease to others. § 25-1-506 (3) (b) (VI), Colorado Revised Statutes. Immediate issuance of this Order is necessary for
+the preservation of public health, safety, or welfare, and observance of the requirements of the Administrative Procedure
+Act would be contrary to the public interest.
+<br />
+<br />
+<b>FAILURE TO COMPLY WITH THIS ORDER IS SUBJECT TO THE PENALTIES CONTAINED IN §25-1-514 and 25-1-516, COLORADO REVISED STATUTES,
+    INCLUDING A FINE OF UP TO FIVE THOUSAND (5,000) DOLLARS AND IMPRISONMENT IN THE COUNTY JAIL FOR UP TO EIGHTEEN (18) MONTHS.</b>
+    <br />
+    <br /> If you have questions about this order, please contact the Joint Information Center at (970) 498-5500, or
+    by email at
+    <u>LarimerHealthFollowup@gmail.com</u>.
+    <br />
+    <br />
+
+    <table width="100%">
+        <tr>
+            <td>
+                <apex:image url="{!$Resource.letterSignature}" height="75" width="200" />
+                <br /> _______________________________
+                <br /> Tom Gonzales, MPH, REHS
+                <br /> Public Health Director
+                <br />
+            </td>
+            <td align="right">
+                <br />
+                <br />
+                <u>{!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}</u>
+                <br /> Date
+            </td>
+        </tr>
+    </table>
+
+</apex:page>

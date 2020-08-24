@@ -1,0 +1,94 @@
+<apex:page standardcontroller="TestingSlot__c" renderAs="PDF" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" >
+
+<script>
+$(document).ready(function () { 
+  window.print(); 
+});
+</script>
+<html>
+<head>
+    <style>
+              @page { size: 3.5in 4.25in; margin: 0.00in}                
+            }
+            .page-break {
+                display:block;
+                page-break-after:always;
+            }
+                body { font-size: .9em; }
+                h1 { margin: 0; font-size: 1.2em; font-weight: normal; color: #FFF }
+                hr.seperator { margin: 10px auto 5px quto; width: 100%; color: #000; background-color: #000; height:1px; border: none; }
+                h5 { margin: 0; font-size: .7em; font-weight: normal; }
+                p { margin-top: 10px; margin-bottom: 10px; }
+                .blackBG{background-color: #000}
+
+        </style>
+        
+        </head>
+
+<body onload="window.print()">
+<apex:image url="{!$Resource.letterhead}" />
+    <br />
+    <div align="center">
+        <b>Receipt For COVID-19 Testing</b>
+    </div>
+<br />
+Be sure to bring this document with you on your testing date.
+<br />
+Testing Receipt #:{!TestingSlot__c.TestID__c}<br />
+Patient: {!TestingSlot__c.TestingRegistration__r.Last_Name__c}, {!TestingSlot__c.TestingRegistration__r.First_Name__c} {!TestingSlot__c.TestingRegistration__r.Middle_Name__c}<br />
+DOB: <apex:outputText value="{0, date, MM/dd/yy}">
+                <apex:param value="{!TestingSlot__c.TestingRegistration__r.DOB__c}" /> 
+</apex:outputText>
+<br />
+Location: {!TestingSlot__c.TestingDay__r.Location__c}<br />
+Date: <apex:outputText value="{0, date, MM/dd/yy}">
+                <apex:param value="{!TestingSlot__c.TestingDay__r.Day__c}" /> 
+</apex:outputText>
+Time : {!TestingSlot__c.TestingDay__r.Time__c}<br />
+<!-- <a href="https://larimerhealth.secure.force.com/RegisterForTest/cancelTest?tk={!TestingSlot__c.TestID__c}">Click This Link To Cancel Appointment</a><br />-->
+<b>Instructions:</b>
+Thank you for registering for COVID-19 Testing. We have added you to our confirmed list of patients scheduled for testing. The details of your testing appointment are below. 
+<br /><br />
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Fort Collins'}">
+Location: Colorado State University Parking Lot # 740, by the Tennis Complex<br />
+Address: 2350 Research Boulevard; Fort Collins, CO 80526
+</apex:outputPanel>
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c != 'Fort Collins'}">
+Location: Larimere County Loveland Campus<br />
+Address: 200 Peridot Ave. Loveland CO 80537
+</apex:outputPanel>
+<br /><br />
+Please keep your window rolled up when entering the testing site until instructed to roll it down. 
+<br /><br />
+You must bring a copy of this email (electronic or on paper) and your ID to the testing site in order to be tested. 
+<br /><br />
+The results will be emailed to you if they are negative or you will receive a phone call if the results are positive in five to seven days. 
+<br /><br />
+Please be advised that people who have not been registered through this process will not be able to obtain COVID - 19 testing.
+<br /><br />
+If you have any questions, please email me at publichealth@larimer.org or call me at 970-498-5500. 
+<br />
+-------------------------------------------
+<br />
+Gracias por registrarse para la Prueba COVID-19. Lo hemos agregado a nuestra lista confirmada de pacientes programados para la prueba. Los detalles de su cita de prueba están a continuación. 
+<br /><br />
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Fort Collins'}">
+Location: Colorado State University Parking Lot # 740, by the Tennis Complex<br />
+Address: 2350 Research Boulevard; Fort Collins, CO 80526
+</apex:outputPanel>
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c != 'Fort Collins'}">
+Location: Larimere County Loveland Campus<br />
+Address: 200 Peridot Ave. Loveland CO 80537
+</apex:outputPanel>
+<br /><br />
+Mantenga su ventana enrollada al ingresar al sitio de prueba hasta que se le indique que la baje.
+<br /><br />
+Los resultados se le enviarán por correo electrónico si son negativos o recibirá una llamada telefónica si los resultados son positivos en dos o tres días.
+<br /><br />
+Tenga en cuenta que las personas que no se hayan registrado a través de este proceso no podrán obtener la prueba COVID-19.
+<br /><br />
+Si tiene alguna pregunta, envíeme un correo electrónico a publichealth@larimer.org o llámeme al 970-498-5500. 
+<br /><br />
+</body>
+</html>
+</apex:page>

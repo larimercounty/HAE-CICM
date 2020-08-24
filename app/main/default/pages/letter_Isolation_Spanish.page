@@ -1,0 +1,56 @@
+<apex:page standardController="HAE_Case_Interview__c" renderAs="pdf">
+
+<apex:image url="{!$Resource.letterhead}"/><br />
+<br />
+<div align="center"><b>AVISO DE ORDEN DE AISLAMIENTO DE SALUD PÚBLICA</b></div>
+<br />
+
+El Departamento de Salud y Medio Ambiente del Condado de Larimer (LCDHE o "departamento de salud") ha determinado que usted
+es presuntamente positivo para la enfermedad del nuevo coronavirus de 2019, denominado en este documento "COVID-19". Debido
+a que ha desarrollado síntomas, LCDHE requiere que permanezca aislado de conformidad con la autoridad legal establecida en
+§ 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado.
+<br /><br />
+Con vigencia inmediata, para proteger la salud del público y evitar una mayor propagación de la enfermedad, se le ordena
+cumplir con los siguientes requisitos:
+<br />
+<ul>
+<li>Deberá permanecer en autoaislamiento hasta:<b>{!MONTH(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!DAY(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!YEAR(HAE_Case_Interview__c.Iso_Quar_Until__c)}</b>.</li>
+<li>También debe estar libre de fiebre durante las últimas 24 horas de su período de aislamiento sin el
+    uso de medicamentos para reducir la fiebre y mejorar sus síntomas. </li>
+<li>Deberá cooperar con LCDHE y permitir el contacto
+    diario con profesionales de la salud que le brinden atención para evaluar si continúa siendo infeccioso.</li>
+</ul>
+<br /> 
+    LCDHE tiene la tarea de proteger la salud y el bienestar de los ciudadanos de Colorado mediante la investigación y el control
+    de las causas de epidemias y enfermedades transmisibles. Esta Orden de aislamiento de salud pública es necesaria para controlar
+    cualquier posible transmisión de enfermedades a otros. § 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado. La emisión
+    inmediata de esta Orden es necesaria para la preservación de la salud pública, la seguridad o el bienestar, y el cumplimiento
+    de los requisitos de la Ley de Procedimiento Administrativo sería contrario al interés público. <br/><br/><b>EL INCUMPLIMIENTO DE ESTE
+    PEDIDO ESTÁ SUJETO A LAS SANCIONES CONTENIDAS EN §25-1-514 Y 25-1-516, COLORADO REVISÓ LOS ESTATUTOS, INCLUYENDO UNA MULTA
+    DE HASTA CINCO MIL (5,000) DÓLARES Y ENCARCELOS EN LA CÁRCEL DEL CONDADO POR UP A DIECIOCHO (18) MESES.</b><br /><br />
+
+Si tiene preguntas sobre esta orden de aislamiento, comuníquese con el Centro de información conjunta al (970) 498-5500,
+o por correo electrónico a <u>LarimerHealthFollowup@gmail.com</u>.
+<br />
+<br />
+
+<table width="100%">
+    <tr>
+        <td>
+            <apex:image url="{!$Resource.letterSignature}" height="75" width="200" /><br />
+            _______________________________<br />
+            Tom Gonzales, MPH, REHS<br />
+            Public Health Director<br />
+        </td>
+        <td align="right">
+            <br /><br />
+            <u>{!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}</u><br />
+            Date
+        </td>
+    </tr>
+</table>
+  
+
+
+
+</apex:page>
