@@ -306,40 +306,68 @@ global class sendIndividualEmails {
                       
         
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+        Messaging.EmailFileAttachment efa = new Messaging.EmailFileAttachment();
+        Messaging.EmailFileAttachment std = new Messaging.EmailFileAttachment();
+
                 
         OrgWideEmailAddress owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Testing'];
     
        
         PageReference theDoc = Page.CSUResultDocument;
         theDoc.getParameters().put('Id',rec.Id);
-        Blob b;
+        Blob b,b2;
         
         if(Test.isRunningTest()){
             b = blob.valueOf('Unit.Test');
         }else{
             b = theDoc.getContentAsPDF();}
-        
-        
-        if(rec.Lab_Result__c == 'Positive')
+       
+        StaticResource srPositive = [Select  Name, Id, Body From StaticResource where Name = 'CSUPositive'];
+        StaticResource srNegative = [Select  Name, Id, Body From StaticResource where Name = 'CSUNegativeLetter'];
+        StaticResource srInconclusive = [Select  Name, Id, Body From StaticResource where Name = 'CSUInconclusive'];
+            
+
+        if(b != null)
         {
-            owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Health FollowUp'];
-    
+
+            if(rec.Lab_Result__c == 'Positive')
+            {
+                owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Health FollowUp'];
+                b2 = srPositive.body;
+                std.setFileName('ResultLetter.pdf');
+                std.setBody(b2);
+                efa.setFileName('LabResult.pdf');
+                efa.setBody(b);
+                email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa,std});
+        
+            }else {
+                if(rec.Lab_Result__c == 'Negative')
+                {
+                    b2 = srNegative.body;
+                    std.setFileName('ResultLetter.pdf');
+                    std.setBody(b2);
+                    efa.setFileName('LabResult.pdf');
+                    efa.setBody(b);
+                    email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa,std});
+                }
+                else 
+                {
+                    b2 = srInconclusive.body;
+                    std.setFileName('ResultLetter.pdf');
+                    std.setBody(b2);
+                    efa.setFileName('LabResult.pdf');
+                    efa.setBody(b);
+                    email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa,std}); 
+                }
+
+            }
+            
+            
         }
-        
-        if(rec.Lab_Result__c == 'Negative')
-        {
-        
-            owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Testing'];
-    
-        }
-        
 
         if (b != null)
         {
-          Messaging.EmailFileAttachment efa = new Messaging.EmailFileAttachment();
-          efa.setFileName('Result.pdf');
-          efa.setBody(b);
-          email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa});
+          
         }
         
                 

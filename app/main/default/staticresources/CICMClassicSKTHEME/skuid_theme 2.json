@@ -1,0 +1,61 @@
+{
+	"lessVars": {
+		"sk-page-font": "null, null, 13px, null, undefined",
+		"sk-page-color": "black",
+		"sk-actionselect-dropdown-background": "#f2f2f2",
+		"sk-actionselect-dropdown-item-hover-background": "#f2f2f2",
+		"sk-actionselect-autocomplete-input-background": "#f2f2f2",
+		"sk-autocomplete-background": "#f2f2f2",
+		"sk-autocomplete-item-background": "#f2f2f2",
+		"sk-autocomplete-item-selected-background": "#f2f2f2",
+		"sk-actionselect-condition-font": "undefined, normal, 0.8em, null, undefined",
+		"sk-actionselect-condition-color": "black",
+		"sk-actionselect-condition-text-transform": "undefined",
+		"sk-actionselect-actionbutton-font": "undefined, normal, 1em, null, undefined",
+		"sk-actionselect-actionbutton-color": "white",
+		"sk-actionselect-actionbutton-text-transform": "undefined",
+		"sk-actionselect-actionbutton-background": "#006666",
+		"sk-actionselect-condition-background": "#1797C0",
+		"sk-tabset-tab-font": "normal, normal, 0.9em, null, undefined",
+		"sk-tabset-tab-text-transform": "none",
+		"sk-actionselect-dropdown-item-color": "black",
+		"sk-actionselect-dropdown-item-hover-color": "black",
+		"sk-actionselect-autocomplete-input-color": "black",
+		"sk-autocomplete-item-font": "normal, normal, 1em, null, undefined",
+		"sk-autocomplete-item-color": "black",
+		"sk-autocomplete-item-text-transform": "none",
+		"sk-autocomplete-item-selected-color": "black",
+		"sk-page-background": "#eeece1"
+	},
+	"webFonts": {
+		"google": [],
+		"custom": []
+	},
+	"cssResources": [],
+	"baseTheme": "Classic",
+	"isMobile": false,
+	"themeSettings": {
+		"visualizations": {
+			"chart": {},
+			"geochart": {
+				"background": "#9bc6cf",
+				"nullColor": "#eee"
+			}
+		}
+	},
+	"themeSettingsLocal": {
+		"visualizations": {
+			"chart": {},
+			"geochart": {
+				"background": "#9bc6cf",
+				"nullColor": "#eee"
+			}
+		}
+	},
+	"timeStamp": 1593189763030,
+	"migrations": {
+		"millau": "1589922652242"
+	},
+	"id": "CICM_Classic",
+	"initialized": true
+}

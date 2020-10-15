@@ -7,7 +7,7 @@ trigger notifyCSU on TestingSlot__c (after update) {
        TestingSlot__c priorData = trigger.oldMap.get(theTest.Id);
        
        //Identify that a positive test was received
-       if((theTest.Lab_Result__c != priorData.Lab_Result__c) && theTest.CSULab__c == True && (theTest.Lab_Result__c == 'Positive'||theTest.Lab_Result__c == 'Negative'))
+       if((theTest.Lab_Result__c != priorData.Lab_Result__c) && theTest.CSULab__c == True)
        {
        
        
