@@ -12,6 +12,8 @@ trigger newCaseNote on HAE_Case_Activity__c (after insert) {
          notify = true;       
         }
 
+        //request to stop notification of a new case note 7-13-2020
+/*
         if(notify == true){
             
                     emailAddresses.add (hasActivity[0].HAE_Case__r.Interviewer_Email__c);
@@ -40,7 +42,7 @@ trigger newCaseNote on HAE_Case_Activity__c (after insert) {
                     system.debug(body);
                     system.debug(subject);
                 }
-                
+      */          
 
               
 

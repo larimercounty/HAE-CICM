@@ -3,26 +3,28 @@
     <apex:image url="{!$Resource.letterhead}" />
     <br />
     <br />
+{!HAE_Case_Interview__c.HAE_Individual__r.First_Name__c} {!HAE_Case_Interview__c.HAE_Individual__r.Last_Name__c}<br />
+{!HAE_Case_Interview__c.HAE_Individual__r.Address1__c}<br />
+{!HAE_Case_Interview__c.HAE_Individual__r.City__c}, {!HAE_Case_Interview__c.HAE_Individual__r.State__c}&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Zip__c}<br />
+    <br />
     <div align="center">
         <b>AVISO DE ORDEN DE CUARENTENA DE SALUD PÚBLICA</b>
     </div>
-    <br /> El Departamento de Salud Pública y Medio Ambiente del Condado de Larimer (LCDHE o "departamento de salud local") ha determinado
-    que recientemente ha estado en contacto cercano con una persona que presuntamente ha sido confirmada por laboratorio para
-    tener la enfermedad del nuevo coronavirus 2019, mencionada en este documento como "COVID-19". En base a esta exposición,
-    ha sido identificado como una persona con un alto riesgo de contraer COVID-19.<br />
-    <br />Con vigencia inmediata, para proteger la salud del público y evitar una mayor propagación de la enfermedad, se le ordena
-    poner en cuarentena la dirección indicada anteriormente (u otra dirección aprobada por LCDHE). Cuarentena significa separar
-    a un individuo o grupo que se cree razonablemente que ha estado expuesto a una enfermedad contagiosa, pero que aún no está
-    enfermo, de otros que no han estado expuestos, para evitar la posible propagación de la enfermedad contagiosa. Se le ordena
-    además que coopere con LCDHE como se indica a continuación:
+    <br /> El Departamento de Salud Pública y Medio Ambiente del Condado de Larimer (LCDHE) ha determinado
+    que recientemente ha estado en contacto cercano con una persona que tiene COVID-19. En base a esta exposición, se le ha identificado como una persona con un alto riesgo de contraer COVID-19.<br />
+    <br />Con efecto inmediato, para proteger la salud pública y prevenir una mayor propagación de la enfermedad, se le ordena
+    auto-cuarentena. Cuarentena significa separar a un individuo o grupo que se cree razonablemente que ha estado expuesto a una enfermedad contagiosa, pero que aún no está enfermo, de otros que 
+    no han estado expuestos, para prevenir la posible propagación de la enfermedad contagiosa. Además, se le ordena cooperar con LCDHE como se indica a continuación:
     <br />
     <br />
-     Debe seguir los términos descritos en esta Orden de cuarentena de salud pública hasta el
-    <b>{!MONTH(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!DAY(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!YEAR(HAE_Case_Interview__c.Iso_Quar_Until__c)}</b>. Después de esta fecha, puede reanudar sus actividades normales de acuerdo con las pautas locales.<br />
-    <br /><b>Vigilancia de la salud</b>
+    <b>Siga los términos descritos en esta Orden de cuarentena de salud pública hasta el {!MONTH(HAE_Case_Interview__c.Quarantine_Until__c)}/{!DAY(HAE_Case_Interview__c.Quarantine_Until__c)}/{!YEAR(HAE_Case_Interview__c.Quarantine_Until__c)}. 
+    Después de esta fecha, puede reanudar sus actividades normales de acuerdo con las pautas locales. 
+    Un resultado negativo de la prueba NO finaliza el período de cuarentena antes de tiempo porque puede tomar hasta 14 días desde la última exposición para enfermarse y / o dar positivo.
+    </b>
     <br />
+    <b>Monitoreo de la salud</b>
     <ul>
-        <li>Deberá cooperar con profesionales de la salud en la administración de acciones de control de infección necesarias y deberán
+        <li>Deberá cooperar con profesionales de la salud en la administración de las acciones necesarias de control de infecciones y deberá
         permitir el contacto diario con LCDHE para evaluar si ha desarrollado síntomas y puede ser infeccioso para otros. Si necesita
         buscar atención médica por cualquier motivo, debe notificar al proveedor de atención médica que se encuentra actualmente
         en cuarentena debido a una exposición al COVID-19.</li>
@@ -31,32 +33,33 @@
     </b>
     <ul>
         <li>No debe viajar en avión, barco, autobús de larga distancia o tren.</li>
-        <li>Cualquier otro viaje debe ser coordinado y aprobado por la salud pública.</li>
-        <li>Deberá separarse de los demás y evitar todas las actividades públicas.</li>
-        <li>No debe utilizar el transporte público, como el tren ligero, el autobús o el taxi.</li>
-        <li>No deberás ir a la escuela</li>
-        <li>Restrinja a los visitantes que no tienen una necesidad esencial de estar en el hogar</li>
-        <li>No deberá ir a trabajar, a menos que LCDHE haya determinado que usted es un empleado crítico. Trabajar desde una oficina
-        en casa está permitido.</li>
+        <li>Cualquier otro viaje debe ser coordinado y aprobado por LCDHE.</li>
+        <li>Debe separarse de los demás y evitar todas las actividades públicas.</li>
+        <li>No debe usar transporte público, como el tren ligero, autobús o taxi.</li>
+        <li>No irá a la escuela</li>
+        <li>Restringir a los visitantes que no tengan una necesidad esencial de estar en el hogar</li>
+        <li>No irá a trabajar. Se permite trabajar desde una oficina en casa.</li>
+        <li>Si no tiene síntomas respiratorios, LCDHE, puede autorizar actividades limitadas al aire libre (por ejemplo, dar un paseo) 
+        siempre que mantenga una distancia mínima de seis pies de cualquier otra persona.</li>
     </ul>
-<apex:image width="100%" url="{!$Resource.letterFooter}" /><br /><br /><br />
+    <br /><br />
 <apex:image width="100%" url="{!$Resource.letterFooter}" /><br />
 <br />
-
+<br />
+     
 <br /> LCDHE tiene la tarea de proteger la salud y el bienestar de los ciudadanos de Colorado mediante la investigación y el control
-de las causas de epidemias y enfermedades transmisibles. Esta Orden de aislamiento de salud pública es necesaria para controlar
-cualquier posible transmisión de enfermedades a otros. § 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado. La emisión
-inmediata de esta Orden es necesaria para la preservación de la salud pública, la seguridad o el bienestar, y el cumplimiento
+de las causas de la epidemia y las enfermedades transmisibles. Esta Orden de Aislamiento de Salud Pública es necesaria para controlar
+cualquier transmisión potencial de enfermedades a otros. § 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado. La emisión
+inmediata de esta Orden es necesaria para la preservación de la salud, la seguridad o el bienestar públicos, y el cumplimiento
 de los requisitos de la Ley de Procedimiento Administrativo sería contrario al interés público.
 <br/>
 <br/>
-<b>EL INCUMPLIMIENTO DE ESTE PEDIDO ESTÁ SUJETO A LAS SANCIONES CONTENIDAS EN §25-1-514 Y 25-1-516, COLORADO REVISÓ LOS ESTATUTOS,
-    INCLUYENDO UNA MULTA DE HASTA CINCO MIL (5,000) DÓLARES Y ENCARCELOS EN LA CÁRCEL DEL CONDADO POR UP A DIECIOCHO (18)
+<b>EL INCUMPLIMIENTO DE ESTA SUJETO A LAS SANCIONES CONTENIDAS EN §25-1-514 y 25-1-516, ESTATUTOS REVISADOS DE COLORADO,
+    INCLUYENDO UNA MULTA DE HASTA CINCO MIL (5,000) DÓLARES Y ENCARCELAMIENTO EN LA CÁRCEL DEL CONDADO PARA ARRIBA HASTA DIECIOCHO (18)
     MESES.</b>
 <br />
-<br /> Si tiene preguntas sobre esta orden de aislamiento, comuníquese con el Centro de información conjunta al (970) 498-5500,
-o por correo electrónico a
-<u>LarimerHealthFollowup@gmail.com</u>.
+<br /> Si tiene preguntas sobre este pedido, comuníquese con el Centro de información conjunta al (970) 498-5500 o por correo electrónico a
+<u>LarimerHealthFollowup@co.larimer.co.us</u>.
 <br />
 <br />
 

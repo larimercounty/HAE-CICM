@@ -1,0 +1,99 @@
+<apex:page standardcontroller="TestingSlot__c" renderAs="PDF" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" >
+
+<script>
+$(document).ready(function () { 
+  window.print(); 
+});
+</script>
+<html>
+<head>
+    <style>
+              @page { size: 3.5in 4.25in; margin: 0.00in}                
+            }
+            .page-break {
+                display:block;
+                page-break-after:always;
+            }
+                body { font-size: .9em; }
+                h1 { margin: 0; font-size: 1.2em; font-weight: normal; color: #FFF }
+                hr.seperator { margin: 10px auto 5px quto; width: 100%; color: #000; background-color: #000; height:1px; border: none; }
+                h5 { margin: 0; font-size: .7em; font-weight: normal; }
+                p { margin-top: 10px; margin-bottom: 10px; }
+                .blackBG{background-color: #000}
+
+        </style>
+        
+        </head>
+
+<body onload="window.print()">
+<apex:image url="{!$Resource.letterhead}" />
+    <br />
+    <div align="center">
+        <b></b>
+    </div>
+<br /><br />
+<table width="75%" align="center">
+  <tr>
+    <td>
+      Patient: {!TestingSlot__c.TestingRegistration__r.Last_Name__c}, {!TestingSlot__c.TestingRegistration__r.First_Name__c} {!TestingSlot__c.TestingRegistration__r.Middle_Name__c}
+    </td>
+    <td>
+      Collected: <apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!TestingSlot__c.TestingDay__r.Day__c}" /></apex:outputText>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      DOB: <apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!TestingSlot__c.TestingRegistration__r.DOB__c}" /> </apex:outputText>
+    </td>
+    <td>
+      Received: <apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!TestingSlot__c.LastModifiedDate}" /></apex:outputText>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Sample ID: {!TestingSlot__c.TestID__c}<br />
+    </td>
+    <td>
+      Reported: <apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!TestingSlot__c.LastModifiedDate}" /></apex:outputText>
+    </td>
+  </tr>
+</table>
+<br />
+<b>Specimen Info:</b> Viral Transport Media / Red (M4)<br />
+<b>Source:</b> Nasopharyngeal (NP) Swab<br />
+<b>Clinician:</b> Larimer County Department of Health and Environment (Larimer County Public Health)<br />
+<b>Laboratory:</b> The Colorado State University VDL in partnership with the CSU Health Network<br />
+<br />
+<table width="75%">
+<tr>
+<td><b>Molecular Tests</b></td><td><b>Current Results</b></td>
+</tr>
+<tr>
+<td><b>Thermo Fisher Scientific TaqPath™ COVID-19<br />
+Combo Kit (SARS-CoV-2 real-time PCR)<sup>1</sup></b></td><td><b>{!TestingSlot__c.CSU_Result__c}</b></td>
+</tr>
+</table>
+<br /><br />
+<div style="size:.5em">1. This assay is designed to detect ribonucleic acid (RNA) of Severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) using reverse transcriptase 
+qualitative polymerase chain reaction (RT-qPCR). SARS-CoV-2 is the virus which causes Coronavirus Disease 2019 (COVID-19). 
+Results are reported as Not detected, Detected or Inconclusive. The expected result is Not Detected, which would mean SARS-CoV-2 
+RNA was not detected in the sample. A "Not Detected" result does not preclude the possibility of SARS-CoV-2 infection since the 
+adequacy of sample collection, specimen type, variants of nucleic acids at the primer binding sites and/or low viral burden may 
+result in the presence of viral nucleic acids below the analytical sensitivity of this test method. A “Not Detected” result does 
+not rule out COVID-19 and should not be used as the sole basis for treatment or patient management decisions. The possibility of a 
+false negative result should be considered in the context of a patient’s recent exposures and the presence of clinical signs and 
+symptoms consistent with COVID-19. The possibility of a false negative result should especially be considered if the patient’s recent 
+exposures or clinical presentation indicate that COVID-19 is likely, and diagnostic tests for other causes of illness (e.g., other 
+respiratory illness) are negative. If COVID-19 is still suspected based on exposure history together with other clinical findings, 
+re-testing should be considered. Risks of a false negative include lack of monitoring of infected individuals and their household or 
+other close contacts for symptoms resulting in increased risk of spread of COVID-19 within the community. Test parameters have not been 
+validated for screening in asymptomatic patients. This test has been verified by Thermo Fisher Scientific. Testing fact sheets are available 
+at dlab.colostate.edu/coronavirus.  This test is only authorized for the duration of the declaration and the circumstances that exist to 
+justify the authorization of the emergency use of in vitro diagnostic tests for the detection of SARS-CoV-2 virus and/or diagnosis of 
+COVID-19 infection under section 564(b)(1) of the Act, 21 U.S.C. 360bbb-3(b)(1), unless the authorization is terminated or revoked sooner. 
+The Colorado State University VDL is certified under CLIA-88 as a qualified laboratory to perform high complexity testing. This testing was 
+performed at Colorado State University, Fort Collins, CO (CLIA License 06D2180914). FDA review of the validation is pending.</div>
+
+</body>
+</html>
+</apex:page>

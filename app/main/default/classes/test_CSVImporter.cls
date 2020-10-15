@@ -138,5 +138,29 @@ private class test_CSVImporter{
     CICMImportProcesses.loadCaseRecord(csvTest);
     
     }
+    
+     public static testMethod void testUniPathImport(){
+    
+    
+        PageReference pg = Page.CSVImportTests_UniPath;
+        Test.setCurrentPage(pg);
+        Document d;
+        d = new Document();
+         
+        String csvTest = '1,2,1/1/1990,4,5,6,7,8,9,10,11,12,1/1/1990,14,15,16,17,18,19,20,21,22,23' ;
+        d.Body = blob.valueOf(csvTest);
+       
+        
+        ApexPages.StandardController controller2;
+        
+        ApexPages.StandardController sc = new ApexPages.StandardController(d);
+        CSVImportControllerTestResults_UniPath controller = new CSVImportControllerTestResults_UniPath(sc);
+       
+        PageReference pageRef = Page.CSVImportTests_UniPath;
+        controller.saveToMemory();
+    
+    }
+    
+    
 
 }

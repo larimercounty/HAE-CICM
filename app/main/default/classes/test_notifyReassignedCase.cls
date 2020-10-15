@@ -31,12 +31,14 @@ User usr1 = new User(LastName = '1',
                    );
                      
         insert usr1;
+        
         insert usr2;
 
         HAE_Interview_Team__c interviewer1 = new HAE_Interview_Team__c(User__c = usr1.Id);
         HAE_Interview_Team__c interviewer2 = new HAE_Interview_Team__c(User__c = usr2.Id);
         
         insert interviewer1;
+        
         insert interviewer2;
 
 

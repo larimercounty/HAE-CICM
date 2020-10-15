@@ -3,19 +3,23 @@
     <apex:image url="{!$Resource.letterhead}" />
     <br />
     <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.First_Name__c} {!HAE_Case_Interview__c.HAE_Individual__r.Last_Name__c}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Address1__c}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.City__c}, {!HAE_Case_Interview__c.HAE_Individual__r.State__c}&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Zip__c}<br />
+    <br />
     <div align="center">
         <b>NOTICE OF PUBLIC HEALTH QUARANTINE ORDER</b>
     </div>
-    <br /> The Larimer County Department of Public Health and Environment (LCDHE or “local health department”) has determined that you
-    recently have been in close contact with an individual who has been presumptively lab-confirmed to have 2019 Novel Coronavirus
-    disease, referred to in this document as “COVID-19”. Based on this exposure, you have been identified as a person with a
-    high risk of contracting COVID- 19.<br />
-    <br />Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to quarantine
-    the address listed above (or other address approved by LCDHE). Quarantine means separating an individual or group reasonably
-    believed to have been exposed to a communicable disease, but who is/are not yet ill, from others who have not been exposed,
+    <br /> The Larimer County Department of Public Health and Environment (LCDHE) has determined that you recently have been in close contact with an individual who has COVID-19. Based on this exposure, 
+    you have been identified as a person with a high risk of contracting COVID-19.<br />
+    <br />Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to you are ordered to self-quarantine. 
+    Quarantine means separating an individual or group reasonably believed to have been exposed to a communicable disease, but who is/are not yet ill, from others who have not been exposed,
     to prevent the possible spread of the communicable disease. You are further ordered to cooperate with LCDHE as indicated
     below:
-    <br />
+    <br /><br />
+    <b>Follow the terms outlined in this Public Health Quarantine Order through {!MONTH(HAE_Case_Interview__c.Quarantine_Until__c)}/{!DAY(HAE_Case_Interview__c.Quarantine_Until__c)}/{!YEAR(HAE_Case_Interview__c.Quarantine_Until__c)}. After this date, you may resume your normal activities in accordance with local guidelines. A negative test
+    result does <u>NOT</u> end the quarantine period early because it can take up to 14 days from the last exposure to become ill and/or test positive.</b>
+    <br/>
     <br /><b>Health Monitoring</b>
     <br />
     <ul>
@@ -28,22 +32,17 @@
     </b>
     <ul>
         <li>You shall not travel by airplane, ship, long-distance bus, or train</li>
-        <li>Any other travel must be coordinated with and approved by public health</li>
+        <li>Any other travel must be coordinated with and approved by LCDHE</li>
         <li>You shall separate yourself from others and avoid all public activities</li>
         <li>You shall not use public transportation, such as light rail, bus, or taxi</li>
         <li>You shall not go to school</li>
         <li>Restrict visitors who do not have an essential need to be in the home</li>
-        <li>You shall not go to work, unless it has been determined by LCDHE that you are a critical employee. Working from a
-        home office is permitted</li>
-        <li>If you do not have respiratory symptoms, the public health agency may authorize limited outdoor
-        activities (e.g. take a walk) as long as you maintain a minimum three-foot distance from any other individual.</li>
+        <li>You shall not go to work. Working from a home office is permitted</li>
+        <li>If you do not have respiratory symptoms, LCDHE may authorize limited outdoor
+        activities (e.g. take a walk) as long as you maintain a minimum six-foot distance from any other individual.</li>
     </ul>
-    <br />
-        Follow the terms of this Public Health Quarantine Order through <b>{!MONTH(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!DAY(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!YEAR(HAE_Case_Interview__c.Iso_Quar_Until__c)}</b>, at which time you may resume all normal activities.
-    <br /><br />
+
 <apex:image width="100%" url="{!$Resource.letterFooter}" /><br /><br /><br />
-<apex:image width="100%" url="{!$Resource.letterFooter}" /><br />
-<br />
 
 LCDHE is tasked with protecting the health and welfare of the citizens of Colorado by investigating and controlling the causes
 of epidemic and communicable disease. This Public Health Isolation Order is necessary to control any potential transmission
@@ -55,9 +54,9 @@ Act would be contrary to the public interest.
 <b>FAILURE TO COMPLY WITH THIS ORDER IS SUBJECT TO THE PENALTIES CONTAINED IN §25-1-514 and 25-1-516, COLORADO REVISED STATUTES,
     INCLUDING A FINE OF UP TO FIVE THOUSAND (5,000) DOLLARS AND IMPRISONMENT IN THE COUNTY JAIL FOR UP TO EIGHTEEN (18) MONTHS.</b>
     <br />
-    <br /> If you have questions about this isolation order, please contact the Joint Information Center at (970) 498-5500, or
+    <br /> If you have questions about this order, please contact the Joint Information Center at (970) 498-5500, or
     by email at
-    <u>LarimerHealthFollowup@gmail.com</u>.
+    <u>LarimerHealthFollowup@co.larimer.co.us</u>.
     <br />
     <br />
 

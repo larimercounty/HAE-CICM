@@ -1,0 +1,134 @@
+<apex:page standardcontroller="TestingSlot__c" renderAs="PDF" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" >
+
+<script>
+$(document).ready(function () { 
+  window.print(); 
+});
+</script>
+<html>
+<head>
+    <style>
+              @page { size: 3.5in 4.25in; margin: 0.00in}                
+            }
+            .page-break {
+                display:block;
+                page-break-after:always;
+            }
+                body { font-size: .9em; }
+                h1 { margin: 0; font-size: 1.2em; font-weight: normal; color: #FFF }
+                hr.seperator { margin: 10px auto 5px quto; width: 100%; color: #000; background-color: #000; height:1px; border: none; }
+                h5 { margin: 0; font-size: .7em; font-weight: normal; }
+                p { margin-top: 10px; margin-bottom: 10px; }
+                .blackBG{background-color: #000}
+
+        </style>
+        
+        </head>
+
+<body onload="window.print()">
+<apex:image url="{!$Resource.letterhead}" />
+    <br />
+    <div align="center">
+        <b>Receipt For COVID-19 Testing</b>
+    </div>
+Ver la sección abajo para <a href="#espanol">Español</a>.
+<br /><br />
+Testing Receipt #:{!TestingSlot__c.TestID__c}<br />
+Patient: {!TestingSlot__c.TestingRegistration__r.Last_Name__c}, {!TestingSlot__c.TestingRegistration__r.First_Name__c} {!TestingSlot__c.TestingRegistration__r.Middle_Name__c}<br />
+DOB: <apex:outputText value="{0, date, MM/dd/yy}">
+                <apex:param value="{!TestingSlot__c.TestingRegistration__r.DOB__c}" /> 
+</apex:outputText>
+<br />
+<a href="https://larimerhealth.secure.force.com/RegisterForTest/cancelTest?tk={!TestingSlot__c.TestID__c}">Click This Link To Cancel Appointment</a><br />
+<br />Thank you for registering for COVID-19 Testing. We have added you to our confirmed list of patients scheduled for testing. 
+<br /><br />
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Fort Collins'}">
+Location: Colorado State University Parking Lot # 740, by the Tennis Complex<br />
+Address: 2350 Research Boulevard; Fort Collins, CO 80526
+</apex:outputPanel>
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Loveland'}">
+Location: Larimer County Loveland Campus<br />
+Address: 200 Peridot Ave. Loveland CO 80537
+</apex:outputPanel>
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'CSU Intramural Field #11'}">
+Location: CSU Intramural Field #11 WALK IN ONLY, NO VEHICLES<br />
+</apex:outputPanel>
+<br />Date: <apex:outputText value="{0, date, MM/dd/yy}">
+                <apex:param value="{!TestingSlot__c.TestingDay__r.Day__c}" /> 
+</apex:outputText>
+Time : {!TestingSlot__c.TestingDay__r.Time__c}<br />
+<br /><br />
+<b>Testing Process</b>
+<br /><br />
+When you arrive at the testing site, follow the signs and the directions of those directing cars to the line. When a staff member approaches your vehicle to check you in, roll down your window and they’ll let you know the next steps. If you arrive by walking or bicycle, please go to the entrance to receive instructions.
+<br /><br />
+Bring your face covering or mask and wear it when interacting with our staff. Our staff will let you know when your mask can be removed. Please bring your appointment confirmation (printed or displayed on your phone) and your ID to the testing site in order to be tested. 
+<br /><br />
+When directed to do so, go to the testing tent where we will perform your test. You will be getting a PCR nasal swab test, which is the most accurate test for finding active COVID-19 infections. We do not offer antibody testing. Our team members are trained to perform the nasal swab safely and correctly. The only physical contact that they will have with you is when they’ll place the swab in your nose. For most people, there will be some discomfort for about 30 seconds, but the test should not hurt. Some people have compared the feeling to having water go up the nose when jumping into a swimming pool. 
+<br /><br />
+<div style="display:block;page-break-after:always;"></div>
+<br /><br /><b>Starting today, we ask that you follow these guidelines: </b><br /><br />
+If you are being tested because you were <b>in close contact (at least 15 minutes within 6 feet of contact) with someone known to have COVID-19</b>, but you are not having symptoms:
+<ul>
+<li>Stay home and quarantine away from others for at least 14 days since the date you were exposed and monitor for symptoms, even if your test result is negative.</li>
+<li>If you do not experience symptoms after 14 days, you are safe to be around others.</li>
+<li>If you do develop symptoms during these 14 days, please continue to stay home for 10 days from the day you started having symptoms, until your symptoms improve, and for at least 24 hours since your fever has gone away without using fever-reducing medicines (such as Ibuprofen).</li>
+</ul>
+<br />
+If you are being tested because you <b>have been having symptoms of COVID-19</b>:
+<ul>
+<li>Stay home and isolate away from others for at least 10 days from the first day you had symptoms until your symptoms have improved, and for at least 24 hours since your fever has gone away without using fever-reducing medicines (such as Ibuprofen).</li>
+<li>Once this isolation period is completed, you are safe to be around others.</li>
+</ul>
+<br />
+If you have not had close contact with someone who has tested positive for COVID-19 and you have not been having any symptoms of COVID-19, continue taking precautions such as wearing a face-covering, maintaining 6 feet of physical distance, avoiding large gatherings, and washing hands frequently. You do not need to quarantine or isolate. If your test result is positive, we will contact you with more information.
+<br /><br />
+If you have any questions, please contact the Joint Information Center at covidconcerns@larimer.org or 970-498-5500.
+<br />
+<div style="display:block;page-break-after:always;"></div>
+<apex:image url="{!$Resource.letterhead}" />
+
+<br />
+<a name="espanol" />Gracias por registrarse para las pruebas COVID-19. Lo hemos agregado a nuestra lista confirmada de pacientes programados para la prueba. 
+<br /><br />
+<a href="https://larimerhealth.secure.force.com/RegisterForTest/cancelTest?tk={!TestingSlot__c.TestID__c}">
+Haga clic en este enlace para cancelar la cita</a><br /><br />
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Fort Collins'}">
+Location: Colorado State University Parking Lot # 740, by the Tennis Complex<br />
+Address: 2350 Research Boulevard; Fort Collins, CO 80526
+</apex:outputPanel>
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Loveland'}">
+Location: Larimer County Loveland Campus<br />
+Address: 200 Peridot Ave. Loveland CO 80537
+</apex:outputPanel>
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'CSU Intramural Field #11'}">
+Location: CSU Intramural Field #11 WALK IN ONLY, NO VEHICLES<br />
+</apex:outputPanel>
+<br />Date: <apex:outputText value="{0, date, MM/dd/yy}">
+                <apex:param value="{!TestingSlot__c.TestingDay__r.Day__c}" /> 
+</apex:outputText>
+Time : {!TestingSlot__c.TestingDay__r.Time__c}<br />
+<br /><br /><b>Proceso de prueba</b><br /><br />
+Cuando llegue al lugar de pruebas, siga las señales y las indicaciones de los que dirigen los coches a la línea. Cuando un miembro del personal se acerque a su vehículo para registrarlo, baja la ventana y le informará  de los siguientes pasos. Si llega caminando o en bicicleta, por favor vaya a la entrada para recibir instrucciones.
+<br /><br />Traiga su cubierta de la cara o máscara y úsela cuando interactúe con nuestro personal. Nuestro personal le informará cuándo se puede quitar la máscara. Por favor traiga la confirmación de su cita (imprimida o mostrada en su teléfono) y su identificación al sitio de la prueba para poder hacerse la prueba.
+<br /><br />Cuando se le indique, vaya a la carpa donde un asistente medico realizará su prueba.. Usted recibirá una prueba de PCR con hisopo nasal, que es la prueba más precisa para encontrar infecciones activas por COVID-19. No ofrecemos pruebas de anticuerpos. Nuestros asistentes medicos están capacitadas para realizar el hisopo nasal de manera segura y correcta. El único contacto físico que tendrán con usted es cuando coloca el hisopo en la nariz.Para la mayoría de las personas, habrá algunas molestias durante unos 30 segundos, pero la prueba no debería doler. Algunas personas han comparado la sensación de tener agua subiendo por la nariz al saltar a una piscina.
+<br /><br /><b><div align="center">Continúa en la página siguiente →</div></b>
+<div style="display:block;page-break-after:always;"></div>
+<br /><br /><b>A partir de hoy, le pedimos que siga estas guías:</b><br />
+<br />Si le están haciendo la prueba porque estuvo <b>en contacto cercano (al menos 15 minutos dentro de los 6 pies de contacto) con alguien que se sabe que tiene COVID-19</b>, pero no tiene síntomas:
+<ul>
+<li>Permanezca en casa y en cuarentena lejos de otros durante al menos 14 días desde la fecha en que estuvo expuesto y controle los síntomas, incluso si el resultado de la prueba es negativo.</li>
+<li>Si no experimenta síntomas después de 14 días, es seguro estar cerca de otras personas.</li>
+<li>Si desarrolla síntomas durante estos 14 días, por favor continúe en casa por 10 días desde el día en que comenzó a tener síntomas, hasta que sus síntomas mejoren, y por lo menos 24 horas desde que su fiebre ha desaparecido sin usar medicamentos para reducir la fiebre (como ibuprofeno).</li>
+</ul>
+<br />Si le están haciendo la prueba porque <b>ha tenido síntomas de COVID-19</b>:
+<ul>
+<li>Quédese en casa y aísle de otros durante al menos 10 días desde el primer día en que tuvo síntomas hasta que sus síntomas hayan mejorado, y durante al menos 24 horas desde que su fiebre ha desaparecido sin usar medicamentos para reducir la fiebre (como ibuprofeno).</li>
+<li>Una vez completado este período de aislamiento, usted es seguro estar cerca de otros.</li>
+</ul>
+<br />Si no ha tenido contacto cercano con alguien que haya dado positivo por COVID-19 y no ha tenido ningún síntoma de COVID-19, continúe tomando precauciones como cubrirse la cara, mantener 6 pies de distancia física, evitar grandes reuniones y lavarse las manos con frecuencia. No es necesario ponerlo en cuarentena ni aislarlo. Si el resultado de su prueba es positivo, nos comunicaremos con usted para obtener más información.
+<br /><br />Si tiene alguna pregunta, envíenos un mensaje de texto al 970-999-1770 o comuníquese con Kelli Curl en kcurl@larimer.org o al 970-699-2628.
+
+</body>
+</html>
+</apex:page>

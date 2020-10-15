@@ -4,7 +4,10 @@
 <br />
 <div align="center"><b>AVISO DE ORDEN DE AISLAMIENTO DE SALUD PÚBLICA</b></div>
 <br />
-
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.First_Name__c} {!HAE_Case_Interview__c.HAE_Individual__r.Last_Name__c}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Address1__c}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.City__c}, {!HAE_Case_Interview__c.HAE_Individual__r.State__c}&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Zip__c}<br />
 El Departamento de Salud y Medio Ambiente del Condado de Larimer (LCDHE o "departamento de salud") ha determinado que usted
 es presuntamente positivo para la enfermedad del nuevo coronavirus de 2019, denominado en este documento "COVID-19". Debido
 a que ha desarrollado síntomas, LCDHE requiere que permanezca aislado de conformidad con la autoridad legal establecida en
@@ -15,7 +18,7 @@ cumplir con los siguientes requisitos:
 <br />
 <ul>
 <li>Deberá permanecer en autoaislamiento hasta:<b>{!MONTH(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!DAY(HAE_Case_Interview__c.Iso_Quar_Until__c)}/{!YEAR(HAE_Case_Interview__c.Iso_Quar_Until__c)}</b>.</li>
-<li>También debe estar libre de fiebre durante los últimos tres días de su período de aislamiento (días 8, 9 y 10) sin el
+<li>También debe estar libre de fiebre durante las últimas 24 horas de su período de aislamiento sin el
     uso de medicamentos para reducir la fiebre y mejorar sus síntomas. </li>
 <li>Deberá cooperar con LCDHE y permitir el contacto
     diario con profesionales de la salud que le brinden atención para evaluar si continúa siendo infeccioso.</li>

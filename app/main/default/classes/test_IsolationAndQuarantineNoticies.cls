@@ -21,14 +21,22 @@ private class test_IsolationAndQuarantineNoticies{
         sendIndividualEmails.sendCorrectLetter(theInterview.Id );
         
         theInterview.Current_Symptoms__c = true;
+        theInterview.Abdominal_Pain__c = true;
+        theInterview.Chronic_Liver_Disease__c = true;
+        theInterview.Chronic_Renal_Disease__c = true;
+        theInterview.Fatigue__c = true;
+        theInterview.Fever__c = true;
         Update theInterview;
  
         Individual.Correspondence_Language__c = 'English';
         update Individual;
         
         sendIndividualEmails.sendCorrectLetter(theInterview.Id );
+       
+
         
         Individual.Correspondence_Language__c = 'Spanish';
+       
         update Individual;
         
         sendIndividualEmails.sendCorrectLetter(theInterview.Id );
