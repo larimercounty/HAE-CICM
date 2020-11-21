@@ -6,13 +6,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.First_Name__c} {!HAE_Case_Interview__c.HAE_Individual__r.Last_Name__c}<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Address1__c}<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.City__c}, {!HAE_Case_Interview__c.HAE_Individual__r.State__c}&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Zip__c}<br />
-    <br />
+    <br /><br /><br />
     <div align="center">
         <b>NOTICE OF PUBLIC HEALTH QUARANTINE ORDER</b>
     </div>
     <br /> The Larimer County Department of Public Health and Environment (LCDHE) has determined that you recently have been in close contact with an individual who has COVID-19. Based on this exposure, 
     you have been identified as a person with a high risk of contracting COVID-19.<br />
-    <br />Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to you are ordered to self-quarantine. 
+    <br />Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to self-quarantine. 
     Quarantine means separating an individual or group reasonably believed to have been exposed to a communicable disease, but who is/are not yet ill, from others who have not been exposed,
     to prevent the possible spread of the communicable disease. You are further ordered to cooperate with LCDHE as indicated
     below:
@@ -72,7 +72,7 @@ Act would be contrary to the public interest.
             <td align="right">
                 <br />
                 <br />
-                <u>{!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}</u>
+                <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!HAE_Case_Interview__c.LetterSent_Date__c}" /></apex:outputText></u>
                 <br /> Date
             </td>
         </tr>

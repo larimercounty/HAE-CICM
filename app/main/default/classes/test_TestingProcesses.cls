@@ -1,4 +1,4 @@
-@isTest
+@isTest(SEEALLDATA=TRUE)
 private class test_TestingProcesses{
 
     static testMethod void testReceipt()
@@ -48,6 +48,32 @@ private class test_TestingProcesses{
 
     }
     
+    static testMethod void testExtension()
+    {
     
+        extAllRegistrations ext = new extAllRegistrations();
+        
+        ext.getRegistrations();
+        
+    
+    }
+    
+    
+     static testMethod void testSchoolNotification()
+    {
+     
+     
+         String CRON_EXP = '0 0 0 15 3 ? 2022'; 
+
+         String jobId = System.schedule('sendDailySchoolNotices', 
+                     CRON_EXP,  
+                        new sendDailySchoolNotices()); 
+     
+            NotifyOfQIStudentsStaff  theBatch = new NotifyOfQIStudentsStaff();        
+            theBatch.query = 'SELECT Id,ContactEmail__c,ContactName__c from HAE_Location__c where ContactEmail__c != null LIMIT 1';
+            
+            ID theBatchJob = Database.executeBatch(theBatch,1);
+
+    }
     
 }

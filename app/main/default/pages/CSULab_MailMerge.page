@@ -1,0 +1,87 @@
+<apex:page standardController="TestingDay__c" extensions="extAllRegistrations" renderAs="pdf"> 
+ 
+ <html>
+ <head>
+ <style>
+                @page {
+                    size: portrait;
+                    margin: 0.25in;
+                    @top-center {
+                        content: "";
+                }
+
+
+                @bottom-right {
+                    content: "Page " counter(page) " of " counter(pages);
+                    font-size: .6em;
+                }
+                @bottom-center{
+                    content: "";
+                    font-size: .6em;
+                }
+                @bottom-left{
+                    content: "Printed: {!CASE(Month(Today()),
+                                                1, "1",
+                                                2, "2",
+                                                3, "3",
+                                                4, "4",
+                                                5, "5",
+                                                6, "6",
+                                                7, "7",
+                                                8, "8",
+                                                9, "9",
+                                                10, "10",
+                                                11, "11",
+                                                12, "12",
+                                                "")}" '/' "{!Day(Today())}" '/' "{!Year(Today())}";
+                    font-size: .6em;
+                }
+                
+            }
+            .page-break {
+                display:block;
+                page-break-after:always;
+            }
+                body { font-size: 1.0em; }
+                h1 { margin: 0; font-size: 1.2em; font-weight: normal; }
+                hr.seperator { margin: 10px auto 5px quto; width: 100%; color: #000; background-color: #000; height:1px; border: none; }
+                h5 { margin: 0; font-size: .7em; font-weight: normal; }
+                p { margin-top: 10px; margin-bottom: 10px; }
+
+        </style>
+       </head>
+ <body>
+ <apex:repeat var="c" value="{!Registrations}"> 
+    <h2>Sample ID: {!c.TestId__c}</h2><br />
+    Collection Date:<apex:outputText value="{0, date, MM/dd/yyyy}">
+                <apex:param value="{!TestingDay__c.Day__c}" /> 
+</apex:outputText><br />
+    Patient Name: {!c.TestingRegistration__r.Last_Name__c}, {!c.TestingRegistration__r.First_Name__c} {!c.TestingRegistration__r.Middle_Name__c}<br />
+    
+    DOB: <apex:outputText value="{0, date, MM/dd/yyyy}">
+                <apex:param value="{!c.TestingRegistration__r.DOB__c}" /> 
+</apex:outputText>
+    <br />
+    Gender: {!c.TestingRegistration__r.Gender__c}<br />
+    Address: {!c.TestingRegistration__r.Address__c}<br />
+    City: {!c.TestingRegistration__r.City__c}<br />
+    State: {!c.TestingRegistration__r.State__c}<br />
+    Zip: {!c.TestingRegistration__r.Zip_Code__c}<br />
+    County: {!c.TestingRegistration__r.County_Of_Residence__c}<br />
+    Phone: {!c.TestingRegistration__r.Phone_Number__c}<br />
+    Email: {!c.TestingRegistration__r.Email_Address__c}<br />
+    Race: {!c.TestingRegistration__r.Race__c}<br />
+    Ethnicity: {!c.TestingRegistration__r.Ethnicity__c}<br />
+    Reason: {!c.TestingRegistration__r.Reason_For_Testins__c}<br />
+    Employer: {!c.TestingRegistration__r.Employer__c}<br />
+    Provider: {!c.TestingRegistration__r.Local_Provider__c}<br />
+    Date of Symptoms: <apex:outputText value="{0, date, MM/dd/yyyy}">
+                <apex:param value="{!c.TestingRegistration__r.Date_of_Symptoms__c}" /> 
+</apex:outputText><br />
+     <div style="display:block;page-break-after:always;"></div>
+ </apex:repeat>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+ <h1> Intentionally Blank </h1>
+ </body>
+ </html>
+</apex:page>

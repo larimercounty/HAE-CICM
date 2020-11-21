@@ -12,7 +12,7 @@ trigger openContactTracingCase on TestingSlot__c (after update) {
            //Pull Up The Registration Record
            TestingRegistration__c theRegistration = [Select Id, First_Name__c, Last_Name__c, DOB__c, Email_Address__c, 
                                                      Middle_Name__c, Address__c, City__c, State__c, Zip_Code__c,
-                                                     Gender__c, Race__c, Phone_Number__c,Ethnicity__c 
+                                                     Gender__c, Race__c, Phone_Number__c,Ethnicity__c, Employer__c,School__c  
                                                      from TestingRegistration__c where Id =: theTest.TestingRegistration__c limit:1];
            
            system.debug(theRegistration.Email_Address__c);
@@ -58,6 +58,7 @@ trigger openContactTracingCase on TestingSlot__c (after update) {
                newCase.Reported_Date__c = system.today();
                newCase.Result_Date__c = system.today();
                newCase.Specimen__c = 'RT-PCR';
+               newCase.CEDRS_Case_Status__c = 'Confirmed';
                insert newCase; 
                    
                HAE_Case_Contact__c newCaseContact = new HAE_Case_Contact__c();
@@ -67,6 +68,18 @@ trigger openContactTracingCase on TestingSlot__c (after update) {
                newCaseContact.Contact_Type__c = 'Case';
                insert newCaseContact;
                
+               String theNote = 'New Case Added.';
+               if(theRegistration.Employer__c != null) theNote += ' Employer: ' + theRegistration.Employer__c;
+               if(theRegistration.School__c != null) theNote += ' School: ' + theRegistration.School__c;
+               
+               
+               
+               
+               HAE_Case_Activity__c newNote = new HAE_Case_Activity__c();
+               newNote.HAE_Individual__c = newIndividual.Id;
+               newNote.HAE_Case__c = newCase.Id;
+               newNote.Case_Note__c = theNote;
+               insert newNote;
            
            
            }

@@ -161,6 +161,38 @@ private class test_CSVImporter{
     
     }
     
+    public static testMethod void testCaseContactRecord(){
+    
+    HAE_Case__c newcase = new HAE_Case__c(Event_Id__c = '01234321');
+    insert newcase;
+      
+    PageReference pg = Page.CSVImportCaseContacts;
+        Test.setCurrentPage(pg);
+        Document d;
+        d = new Document();
+         
+        String csvTest = '01234321,High,First Name,Last Name,1/1/1990,5,6,7,8,9,10,11,12,13,14,15' + '\r\n'+
+                        '01234321,High,First Name,Last Name,1/1/1990,5,6,7,8,9,10,11,12,13,14,15' + '\r\n'+
+                        '01234321,High,First Name,Last Name,1/1/1990,5,6,7,8,9,10,11,12,13,14,15' + '\r\n'+
+                        '01234321,High,First Name,Last Name,1/1/1990,5,6,7,8,9,10,11,12,13,14,15' + '\r\n'+
+                        '01234321,Low,First Name,Last Name,1/1/1990,5,6,7,8,9,10,11,12,13,14,15' + '\r\n'+
+                        '01234321,Low,First Name,Last Name,1/1/1990,5,6,7,8,9,10,11,12,13,14,15' + '\r\n'+
+                        '01234321,Low,First Name,Last Name,1/1/1990,5,6,7,8,9,10,11,12,13,14,15' + '\r\n'+
+                        '01234321,Low,First Name,Last Name,1/1/1990,5,6,7,8,9,10,11,12,13,14,15' + '\r\n';
+                        
+                         
+                         
+        d.Body = blob.valueOf(csvTest);
+       
+        
+        ApexPages.StandardController sc = new ApexPages.StandardController(d);
+        CSVImportControllerCaseContacts controller = new CSVImportControllerCaseContacts(sc);
+       
+        PageReference pageRef = Page.CSVImportCaseContacts;
+        controller.saveToMemory();
+    
+    
+    }
     
 
 }

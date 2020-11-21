@@ -385,76 +385,78 @@ webservice static String loadCaseRecord(String theRecord) {
 
                         }
                     
-                        system.debug('collectiondate: ' + fields[62]);
                         List<String> days = new List<String>();
-                        days = fields[68].split('/');
-                        if(days.size()==3)
-                        {
-                            
-                            Date collectionDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
-                            newCase.Specimen_Collection_Date__c = collectionDate;
-                        }
                         
-                        days = new List<String>();
-                        days = fields[3].split('/');
-                        if(days.size()==3)
-                        {
-                            Date reportedDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
-                            newCase.Reported_Date__c = reportedDate;
-                        }
-                        
-                        
-                        days = new List<String>();
-                        days = fields[4].split('/');
-                        if(days.size()==3)
-                        {
-                            Date resultDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
-                            newCase.Result_Date__c = resultDate;
-                            
-                        }
-                        
-                        days = new List<String>();
-                        days = fields[16].split('/');
-                        if(days.size()==3)
-                        {
-                            Date dateOfBirth = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
-                            newIndividual.Date_of_Birth__c = dateOfBirth;
-                        }
-                          
                        
-        
-        
-                        newCase.Event_ID__c = fields[0];
-                        newCase.Case_Status__c = 'New';
-                        newCase.CEDRS_Case_Status__c = 'Confirmed';
-                        newCase.Disease__c = fields[1];
-                        newCase.Specimen__c = fields[74];
-                        newIndividual.Last_Name__c = fields[13];
-                        newIndividual.First_Name__c = fields[14];
-                        newIndividual.Gender__c = fields[15];          
-                        newIndividual.Individual_Phone__c = fields[28];
-                        newIndividual.address1__c = fields[29];
-                        newIndividual.city__c = fields[31];
-                        newIndividual.Longitude__c = Decimal.valueOf(fields[108]);
-                        newIndividual.Latitude__c = Decimal.valueOf(fields[107]);
-                        if(fields[32]=='Colorado' || fields[32]=='Colorado') { newIndividual.State__c = 'Colorado';}
-                        newIndividual.zip__c = fields[33];
-                        
-                        insert newIndividual;
-                        
-                        newCase.Primary_Individual__c = newIndividual.Id;
-                        
-                        insert newCase;
-                        
-                        newCaseContact.HAE_Individual__c = newIndividual.Id;
-                        newCaseContact.HAE_Case__c = newCase.Id;
-                        newCaseContact.Primary_Individual__c = True;
-                        newCaseContact.Contact_Type__c = 'Case';
-                        
-                        ApexPages.addmessage(new ApexPages.message(ApexPages.severity.WARNING,'Inserting Records: ' + fields[0]+ ' : ' + fields[13] + ',' + fields[14]));
+                
+                            days = fields[68].split('/');
+                            if(days.size()==3)
+                            {
+                                
+                                Date collectionDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
+                                newCase.Specimen_Collection_Date__c = collectionDate;
+                            }
+                            
+                            days = new List<String>();
+                            days = fields[3].split('/');
+                            if(days.size()==3)
+                            {
+                                Date reportedDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
+                                newCase.Reported_Date__c = reportedDate;
+                            }
+                            
+                            
+                            days = new List<String>();
+                            days = fields[4].split('/');
+                            if(days.size()==3)
+                            {
+                                Date resultDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
+                                newCase.Result_Date__c = resultDate;
+                                
+                            }
+                            
+                            days = new List<String>();
+                            days = fields[16].split('/');
+                            if(days.size()==3)
+                            {
+                                Date dateOfBirth = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
+                                newIndividual.Date_of_Birth__c = dateOfBirth;
+                            }
                               
+            
+                            newCase.Event_ID__c = fields[0];
+                            newCase.Case_Status__c = 'New';
+                            newCase.CEDRS_Case_Status__c = fields[2];
+                            newCase.Disease__c = fields[1];
+                            newCase.Specimen__c = fields[74];
+                            newIndividual.Last_Name__c = fields[13];
+                            newIndividual.First_Name__c = fields[14];
+                            newIndividual.Gender__c = fields[15];          
+                            newIndividual.Individual_Phone__c = fields[28];
+                            newIndividual.address1__c = fields[29];
+                            newIndividual.city__c = fields[31];
+                            //newIndividual.Longitude__c = Decimal.valueOf(fields[108]);
+                            //newIndividual.Latitude__c = Decimal.valueOf(fields[107]);
+                            if(fields[32]=='Colorado' || fields[32]=='Colorado') { newIndividual.State__c = 'Colorado';}
+                            newIndividual.zip__c = fields[33];
+                            
+                            insert newIndividual;
+                            
+                            newCase.Primary_Individual__c = newIndividual.Id;
+                            
+                            insert newCase;
+                            
+                            newCaseContact.HAE_Individual__c = newIndividual.Id;
+                            newCaseContact.HAE_Case__c = newCase.Id;
+                            newCaseContact.Primary_Individual__c = True;
+                            newCaseContact.Contact_Type__c = 'Case';
+                            
+                            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.WARNING,'Inserting Records: ' + fields[0]+ ' : ' + fields[13] + ',' + fields[14]));
+                                  
+                            
+                            insert newCaseContact;
                         
-                        insert newCaseContact;
+                        
         
                      }
                      catch(Exception e)
@@ -719,7 +721,7 @@ webservice static String loadCaseRecord_UniPath(String theRecord) {
   
   }
 
-/*
+
     webservice static String loadCaseContactRecord(String theRecord) {
 
     String returnMsg ='';
@@ -749,7 +751,8 @@ webservice static String loadCaseRecord_UniPath(String theRecord) {
             {
                 returnMsg = 'Case Found';
                  List<String> days = new List<String>();
-                        days = fields[16].split('/');
+                        
+                        days = fields[4].split('/');
                         if(days.size()==3)
                         
                         {
@@ -757,16 +760,26 @@ webservice static String loadCaseRecord_UniPath(String theRecord) {
                             newIndividual.Date_of_Birth__c = dateOfBirth;
                         }
                         
+                        days = fields[15].split('/');
+                        if(days.size()==3)
+                        
+                        {
+                            Date exposure = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
+                            newIndividual.Last_Exposure__c = exposure;
+                        }
+                        
                         newIndividual.Notification_Type__c = fields[1];
                         newIndividual.First_Name__c = fields[2];
                         newIndividual.Last_Name__c = fields[3];
-                        //newIndividual.Date_of_Birth__c = fields[4];
+                        newIndividual.Parent_or_Guardian_Email__c = fields[6];
                         newIndividual.Street__c = fields[9];
                         newIndividual.City__c = fields[10];
                         newIndividual.State__c = fields[11];
                         newIndividual.ZipCode__c = fields[12];
-                        newIndividual.Last_Exposure__c = fields[15];    
-                        newIndividual.Phone__c = fields[13]; //
+                        //newIndividual.Last_Exposure__c = fields[15];    
+                        newIndividual.Phone__c = fields[13];
+                        
+                        if(fields.size()>16) newIndividual.Language__c = fields[16];
 
 
                         if(fields[10]=='Colorado' || fields[10]=='Colorado') { newIndividual.State__c = 'Colorado';}
@@ -791,5 +804,131 @@ webservice static String loadCaseRecord_UniPath(String theRecord) {
               return returnMsg;
             }
 
-*/
+/*
+    webservice static void attachContactsToCase(String recId) {
+    
+        HAE_Contact_Review__c newContact = [Select Id, First_Name__c,Last_Name__c, Last_Exposure__c , Phone__c,City__c, Parent_or_Guardian_Email__c, State__c,Street__c, ZipCode__c, Date_of_Birth__c, EventID__c from HAE_Contact_Review__c where Id =:recId];
+        
+        List< HAE_Case__c > selectedCase = new List< HAE_Case__c >([Select Id from HAE_Case__c where Id=:newContact.EventID__c]);   
+        HAE_Individual__c newIndividual = new HAE_Individual__c();
+        HAE_Case_Contact__c newCaseContact = new HAE_Case_Contact__c();    
+        HAE_Case_Interview__c newInterview = new HAE_Case_Interview__c();
+
+        newIndividual.Date_of_Birth__c = newContact.Date_of_Birth__c;
+        newIndividual.Last_Name__c = newContact.Last_Name__c;
+        newIndividual.First_Name__c = newContact.First_Name__c;
+        newIndividual.Email_Address__c = newContact.Parent_or_Guardian_Email__c;          
+        newIndividual.Individual_Phone__c = newContact.Phone__c;
+        newIndividual.address1__c = newContact.Street__c ;
+        newIndividual.city__c = newContact.City__c;
+        newIndividual.State__c = newContact.State__c;
+        newIndividual.zip__c = newContact.ZipCode__c;
+        newIndividual.Date_of_Last_Exposure__c = newContact.Last_Exposure__c;
+        newIndividual.Monitoring_Type__c = 'Text';
+        newIndividual.Txt_Phone_1__c = true;
+        
+        insert newIndividual;
+                        
+        
+        newCaseContact.HAE_Individual__c = newIndividual.Id;
+        newCaseContact.HAE_Case__c = selectedCase[0].Id;
+        newCaseContact.Primary_Individual__c = False;
+        newCaseContact.Contact_Type__c = '';  //make a new field
+        
+        insert newCaseContact;
+        
+        newInterview.HAE_Case__c = selectedCase[0].Id;
+        newInterview.HAE_Individual__c = newIndividual.Id;
+        newInterview.Exposure_Date__c = newContact.Last_Exposure__c;
+
+        insert newInterview;
+        
+        newInterview.Interview_Status__C = 'Not Needed';
+        newInterview.Completed_Date__c = System.Today();
+        
+        update newInterview;
+        
+        
+        newContact.Imported__C = true;
+        update newContact;
+        
+        
+
+
+   }
+   
+   */
+
+ @InvocableMethod(label='Attach To Case')
+ webservice static void attachContactsToCaseWS(List <String> recId) {
+   
+        String theRecord = recId[0];
+    
+        HAE_Contact_Review__c newContact = [Select Id, First_Name__c,Last_Name__c, Language__c, Notification_Type__c, Last_Exposure__c , Phone__c,City__c, Parent_or_Guardian_Email__c, State__c,Street__c, ZipCode__c, Date_of_Birth__c, EventID__c from HAE_Contact_Review__c where Id =:theRecord];
+        
+        List< HAE_Case__c > selectedCase = new List< HAE_Case__c >([Select Id from HAE_Case__c where Id=:newContact.EventID__c]);   
+        HAE_Individual__c newIndividual = new HAE_Individual__c();
+        HAE_Case_Contact__c newCaseContact = new HAE_Case_Contact__c();    
+        HAE_Case_Interview__c newInterview = new HAE_Case_Interview__c();
+
+        newIndividual.Date_of_Birth__c = newContact.Date_of_Birth__c;
+        newIndividual.Last_Name__c = newContact.Last_Name__c;
+        newIndividual.First_Name__c = newContact.First_Name__c;
+        newIndividual.Email_Address__c = newContact.Parent_or_Guardian_Email__c;          
+        newIndividual.Individual_Phone__c = newContact.Phone__c;
+        newIndividual.address1__c = newContact.Street__c ;
+        newIndividual.city__c = newContact.City__c;
+        newIndividual.State__c = newContact.State__c;
+        newIndividual.zip__c = newContact.ZipCode__c;
+        newIndividual.Date_of_Last_Exposure__c = newContact.Last_Exposure__c;
+        newIndividual.Monitoring_Type__c = 'Text';
+        newIndividual.Txt_Phone_1__c = true;
+        newIndividual.Correspondence_Language__c = newContact.Language__c;
+        
+        insert newIndividual;
+                        
+        
+        newCaseContact.HAE_Individual__c = newIndividual.Id;
+        newCaseContact.HAE_Case__c = selectedCase[0].Id;
+        newCaseContact.Primary_Individual__c = False;
+        newCaseContact.Contact_Type__c = '';  //make a new field
+        
+        insert newCaseContact;
+        
+        newInterview.HAE_Case__c = selectedCase[0].Id;
+        newInterview.HAE_Individual__c = newIndividual.Id;
+        newInterview.Exposure_Date__c = newContact.Last_Exposure__c;
+        newInterview.Interview_Status__C = 'Not Needed';
+        newInterview.Interview_Not_Needed_Status__c = 'Electronically Contacted';
+        newInterview.Completed_Date__c = System.Today();
+        
+        insert newInterview;
+        
+
+
+
+
+        if(newIndividual.Email_Address__c!=null && (newContact.Notification_Type__c != 'High' || newContact.Notification_Type__c != 'HIGH'))
+        {
+            sendContactQuarantineEmail  theBatch = new sendContactQuarantineEmail();        
+            theBatch.theId = newInterview.Id;
+            
+            ID theBatchJob = Database.executeBatch(theBatch,1);
+            
+            newInterview.LetterSent__c = true;
+            newInterview.LetterSent_Date__c = System.now();
+            newInterview.LetterSent_Type__c = 'Quarantine Letter - English';
+            update newInterview;
+        }
+
+
+        newContact.Imported__C = true;
+        update newContact;
+        
+        
+
+
+   }
+
+
 }

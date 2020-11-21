@@ -47,8 +47,9 @@ Location: Colorado State University Parking Lot # 740, by the Tennis Complex<br 
 Address: 2350 Research Boulevard; Fort Collins, CO 80526
 </apex:outputPanel>
 <apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Loveland'}">
-Location: Larimer County Loveland Campus<br />
-Address: 200 Peridot Ave. Loveland CO 80537
+Location: The Ranch, Larimer County Fairground and Event Complex<br />
+Address: 5350 Arena Circle, Loveland, CO 80538<br />
+West Barn of the Mac Equipment Complex - Please enter through gate 4
 </apex:outputPanel>
 <apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'CSU Intramural Field #11'}">
 Location: CSU Intramural Field #11 WALK IN ONLY, NO VEHICLES<br />
@@ -98,8 +99,9 @@ Location: Colorado State University Parking Lot # 740, by the Tennis Complex<br 
 Address: 2350 Research Boulevard; Fort Collins, CO 80526
 </apex:outputPanel>
 <apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Loveland'}">
-Location: Larimer County Loveland Campus<br />
-Address: 200 Peridot Ave. Loveland CO 80537
+Location: The Ranch, Larimer County Fairground and Event Complex<br />
+Address: 5350 Arena Circle, Loveland, CO 80538<br />
+West Barn of the Mac Equipment Complex - Please enter through gate 4
 </apex:outputPanel>
 <apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'CSU Intramural Field #11'}">
 Location: CSU Intramural Field #11 WALK IN ONLY, NO VEHICLES<br />

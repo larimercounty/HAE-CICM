@@ -1,0 +1,28 @@
+<apex:page standardController="TestingDay__c"> 
+ <h1>Account Information</h1>
+ <br/><br/>
+ Name: <b>{!TestingDay__c.Name}</b> 
+ <br/> 
+ <br/> 
+ <h1>Related Tests</h1>
+ <apex:repeat var="c" value="{!TestingDay__c.TestingSlots__r}"> 
+    {!c.TestingRegistration__r.Last_Name__c}<br />
+    {!c.TestingRegistration__r.First_Name__c}<br />
+    {!c.TestingRegistration__r.Middle_Name__c}<br />
+    {!c.TestingRegistration__r.DOB__c}<br />
+    {!c.TestingRegistration__r.Gender__c}<br />
+    {!c.TestingRegistration__r.Address__c}<br />
+    {!c.TestingRegistration__r.City__c}<br />
+    {!c.TestingRegistration__r.State__c}<br />
+    {!c.TestingRegistration__r.Zip_Code__c}<br />
+    {!c.TestingRegistration__r.County_Of_Residence__c}<br />
+    {!c.TestingRegistration__r.Phone_Number__c}<br />
+    {!c.TestingRegistration__r.Email_Address__c}<br />
+    {!c.TestingRegistration__r.Race__c}<br />
+    {!c.TestingRegistration__r.Ethnicity__c}<br />
+    {!c.TestingRegistration__r.Reason_For_Testins__c}<br />
+    {!c.TestingRegistration__r.Employer__c}<br />
+    {!c.TestingRegistration__r.Local_Provider__c}<br />
+    {!c.TestingRegistration__r.Date_of_Symptoms__c}<br />
+ </apex:repeat>
+</apex:page>

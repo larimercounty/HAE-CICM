@@ -1,5 +1,41 @@
 global class sendIndividualEmails {
 
+ @InvocableMethod(label='Send Correct Letter')
+ webservice static void sendCorrectLetterWS(List <String> theInterviewToUse ){
+
+        String interview =theInterviewToUse[0];
+        System.debug(theInterviewToUse);
+        
+
+        HAE_Case_Interview__c theInterview = [Select Id, Probable_Case_Score__c, EmailAddress__c, Current_Symptoms__c, LetterSent__c, LetterSent_Date__c, LetterSent_Type__c, LetterLanguage__c, Date_of_Symptoms__c, Infectious_End_Date__c, Primary_Case_Interview__c from HAE_Case_Interview__c where Id =:interview];
+          
+        if(theInterview.Primary_Case_Interview__c || theInterview.Probable_Case_Score__c >=2 )
+        {
+            if(theInterview.LetterLanguage__c == 'Spanish')
+            {
+                sendIsolationEmailSpanish(theInterview.Id,theInterview.EmailAddress__c);
+            }
+            else 
+            {
+                sendIsolationEmail(theInterview.Id,theInterview.EmailAddress__c);
+            }
+        }
+        else 
+        {
+                if(theInterview.LetterLanguage__c == 'Spanish')
+                {
+                    sendQuarantineEmailSpanish(theInterview.Id,theInterview.EmailAddress__c);
+                }
+                else 
+                {
+                    sendQuarantineEmail(theInterview.Id,theInterview.EmailAddress__c);
+                }    
+        }
+        
+
+    }  
+
+
     webservice static String sendCorrectLetter(String theInterviewToUse ){
 
         String returnMsg ='';
@@ -160,18 +196,22 @@ global class sendIndividualEmails {
             }else{
                 b = theDoc.getContentAsPDF();}
         
-        String body ='Hello<br /><br />';
-        body += 'This is your follow up email from the conversation you had with the Larimer County Department of Health and Environment regarding COVID-19.<br/><br/>';
-        body += 'If you are currently experiencing symptoms or have tested positive for coronavirus:<br/>';
-        body += 'It is very important for the safety of your friends, family and the larger community that you follow these <a href="https://drive.google.com/file/d/1XAsArqQGwXk9zYPFNPxZKZl0QkijQAyJ/view?usp=sharing">Isolation Guidelines</a>.<br /><br />'; 
-        body += 'If you are a close contact of someone who tested positive and are not experiencing symptoms: <br />Follow these <a href="https://drive.google.com/file/d/1r6wxcnDF9cMvS8IsK5WlZKeYSkR1j4vQ/view?usp=sharing">Quarantine Guidelines</a>. In the event that you do develop symptoms during the quarantine period, please follow the Isolation Guidelines provided above to determine when it is appropriate for you to resume your normal activities.<br /><br />';
-        body += '*Please note, we are asking for voluntary compliance of these public health orders. Individuals who fail to comply with public health orders may be subject to penalties contained §25-1-114 and 25-1-516, Colorado Revised Statutes, including up to eighteen months imprisonment, or a fine up to five thousand dollars or both. <br /><br/>';
-        body += 'Testing:<br/>';    
-        body += 'Close contacts of confirmed cases can sign up <a href="https://www.larimer.org/covid-19-testing">here</a> to be tested for COVID-19 at our community testing events.. We are currently conducting testing for close contacts of confirmed cases who are both symptomatic and asymptomatic (no symptoms). <br/>';
-        body += '<ul><li>Please note, a negative test result will not affect the quarantine period (i.e. if a close contact tests negative within 14 days of an exposure, they still need to quarantine for the full 14 days).</li>';
-        body += '<li>Test results are most accurate 5-7 days after an exposure to someone with COVID-19. We recommend you schedule testing 5-7 days after your LAST contact with someone who is positive for COVID-19.</li></ul>';
-        body += '<br />We know this is a lot of information and you might have questions. Please don’t hesitate to reach out via email at larimerhealthfollowup@co.larimer.co.us, or you can call our Joint Information Center at 970-498-5500. You can also text questions to 970-999-1770.<br /><br />Thank you';
+        String body ='';
+        
+        body += 'The Larimer County Department of Public Health and Environment (LCDHE) has determined that the individual on the attached quarantine order has recently been in close contact with an individual who has COVID-19. Based on this exposure, the above-named person has been identified as a person with a high risk of contracting COVID-19.<br /><br />';
 
+        body += 'Attached to this letter is a Public Health Quarantine Order from the Larimer County Department of Health and Environment which must be followed until the date indicated on the order. Please note that different people have different end dates based on their individual date of last exposure.<br /><br />';
+        
+        body += 'To protect the privacy of the person with COVID-19, we cannot disclose their name or other details that may identify them. In the case of mass exposures such as schools or workplaces, we determine this in close coordination with the school officials, HR staff, and others as appropriate.<br /><br />';
+        
+        body += 'A negative test result does NOT exempt the person named above from quarantine, as it can take up to 14 days from last exposure to test positive or develop symptoms. It is important that we are updated on any new symptom development. You may receive an automated text message asking about symptoms – we greatly appreciate your response.';
+        body += 'If you are currently experiencing symptoms or have tested positive for coronavirus: It is very important for the safety of your friends, family and the larger community that you follow these <a href="https://drive.google.com/file/d/1XAsArqQGwXk9zYPFNPxZKZl0QkijQAyJ/view?usp=sharing">Isolation Guidelines</a>.<br /><br />';
+        body += 'If you are a close contact of someone who tested positive and are not experiencing symptoms: <a href="https://drive.google.com/file/d/1r6wxcnDF9cMvS8IsK5WlZKeYSkR1j4vQ/view?usp=sharing"> Follow these Quarantine Guidelines</a>. In the event that you do develop symptoms during the quarantine period, please follow the Isolation Guidelines provided above to determine when it is appropriate for you to resume your normal activities.<br /><br />';
+        body += 'Test results are most accurate at least 7-10 days after an exposure to someone with COVID-19. We recommend you schedule testing at least 7-10 days after your LAST contact with someone who has COVID-19. Close contacts of confirmed cases can sign up <a href="https://www.larimer.org/covid-19-testing">here</a> to be tested for COVID-19 at our community testing events.<br /><br />';
+        body += 'We know this is a lot of information and you might have questions. Please don’t hesitate to reach out via email at larimerhealthfollowup@co.larimer.co.us, or you can call our Joint Information Center at 970-498-5500. You can also text questions to 970-999-1770.<br /><br />';
+        body += 'Thank you,';
+        
+      
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
  
         Messaging.EmailFileAttachment efa1 = new Messaging.EmailFileAttachment();
@@ -179,7 +219,7 @@ global class sendIndividualEmails {
         efa1.setBody(b);
  
         String addresses;
-        email.setSubject( 'Followup from Larimer County Department of Health and Environment');
+        email.setSubject( 'Larimer County Public Health Order');
         email.setToAddresses( EmailIds  );
         email.setHtmlBody(body);   
           email.setOrgWideEmailAddressId(owea.Id);
@@ -298,8 +338,9 @@ global class sendIndividualEmails {
 
         Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
     }    
-    
-    webservice static void sendLabResultsCSU(TestingSlot__c rec){
+  
+
+  webservice static void sendLabResultsCSU(TestingSlot__c rec){
 
         List<String> EmailIds = new List<String>();
         EmailIds.add(rec.EmailToSendTo__c);
@@ -364,10 +405,95 @@ global class sendIndividualEmails {
             
             
         }
+        
+                
+        String body='Hello,<br /><br />';
+        
+        body +='This letter is to inform you that the results of your COVID-19 test has been completed.  Please review the attachment for additional details.<br /><br />';
 
-        if (b != null)
+        body +='Thank you for taking the time and initiative to be tested. If you have any other questions or concerns, please call our information line Monday through Friday between 9am and 4:30pm at 970-498-5500. Text your questions anytime to 970-999-1770.<br /><br />';
+        
+        body +='Larimer County Department of Health & Envrionment';
+
+ 
+        String addresses;
+        email.setSubject( 'Lab Result');
+        email.setToAddresses( EmailIds  );
+        email.setHtmlBody(body);
+        email.setOrgWideEmailAddressId(owea.Id);
+
+        Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
+        
+        rec.Result_Sent__c = System.now();
+        update rec;
+        
+    }  
+    
+    
+    webservice static void sendLabResultsCSUManual(String theId, String theEmail, String theResult){
+
+        List<String> EmailIds = new List<String>();
+        EmailIds.add(theEmail);
+                      
+        
+        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+        Messaging.EmailFileAttachment efa = new Messaging.EmailFileAttachment();
+        Messaging.EmailFileAttachment std = new Messaging.EmailFileAttachment();
+
+                
+        OrgWideEmailAddress owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Testing'];
+    
+       
+        PageReference theDoc = Page.CSUResultDocument;
+        theDoc.getParameters().put('Id',theId);
+        Blob b,b2;
+        
+        if(Test.isRunningTest()){
+            b = blob.valueOf('Unit.Test');
+        }else{
+            b = theDoc.getContentAsPDF();}
+       
+        StaticResource srPositive = [Select  Name, Id, Body From StaticResource where Name = 'CSUPositive'];
+        StaticResource srNegative = [Select  Name, Id, Body From StaticResource where Name = 'CSUNegativeLetter'];
+        StaticResource srInconclusive = [Select  Name, Id, Body From StaticResource where Name = 'CSUInconclusive'];
+            
+
+        if(b != null)
         {
-          
+
+            if(theResult == 'Positive')
+            {
+                owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Health FollowUp'];
+                b2 = srPositive.body;
+                std.setFileName('ResultLetter.pdf');
+                std.setBody(b2);
+                efa.setFileName('LabResult.pdf');
+                efa.setBody(b);
+                email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa,std});
+        
+            }else {
+                if(theResult == 'Negative')
+                {
+                    b2 = srNegative.body;
+                    std.setFileName('ResultLetter.pdf');
+                    std.setBody(b2);
+                    efa.setFileName('LabResult.pdf');
+                    efa.setBody(b);
+                    email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa,std});
+                }
+                else 
+                {
+                    b2 = srInconclusive.body;
+                    std.setFileName('ResultLetter.pdf');
+                    std.setBody(b2);
+                    efa.setFileName('LabResult.pdf');
+                    efa.setBody(b);
+                    email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa,std}); 
+                }
+
+            }
+            
+            
         }
         
                 
@@ -387,8 +513,9 @@ global class sendIndividualEmails {
         email.setOrgWideEmailAddressId(owea.Id);
 
         Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
-    }  
-    
+
+        
+    }
     
     
 }

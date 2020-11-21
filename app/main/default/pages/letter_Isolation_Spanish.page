@@ -1,13 +1,14 @@
 <apex:page standardController="HAE_Case_Interview__c" renderAs="pdf">
-
-<apex:image url="{!$Resource.letterhead}"/><br />
-<br />
-<div align="center"><b>AVISO DE ORDEN DE AISLAMIENTO DE SALUD PÚBLICA</b></div>
-<br />
-<br />
+<apex:image url="{!$Resource.letterhead}" />
+    <br />
+    <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.First_Name__c} {!HAE_Case_Interview__c.HAE_Individual__r.Last_Name__c}<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Address1__c}<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.City__c}, {!HAE_Case_Interview__c.HAE_Individual__r.State__c}&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Zip__c}<br />
+    <br /><br /><br />
+    <div align="center">
+        <b>AVISO DE ORDEN DE AISLAMIENTO DE SALUD PÚBLICA</b>
+    </div><br />
 El Departamento de Salud y Medio Ambiente del Condado de Larimer (LCDHE o "departamento de salud") ha determinado que usted
 es presuntamente positivo para la enfermedad del nuevo coronavirus de 2019, denominado en este documento "COVID-19". Debido
 a que ha desarrollado síntomas, LCDHE requiere que permanezca aislado de conformidad con la autoridad legal establecida en
@@ -23,7 +24,7 @@ cumplir con los siguientes requisitos:
 <li>Deberá cooperar con LCDHE y permitir el contacto
     diario con profesionales de la salud que le brinden atención para evaluar si continúa siendo infeccioso.</li>
 </ul>
-<br /> 
+ 
     LCDHE tiene la tarea de proteger la salud y el bienestar de los ciudadanos de Colorado mediante la investigación y el control
     de las causas de epidemias y enfermedades transmisibles. Esta Orden de aislamiento de salud pública es necesaria para controlar
     cualquier posible transmisión de enfermedades a otros. § 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado. La emisión
@@ -34,8 +35,7 @@ cumplir con los siguientes requisitos:
 
 Si tiene preguntas sobre esta orden de aislamiento, comuníquese con el Centro de información conjunta al (970) 498-5500,
 o por correo electrónico a <u>LarimerHealthFollowup@gmail.com</u>.
-<br />
-<br />
+
 
 <table width="100%">
     <tr>
@@ -43,17 +43,14 @@ o por correo electrónico a <u>LarimerHealthFollowup@gmail.com</u>.
             <apex:image url="{!$Resource.letterSignature}" height="75" width="200" /><br />
             _______________________________<br />
             Tom Gonzales, MPH, REHS<br />
-            Public Health Director<br />
+            Public Health Director
         </td>
         <td align="right">
             <br /><br />
-            <u>{!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}</u><br />
+            <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!HAE_Case_Interview__c.LetterSent_Date__c}" /></apex:outputText></u>
             Date
         </td>
     </tr>
 </table>
-  
-
-
 
 </apex:page>

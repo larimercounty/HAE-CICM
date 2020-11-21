@@ -6,7 +6,7 @@
 {!HAE_Case_Interview__c.HAE_Individual__r.First_Name__c} {!HAE_Case_Interview__c.HAE_Individual__r.Last_Name__c}<br />
 {!HAE_Case_Interview__c.HAE_Individual__r.Address1__c}<br />
 {!HAE_Case_Interview__c.HAE_Individual__r.City__c}, {!HAE_Case_Interview__c.HAE_Individual__r.State__c}&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Zip__c}<br />
-    <br />
+    <br /><br /><br />
     <div align="center">
         <b>AVISO DE ORDEN DE CUARENTENA DE SALUD PÚBLICA</b>
     </div>
@@ -75,7 +75,7 @@ de los requisitos de la Ley de Procedimiento Administrativo sería contrario al 
             <td align="right">
                 <br />
                 <br />
-                <u>{!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}</u>
+                <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!HAE_Case_Interview__c.LetterSent_Date__c}" /></apex:outputText></u>
                 <br /> Date
             </td>
         </tr>

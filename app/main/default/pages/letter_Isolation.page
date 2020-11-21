@@ -1,20 +1,19 @@
 <apex:page standardController="HAE_Case_Interview__c" renderAs="pdf">
 
-<apex:image url="{!$Resource.letterhead}"/><br />
-<br />
-<div align="center"><b>NOTICE OF PUBLIC HEALTH ISOLATION ORDER</b></div>
-<br />
+<apex:image url="{!$Resource.letterhead}" />
+    <br />
+    <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.First_Name__c} {!HAE_Case_Interview__c.HAE_Individual__r.Last_Name__c}<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Address1__c}<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.City__c}, {!HAE_Case_Interview__c.HAE_Individual__r.State__c}&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Zip__c}<br />
-
-<br />
-The Larimer County Department of Health and Environment (LCDHE) has determined that you have COVID-19. If you would like information on case definitions for COVID-19, visit https://larimer.org/COVID-19-Case-Info
+    <br /><br /><br />
+    <div align="center">
+        <b>NOTICE OF PUBLIC HEALTH ISOLATION ORDER</b>
+    </div><br />
+ The Larimer County Department of Health and Environment (LCDHE) has determined that you have COVID-19. If you would like information on case definitions for COVID-19, visit https://larimer.org/COVID-19-Case-Info
 <br /><br />
 
-LCDHE requires you remain isolated pursuant to the legal authority set forth in § 25-1-506 (3)(b)(VI), Colorado Revised Statutes.
-<br /><br />
-Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to comply
+LCDHE requires you remain isolated pursuant to the legal authority set forth in § 25-1-506 (3)(b)(VI), Colorado Revised Statutes. Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to comply
 with the following requirements:
 <br />
 <ul>
@@ -46,7 +45,7 @@ at <u>LarimerHealthFollowup@co.larimer.co.us</u>.
         </td>
         <td align="right">
             <br /><br />
-            <u>{!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}</u><br />
+            <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!HAE_Case_Interview__c.LetterSent_Date__c}" /></apex:outputText></u><br />
             Date
         </td>
     </tr>
