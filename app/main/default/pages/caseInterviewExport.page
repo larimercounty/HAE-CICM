@@ -1,0 +1,38 @@
+<apex:page standardController="HAE_Case_Interview__c" renderAs="pdf">
+<apex:image url="{!$Resource.letterhead}"/><br />
+<br />
+<div align="center"><b>Case/Contact Interview</b></div>
+<br />
+<b>Case Information</b><hr />
+<table border="0">
+<tr>
+   <td>CEDRS #</td><td>{!HAE_Case_Interview__c.HAE_Case__r.Event_ID__c}</td>
+</tr>
+<tr>
+   <td>Contact Name</td><td>{!HAE_Case_Interview__c.HAE_Individual__r.Full_Name__c}</td>
+</tr>
+<tr>
+   <td>Date of Birth</td><td>{!HAE_Case_Interview__c.HAE_Individual__r.Date_of_Birth__c}</td>
+</tr>
+<tr>
+   <td>Address</td><td>{!HAE_Case_Interview__c.HAE_Individual__r.Address1__c}<br/>
+                       {!HAE_Case_Interview__c.HAE_Individual__r.City__c}, {!HAE_Case_Interview__c.HAE_Individual__r.State__c}&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Zip__c}</td>
+</tr>
+<tr>
+   <td>Phone</td><td>{!HAE_Case_Interview__c.HAE_Individual__r.Phone_1_Masked__c}</td>
+</tr>
+<tr>
+   <td>Email</td><td>{!HAE_Case_Interview__c.HAE_Individual__r.Email_Address__c}</td>
+</tr>
+
+</table>
+<br />
+<b>Interview</b><hr />
+<table border="0">
+<tr>
+   <td>Symptom:Fever</td><td>{!HAE_Case_Interview__c.Fever__c}</td>
+</tr>
+</table>
+
+
+</apex:page>

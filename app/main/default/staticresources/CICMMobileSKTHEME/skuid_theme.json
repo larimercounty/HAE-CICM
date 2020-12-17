@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"lessVars": {},
 	"webFonts": {},
 	"cssResources": [],
@@ -16,4 +17,12 @@
 	},
 	"id": "CICM_Mobile",
 	"initialized": true
+=======
+	"id": "CICM_Mobile",
+	"lessVars": {},
+	"tempVars": {},
+	"baseTheme": "Classic",
+	"isMobile": false,
+	"themeSettings": {}
+>>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
 }

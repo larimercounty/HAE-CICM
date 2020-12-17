@@ -3,13 +3,10 @@
     <apiVersion>48.0</apiVersion>
     <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
-    <label>label_Testing</label>
-<<<<<<< HEAD
+    <label>include</label>
     <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>9</minorNumber>
-        <namespace>SmartBarcode</namespace>
+        <majorNumber>12</majorNumber>
+        <minorNumber>4</minorNumber>
+        <namespace>skuid</namespace>
     </packageVersions>
-=======
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
 </ApexPage>
