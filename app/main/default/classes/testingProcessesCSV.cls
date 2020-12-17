@@ -7,12 +7,9 @@ global class testingProcessesCSV {
 
       webservice static String generateLabCSV(Date theDay, String theLocation, String requestorEmail) {
       
-<<<<<<< HEAD
           
           runningInASandbox();
           
-=======
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
           String returnMessage = '';
           
           List <TestingSlot__c> pendingTests = new List<TestingSlot__c>([Select Id, 
@@ -40,15 +37,10 @@ global class testingProcessesCSV {
                                                                       Where
                                                                       TestingDay__r.Day__c =: theDay AND
                                                                       TestingDay__r.Location__c =: theLocation AND
-<<<<<<< HEAD
                                                                       Checked_In__c = true AND
                                                                       Test_Type__c <> 'BINAX'
                                                                       Order By 
                                                                       TestID__c,
-=======
-                                                                      Checked_In__c = true
-                                                                      Order By 
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
                                                                       TestingRegistration__r.Last_Name__c,
                                                                       TestingRegistration__r.First_Name__c
                                                                       ]);
@@ -106,11 +98,7 @@ global class testingProcessesCSV {
              If(Race=='') Race = 'Other';
    
              String theFixedAddress = theRecord.TestingRegistration__r.Address__c;
-<<<<<<< HEAD
              if(theFixedAddress != null) theFixedAddress=theFixedAddress.replaceAll(',', ';');
-=======
-             theFixedAddress=theFixedAddress.replaceAll(',', ';');
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
    
              s += line(new String[] {
                     '38',
@@ -142,7 +130,6 @@ global class testingProcessesCSV {
 
          } 
           System.Debug(s);
-<<<<<<< HEAD
 
           return s;
       
@@ -275,43 +262,10 @@ global class testingProcessesCSV {
         
  
           return s;
-=======
-          
-        List<String> EmailIds = new List<String>();
-        EmailIds.add(requestorEmail);
-        
-        OrgWideEmailAddress owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Health FollowUp'];
-        Blob b;
-        b = blob.valueOf(s);
-
-                
-        String body ='Hello<br /><br />';
-        body += 'This is your requested LAB CSV<br/><br/>';
-        
-
-        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
- 
-        Messaging.EmailFileAttachment efa1 = new Messaging.EmailFileAttachment();
-        efa1.setFileName('labExport.csv');
-        efa1.setBody(b);
- 
-        String addresses;
-        email.setSubject( 'LAB Export from Larimer County Department of Health and Environment');
-        email.setToAddresses( EmailIds  );
-        email.setHtmlBody(body);
-        email.setFileAttachments(new Messaging.EmailFileAttachment[] {efa1});
-        email.setOrgWideEmailAddressId(owea.Id);
-       
-        Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});   
-          
- 
-          return returnMessage;
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
       
       
       }
       
-<<<<<<< HEAD
   
      webservice static String generateLabCSV_BINAX(Date theDay, String theLocation, String requestorEmail) {
       
@@ -464,11 +418,6 @@ global class testingProcessesCSV {
       
       
       } 
-=======
-      
-  
-      
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
       
       
       
@@ -487,8 +436,5 @@ global class testingProcessesCSV {
     private static String format(Decimal d) {
         return format(d, 2);
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
 }

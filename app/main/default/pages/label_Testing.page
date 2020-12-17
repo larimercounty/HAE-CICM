@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <apex:page standardcontroller="TestingSlot__c" renderAs="pdf" showHeader="false" sidebar="false" standardStylesheets="true" applyHtmlTag="false" applyBodyTag="false" >
 <html>
 <apex:stylesheet value="{!URLFOR($Resource.barcode)}"/>
@@ -36,37 +35,6 @@
 &nbsp;&nbsp;Patient: {!TestingSlot__c.TestingRegistration__r.Last_Name__c}, {!TestingSlot__c.TestingRegistration__r.First_Name__c} {!TestingSlot__c.TestingRegistration__r.Middle_Name__c} ({!TestingSlot__c.TestingRegistration__r.License_Plate__c})<br />
 <SmartBarcode:BarCode128 codeValue="{!TestingSlot__c.TestID__c}"/></div>
 
-=======
-<apex:page standardcontroller="TestingSlot__c" renderAs="PDF" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" >
-
-<script>
-$(document).ready(function () { 
-  window.print(); 
-});
-</script>
-<html>
-<head>
-    <style>
-              @page { size: 1in 2.5in; margin: 0.10in; }                
-            }
-            .page-break {
-                display:block;
-                page-break-after:always;
-            }
-                body { font-size: .5em; }
-                .blackBG{background-color: #000}
-
-        </style>
-        
-        </head>
-
-<body onload="window.print()">
-ID:{!TestingSlot__c.TestID__c}<br />
-Patient: {!TestingSlot__c.TestingRegistration__r.Last_Name__c}, {!TestingSlot__c.TestingRegistration__r.First_Name__c} {!TestingSlot__c.TestingRegistration__r.Middle_Name__c}<br />
-DOB: <apex:outputText value="{0, date, MM/dd/yy}">
-                <apex:param value="{!TestingSlot__c.PatientDOB__c}" /> 
-</apex:outputText>
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
 </body>
 </html>
 </apex:page>

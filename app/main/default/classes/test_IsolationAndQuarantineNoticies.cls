@@ -21,34 +21,25 @@ private class test_IsolationAndQuarantineNoticies{
         sendIndividualEmails.sendCorrectLetter(theInterview.Id );
         
         theInterview.Current_Symptoms__c = true;
-<<<<<<< HEAD
         theInterview.Abdominal_Pain__c = true;
         theInterview.Chronic_Liver_Disease__c = true;
         theInterview.Chronic_Renal_Disease__c = true;
         theInterview.Fatigue__c = true;
         theInterview.Fever__c = true;
-=======
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
         Update theInterview;
  
         Individual.Correspondence_Language__c = 'English';
         update Individual;
         
         sendIndividualEmails.sendCorrectLetter(theInterview.Id );
-<<<<<<< HEAD
      
         
         Individual.Correspondence_Language__c = 'Spanish';
        
-=======
-        
-        Individual.Correspondence_Language__c = 'Spanish';
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
         update Individual;
         
         sendIndividualEmails.sendCorrectLetter(theInterview.Id );
         
-<<<<<<< HEAD
         HAE_Contact_Review__c newContact = new HAE_Contact_Review__c(First_Name__c='Joe',Last_Name__c='Test', Notification_Type__c='low',Last_Exposure__c=System.Today() , Phone__c='3038345234',City__c='Fort Collins', Parent_or_Guardian_Email__c='schreujs@co.larimer.co.us', 
                                                                     State__c='CO',Street__c='100 West Oak', ZipCode__c='80524', Date_of_Birth__c=System.Today(), EventID__c=theCase.Id);
         
@@ -59,9 +50,6 @@ private class test_IsolationAndQuarantineNoticies{
         
         CICMImportProcesses.attachContactsToCaseWS(idToSend);
  
-=======
-        
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
         
 
 

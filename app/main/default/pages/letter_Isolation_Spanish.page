@@ -1,5 +1,4 @@
 <apex:page standardController="HAE_Case_Interview__c" renderAs="pdf">
-<<<<<<< HEAD
 <apex:image url="{!$Resource.letterhead}" />
     <br />
     <br />
@@ -10,14 +9,6 @@
     <div align="center">
         <b>AVISO DE ORDEN DE AISLAMIENTO DE SALUD PÚBLICA</b>
     </div><br />
-=======
-
-<apex:image url="{!$Resource.letterhead}"/><br />
-<br />
-<div align="center"><b>AVISO DE ORDEN DE AISLAMIENTO DE SALUD PÚBLICA</b></div>
-<br />
-
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
 El Departamento de Salud y Medio Ambiente del Condado de Larimer (LCDHE o "departamento de salud") ha determinado que usted
 es presuntamente positivo para la enfermedad del nuevo coronavirus de 2019, denominado en este documento "COVID-19". Debido
 a que ha desarrollado síntomas, LCDHE requiere que permanezca aislado de conformidad con la autoridad legal establecida en
@@ -33,11 +24,7 @@ cumplir con los siguientes requisitos:
 <li>Deberá cooperar con LCDHE y permitir el contacto
     diario con profesionales de la salud que le brinden atención para evaluar si continúa siendo infeccioso.</li>
 </ul>
-<<<<<<< HEAD
  
-=======
-<br /> 
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
     LCDHE tiene la tarea de proteger la salud y el bienestar de los ciudadanos de Colorado mediante la investigación y el control
     de las causas de epidemias y enfermedades transmisibles. Esta Orden de aislamiento de salud pública es necesaria para controlar
     cualquier posible transmisión de enfermedades a otros. § 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado. La emisión
@@ -48,12 +35,7 @@ cumplir con los siguientes requisitos:
 
 Si tiene preguntas sobre esta orden de aislamiento, comuníquese con el Centro de información conjunta al (970) 498-5500,
 o por correo electrónico a <u>LarimerHealthFollowup@gmail.com</u>.
-<<<<<<< HEAD
 
-=======
-<br />
-<br />
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
 
 <table width="100%">
     <tr>
@@ -61,28 +43,14 @@ o por correo electrónico a <u>LarimerHealthFollowup@gmail.com</u>.
             <apex:image url="{!$Resource.letterSignature}" height="75" width="200" /><br />
             _______________________________<br />
             Tom Gonzales, MPH, REHS<br />
-<<<<<<< HEAD
             Public Health Director
         </td>
         <td align="right">
             <br /><br />
             <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!HAE_Case_Interview__c.LetterSent_Date__c}" /></apex:outputText></u>
-=======
-            Public Health Director<br />
-        </td>
-        <td align="right">
-            <br /><br />
-            <u>{!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}</u><br />
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
             Date
         </td>
     </tr>
 </table>
-<<<<<<< HEAD
-=======
-  
-
-
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
 
 </apex:page>

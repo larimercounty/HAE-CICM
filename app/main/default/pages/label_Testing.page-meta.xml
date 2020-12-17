@@ -4,12 +4,9 @@
     <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <label>label_Testing</label>
-<<<<<<< HEAD
     <packageVersions>
         <majorNumber>1</majorNumber>
         <minorNumber>9</minorNumber>
         <namespace>SmartBarcode</namespace>
     </packageVersions>
-=======
->>>>>>> 2a90525978adce2efc7b68bdb1f7e2eb83810854
 </ApexPage>
