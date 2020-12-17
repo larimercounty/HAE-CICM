@@ -42,9 +42,16 @@ DOB: <apex:outputText value="{0, date, MM/dd/yy}">
 <a href="https://larimerhealth.secure.force.com/RegisterForTest/cancelTest?tk={!TestingSlot__c.TestID__c}">Click This Link To Cancel Appointment</a><br />
 <br />Thank you for registering for COVID-19 Testing. We have added you to our confirmed list of patients scheduled for testing. 
 <br /><br />
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Private Event'}">
+Location: {!TestingSlot__c.TestingDay__r.Location_Display__c}<br />
+</apex:outputPanel>
 <apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Fort Collins'}">
-Location: Colorado State University Parking Lot # 740, by the Tennis Complex<br />
-Address: 2350 Research Boulevard; Fort Collins, CO 80526
+Location: B.W. Pickett Equine Center<br />
+Address: 735 S Overland Trail; Fort Collins, CO 80521
+</apex:outputPanel>
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Estes Park'}">
+Location: Estes Park - The Pavilion<br />
+Address: 1115 Rooftop Way, Estes Park, CO 80517
 </apex:outputPanel>
 <apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Loveland'}">
 Location: The Ranch, Larimer County Fairground and Event Complex<br />
@@ -95,8 +102,15 @@ If you have any questions, please contact the Joint Information Center at covidc
 <a href="https://larimerhealth.secure.force.com/RegisterForTest/cancelTest?tk={!TestingSlot__c.TestID__c}">
 Haga clic en este enlace para cancelar la cita</a><br /><br />
 <apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Fort Collins'}">
-Location: Colorado State University Parking Lot # 740, by the Tennis Complex<br />
-Address: 2350 Research Boulevard; Fort Collins, CO 80526
+Location: B.W. Pickett Equine Center<br />
+Address: 735 S Overland Trail; Fort Collins, CO 80521
+</apex:outputPanel>
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Private Event'}">
+Location: Obtener dirección del coordinador<br />
+</apex:outputPanel>
+<apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Estes Park'}">
+Location: Estes Park - The Pavilion<br />
+Address: 1115 Rooftop Way, Estes Park, CO 80517
 </apex:outputPanel>
 <apex:outputPanel rendered="{!TestingSlot__c.TestingDay__r.Location__c == 'Loveland'}">
 Location: The Ranch, Larimer County Fairground and Event Complex<br />

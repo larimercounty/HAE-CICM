@@ -199,18 +199,13 @@ global class sendIndividualEmails {
         String body ='';
         
         body += 'The Larimer County Department of Public Health and Environment (LCDHE) has determined that the individual on the attached quarantine order has recently been in close contact with an individual who has COVID-19. Based on this exposure, the above-named person has been identified as a person with a high risk of contracting COVID-19.<br /><br />';
-
         body += 'Attached to this letter is a Public Health Quarantine Order from the Larimer County Department of Health and Environment which must be followed until the date indicated on the order. Please note that different people have different end dates based on their individual date of last exposure.<br /><br />';
-        
         body += 'To protect the privacy of the person with COVID-19, we cannot disclose their name or other details that may identify them. In the case of mass exposures such as schools or workplaces, we determine this in close coordination with the school officials, HR staff, and others as appropriate.<br /><br />';
-        
-        body += 'A negative test result does NOT exempt the person named above from quarantine, as it can take up to 14 days from last exposure to test positive or develop symptoms. It is important that we are updated on any new symptom development. You may receive an automated text message asking about symptoms – we greatly appreciate your response.';
-        body += 'If you are currently experiencing symptoms or have tested positive for coronavirus: It is very important for the safety of your friends, family and the larger community that you follow these <a href="https://drive.google.com/file/d/1XAsArqQGwXk9zYPFNPxZKZl0QkijQAyJ/view?usp=sharing">Isolation Guidelines</a>.<br /><br />';
-        body += 'If you are a close contact of someone who tested positive and are not experiencing symptoms: <a href="https://drive.google.com/file/d/1r6wxcnDF9cMvS8IsK5WlZKeYSkR1j4vQ/view?usp=sharing"> Follow these Quarantine Guidelines</a>. In the event that you do develop symptoms during the quarantine period, please follow the Isolation Guidelines provided above to determine when it is appropriate for you to resume your normal activities.<br /><br />';
-        body += 'Test results are most accurate at least 7-10 days after an exposure to someone with COVID-19. We recommend you schedule testing at least 7-10 days after your LAST contact with someone who has COVID-19. Close contacts of confirmed cases can sign up <a href="https://www.larimer.org/covid-19-testing">here</a> to be tested for COVID-19 at our community testing events.<br /><br />';
-        body += 'We know this is a lot of information and you might have questions. Please don’t hesitate to reach out via email at larimerhealthfollowup@co.larimer.co.us, or you can call our Joint Information Center at 970-498-5500. You can also text questions to 970-999-1770.<br /><br />';
+        body += 'It can take up to 14 days from last exposure to test positive or develop symptoms. If you are currently experiencing symptoms or have tested positive for coronavirus: It is very important for the safety of your friends, family and the larger community that you follow these <a href="https://drive.google.com/file/d/1XAsArqQGwXk9zYPFNPxZKZl0QkijQAyJ/view?usp=sharing">Isolation Guidelines</a>.<br /><br />';
+        body += 'If you are a close contact of someone who tested positive and are not experiencing symptoms: <a href="https://drive.google.com/file/d/1r6wxcnDF9cMvS8IsK5WlZKeYSkR1j4vQ/view?usp=sharing"> Follow these Quarantine Guidelines</a>. In the event that you do develop symptoms during the quarantine period, please follow the Isolation Guidelines provided above to determine when it is appropriate for you to resume your normal activities.<br /><br />';
+        body += 'Test results are most accurate 6-10 days after an exposure to someone with COVID-19. We recommend you schedule testing 6-10 days after your LAST contact with someone who has COVID-19. Close contacts of confirmed cases can sign up <a href="https://www.larimer.org/covid-19-testing">here</a> to be tested for COVID-19 at our community testing events.<br /><br />';
+        body += 'We know this is a lot of information and you might have questions. Please don’t hesitate to reach out via email at larimerhealthfollowup@co.larimer.co.us, or you can call our Joint Information Center at 970-498-5500. You can also text questions to 970-999-1770.<br /><br />';
         body += 'Thank you,';
-        
       
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
  
@@ -516,6 +511,86 @@ global class sendIndividualEmails {
 
         
     }
+    
+    
+    webservice static void sendLabResultsBINAX(TestingSlot__c rec){
+
+        List<String> EmailIds = new List<String>();
+        EmailIds.add(rec.EmailToSendTo__c);
+                      
+        
+        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+        Messaging.EmailFileAttachment efa = new Messaging.EmailFileAttachment();
+        Messaging.EmailFileAttachment std = new Messaging.EmailFileAttachment();
+
+                
+        OrgWideEmailAddress owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Testing'];
+        
+        Blob b;
+        Boolean okToSend = false;
+       
+        StaticResource srPositive = [Select  Name, Id, Body From StaticResource where Name = 'BINAXPositive'];
+        StaticResource srNegative = [Select  Name, Id, Body From StaticResource where Name = 'BINAXNegative'];
+        StaticResource srInconclusive = [Select  Name, Id, Body From StaticResource where Name = 'BINAXInconclusive'];
+            
+
+            if(rec.Lab_Result__c == 'Positive')
+            {
+                owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Health FollowUp'];
+                b = srPositive.body;
+                std.setFileName('ResultLetter.pdf');
+                std.setBody(b);
+                email.setFileAttachments(new Messaging.EmailFileAttachment[] {std});
+                okToSend = true;
+        
+            }else {
+                if(rec.Lab_Result__c == 'Negative')
+                {
+                    b = srNegative.body;
+                    std.setFileName('ResultLetter.pdf');
+                    std.setBody(b);
+                    email.setFileAttachments(new Messaging.EmailFileAttachment[] {std});
+                    okToSend = true;
+                }
+                else 
+                {
+                    b = srInconclusive.body;
+                    std.setFileName('ResultLetter.pdf');
+                    std.setBody(b);
+                    email.setFileAttachments(new Messaging.EmailFileAttachment[] {std}); 
+                    okToSend = true;
+                }
+
+            }
+
+        if(okToSend)
+        {
+            String body='Hello,<br /><br />';
+            
+            body +='This letter is to inform you that the results of your COVID-19 test has been completed.  Please review the attachment for additional details.<br /><br />';
+        
+            body +='Thank you for taking the time and initiative to be tested. If you have any other questions or concerns, please call our information line Monday through Friday between 9am and 4:30pm at 970-498-5500. Text your questions anytime to 970-999-1770.<br /><br />';
+            
+            body +='Larimer County Department of Health & Envrionment';
+
+ 
+            String addresses;
+            email.setSubject( 'Lab Result');
+            email.setToAddresses( EmailIds  );
+            email.setHtmlBody(body);
+            email.setOrgWideEmailAddressId(owea.Id);
+    
+            Messaging.SendEmailResult [] r = Messaging.sendEmail(new Messaging.SingleEmailMessage[] {email});
+            
+        }
+        
+        rec.Result_Sent__c = System.now();
+        update rec;
+        
+    }  
+    
+    
+    
     
     
 }

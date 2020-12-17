@@ -3,6 +3,7 @@
     <apex:image url="{!$Resource.letterhead}" />
     <br />
     <br />
+<apex:outputText rendered="{!HAE_Case_Interview__c.letter_IsAMinor__c}">El tutor / padre de</apex:outputText>
 {!HAE_Case_Interview__c.HAE_Individual__r.First_Name__c} {!HAE_Case_Interview__c.HAE_Individual__r.Last_Name__c}<br />
 {!HAE_Case_Interview__c.HAE_Individual__r.Address1__c}<br />
 {!HAE_Case_Interview__c.HAE_Individual__r.City__c}, {!HAE_Case_Interview__c.HAE_Individual__r.State__c}&nbsp;&nbsp;{!HAE_Case_Interview__c.HAE_Individual__r.Zip__c}<br />
@@ -10,56 +11,37 @@
     <div align="center">
         <b>AVISO DE ORDEN DE CUARENTENA DE SALUD PÚBLICA</b>
     </div>
-    <br /> El Departamento de Salud Pública y Medio Ambiente del Condado de Larimer (LCDHE) ha determinado
-    que recientemente ha estado en contacto cercano con una persona que tiene COVID-19. En base a esta exposición, se le ha identificado como una persona con un alto riesgo de contraer COVID-19.<br />
-    <br />Con efecto inmediato, para proteger la salud pública y prevenir una mayor propagación de la enfermedad, se le ordena
-    auto-cuarentena. Cuarentena significa separar a un individuo o grupo que se cree razonablemente que ha estado expuesto a una enfermedad contagiosa, pero que aún no está enfermo, de otros que 
-    no han estado expuestos, para prevenir la posible propagación de la enfermedad contagiosa. Además, se le ordena cooperar con LCDHE como se indica a continuación:
-    <br />
-    <br />
-    <b>Siga los términos descritos en esta Orden de cuarentena de salud pública hasta el {!MONTH(HAE_Case_Interview__c.Quarantine_Until__c)}/{!DAY(HAE_Case_Interview__c.Quarantine_Until__c)}/{!YEAR(HAE_Case_Interview__c.Quarantine_Until__c)}. 
-    Después de esta fecha, puede reanudar sus actividades normales de acuerdo con las pautas locales. 
-    Un resultado negativo de la prueba NO finaliza el período de cuarentena antes de tiempo porque puede tomar hasta 14 días desde la última exposición para enfermarse y / o dar positivo.
-    </b>
-    <br />
-    <b>Monitoreo de la salud</b>
-    <ul>
-        <li>Deberá cooperar con profesionales de la salud en la administración de las acciones necesarias de control de infecciones y deberá
-        permitir el contacto diario con LCDHE para evaluar si ha desarrollado síntomas y puede ser infeccioso para otros. Si necesita
-        buscar atención médica por cualquier motivo, debe notificar al proveedor de atención médica que se encuentra actualmente
-        en cuarentena debido a una exposición al COVID-19.</li>
-    </ul>
-    <b>Restricciones de viajes y actividades públicas
-    </b>
-    <ul>
-        <li>No debe viajar en avión, barco, autobús de larga distancia o tren.</li>
-        <li>Cualquier otro viaje debe ser coordinado y aprobado por LCDHE.</li>
-        <li>Debe separarse de los demás y evitar todas las actividades públicas.</li>
-        <li>No debe usar transporte público, como el tren ligero, autobús o taxi.</li>
-        <li>No irá a la escuela</li>
-        <li>Restringir a los visitantes que no tengan una necesidad esencial de estar en el hogar</li>
-        <li>No irá a trabajar. Se permite trabajar desde una oficina en casa.</li>
-        <li>Si no tiene síntomas respiratorios, LCDHE, puede autorizar actividades limitadas al aire libre (por ejemplo, dar un paseo) 
-        siempre que mantenga una distancia mínima de seis pies de cualquier otra persona.</li>
-    </ul>
-    <br /><br />
-<apex:image width="100%" url="{!$Resource.letterFooter}" /><br />
-<br />
-<br />
-     
-<br /> LCDHE tiene la tarea de proteger la salud y el bienestar de los ciudadanos de Colorado mediante la investigación y el control
-de las causas de la epidemia y las enfermedades transmisibles. Esta Orden de Aislamiento de Salud Pública es necesaria para controlar
-cualquier transmisión potencial de enfermedades a otros. § 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado. La emisión
-inmediata de esta Orden es necesaria para la preservación de la salud, la seguridad o el bienestar públicos, y el cumplimiento
-de los requisitos de la Ley de Procedimiento Administrativo sería contrario al interés público.
-<br/>
-<br/>
-<b>EL INCUMPLIMIENTO DE ESTA SUJETO A LAS SANCIONES CONTENIDAS EN §25-1-514 y 25-1-516, ESTATUTOS REVISADOS DE COLORADO,
-    INCLUYENDO UNA MULTA DE HASTA CINCO MIL (5,000) DÓLARES Y ENCARCELAMIENTO EN LA CÁRCEL DEL CONDADO PARA ARRIBA HASTA DIECIOCHO (18)
-    MESES.</b>
-<br />
-<br /> Si tiene preguntas sobre este pedido, comuníquese con el Centro de información conjunta al (970) 498-5500 o por correo electrónico a
-<u>LarimerHealthFollowup@co.larimer.co.us</u>.
+    <br /> 
+El Departamento de Salud Pública y Medio Ambiente del Condado de Larimer (LCDHE) ha determinado que <apex:outputText rendered="{!HAE_Case_Interview__c.letter_showDateOfLastExposure__c}">en {!HAE_Case_Interview__c.letter_DateOfLastExposure__c}</apex:outputText> usted (o su hijo mencionado anteriormente) estuvo en contacto cercano con una persona que tiene COVID-19. Con base en esta exposición, usted (o su hijo mencionado anteriormente) ha sido identificado como una persona con un alto riesgo de contraer COVID-19. 
+<br /><br />
+LCDHE sigue las pautas de CDPHE y CDC, que actualmente recomiendan un período de cuarentena de 14 días después de la fecha de la última exposición de usted o de su hijo mencionado anteriormente. 14 días sigue siendo el período de cuarentena más eficaz y presenta el menor riesgo de transmitir COVID-19 a otras personas. Ofrecemos períodos de cuarentena más cortos que se detallan a continuación, que están solo permitidos para personas que nunca muestran ningún síntoma durante todo el período de cuarentena. Los residentes y el personal de las instalaciones de vivienda colectiva, como las instalaciones de atención a largo plazo, las instalaciones de vida asistida, las prisiones, las cárceles y los refugios para personas sin hogar, deben completar una cuarentena de 14 días.
+<br /><br />
+Con efecto inmediato, para proteger la salud pública y prevenir una mayor propagación de la enfermedad, se le ordena <apex:outputText rendered="{!HAE_Case_Interview__c.letter_IsAMinor__c}">ponga en cuarentena al niño mencionado anteriormente.</apex:outputText><apex:outputText rendered="{!IF(HAE_Case_Interview__c.letter_IsAMinor__c,false,true)}">auto-cuarentena.</apex:outputText> Cuarentena significa separar a un individuo o grupo que se cree razonablemente que ha estado expuesto a una enfermedad contagiosa, pero que aún no está enfermo, de otros que no han estado expuestos, para prevenir la posible propagación de la enfermedad contagiosa. Además, se le ordena cooperar con LCDHE como se indica a continuación (tenga en cuenta que estas restricciones se aplican solo a la persona mencionada anteriormente; los padres / tutores son responsables de actuar en nombre de sus hijos menores):
+<br /><br />
+Si desarrolla nuevos síntomas de COVID-19 desde <apex:outputText rendered="{! DATEVALUE(HAE_Case_Interview__c.LetterSent_Date__c) > 
+HAE_Case_Interview__c.HAE_Individual__r.Date_of_Last_Exposure__c}">{!HAE_Case_Interview__c.HAE_Individual__r.Date_of_Last_Exposure__c}</apex:outputText><apex:outputText rendered="{!DATEVALUE(HAE_Case_Interview__c.LetterSent_Date__c) < 
+HAE_Case_Interview__c.HAE_Individual__r.Date_of_Last_Exposure__c}">{!DATEVALUE(HAE_Case_Interview__c.LetterSent_Date__c)}</apex:outputText> hasta {!HAE_Case_Interview__c.Iso_Quar_Until__c}, entonces siga los términos descritos en esta Orden de Cuarentena de Salud Pública y aíslese por sí mismo durante 10 días completos desde que comienzan esos síntomas. 
+<br /><br />
+Si no presenta nuevos síntomas de COVID-19, siga los términos descritos en esta Orden de Cuarentena de Salud Pública hasta (DATE_OF_LAST_EXPOSURE + 10 DAYS). Puede reanudar sus
+actividades normales de acuerdo con las pautas locales el día(Q_RELEASE_DATE). Debe seguir atento a los síntomas y practicar estrategias de prevención seguras durante 14 días y más.
+Si no presenta nuevos síntomas de COVID-19, elija hacerse la prueba en o después (DATE_OF_LAST_EXPOSURE + 6 DAYS), recibe un negativo resultado y no tiene contacto con personas de alto riesgo, entonces siga los términos descritos en esta Orden de Cuarentena de Salud Pública hasta (DATE_OF_LAST_EXPOSURE + 7 DAYS). Puede reanudar sus actividades normales de acuerdo con las pautas locales el día (DATE_OF_LAST_EXPOSURE + 8 DAYS). Debe seguir atento a los síntomas y practicar estrategias de prevención seguras durante 14 días y más.
+<br /><br />
+Monitoreo de la salud 
+<ul>
+<li>Deberá cooperar con los profesionales de la salud en la administración de las acciones necesarias de control de infecciones y deberá permitir el contacto con LCDHE para evaluar si ha desarrollado síntomas y puede ser infeccioso para otros. Si necesita buscar atención médica por cualquier motivo, debe notificar al proveedor de atención médica que se encuentra actualmente en cuarentena debido a una exposición al COVID-19. </li>
+</ul>
+Restricciones de viajes y actividades públicas 
+<ul>
+<li>No debe dejar su dirección impresa arriba, excepto para buscar atención médica o cuando sea necesario para proteger la vida y la propiedad de un peligro inminente.</li>
+<li>Deberá separarse de los demás y evitar todas las actividades públicas.</li>
+<li>Restringir a los visitantes que no tengan una necesidad esencial de estar en el hogar.</li>
+<li>No irás a la escuela. Se permite la escuela en línea desde casa.</li>
+<li>No irás a trabajar. Se permite trabajar desde una oficina en casa. </li>
+<li>Si no tiene síntomas respiratorios, puede realizar actividades limitadas al aire libre (por ejemplo, dar un paseo) siempre que mantenga una distancia mínima de seis pies de cualquier otra persona.</li>
+</ul>
+LCDHE tiene la tarea de proteger la salud y el bienestar de los ciudadanos de Colorado mediante la investigación y el control de las causas de la epidemia y las enfermedades transmisibles. Esta Orden de Cuarentena de Salud Pública es necesaria para controlar cualquier transmisión potencial de enfermedades a otros. § 25-1-506 (3) (b) (VI), Estatutos Revisados ​​de Colorado. La emisión inmediata de esta Orden es necesaria para la preservación de la salud, la seguridad o el bienestar públicos, y el cumplimiento de los requisitos de la Ley de Procedimiento Administrativo sería contrario al interés público. 
+EL NO CUMPLIR CON ESTA ORDEN PODRÍA RESULTAR EN LA IMPOSICIÓN DE LAS MULTAS CONTENIDAS EN §25-1-514 y 25-1-516, ESTATUTOS REVISADOS DE COLORADO, INCLUYENDO UNA MULTA DE HASTA CINCO MIL (5,000) DÓLARES Y ENCARCELAMIENTO EN CÁRCEL DEL CONDADO DE HASTA DIECIOCHO (18) MESES. SI EL INDIVIDUO ES MENOR DE 18 AÑOS, EL PADRE O TUTOR ESTÁ SUJETO A LAS SANCIONES MENCIONADAS ARRIBA.
+Para obtener más información y orientación sobre la cuarentena, visite <a href="https://www.larimer.org/health/communicable-disease/coronavirus-covid-19/quarantine-and-isolation-information">https://www.larimer.org/health/communicable-disease/coronavirus-covid-19/quarantine-and-isolation-information</a>. Si tiene preguntas sobre este pedido, comuníquese con el Centro de información conjunta al (970) 498-5500 o por correo electrónico a <u>LarimerHealthFollowup@co.larimer.co.us</u>. 
 <br />
 <br />
 

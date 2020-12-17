@@ -332,9 +332,14 @@ webservice static String loadDeathRecord(String theRecord) {
       return returnMsg;
   }  
   
-webservice static String loadCaseRecord(String theRecord) {
+webservice static String loadCaseRecord(String theRecord, String JobId) {
 
-
+     System_Case_Load__c recData = New System_Case_Load__c();
+     recData.JobID__c = JobId;
+     recData.TextLine__c = theRecord;
+     insert recData;
+    
+    
     String returnMsg ='';
     system.debug('Passed String: ' + theRecord);
     if(theRecord.length() > 50)
@@ -362,12 +367,14 @@ webservice static String loadCaseRecord(String theRecord) {
             String eventId = fields[0];
             System.debug(eventId);
             
-            List< HAE_Case__c > existingCase = new List< HAE_Case__c >([Select Id from HAE_Case__c where Event_ID__c=:eventId]);   
+            List< HAE_Case__c > existingCase = new List< HAE_Case__c >([Select Id from HAE_Case__c where Event_ID__c=:eventId]);  
               
             If(existingCase.size()>0)
             {
                 returnMsg = 'Case Already Logged';
-                ApexPages.addmessage(new ApexPages.message(ApexPages.severity.WARNING,'Record Already Exists For: ' + fields[0]+ ' : ' + fields[13] + ',' + fields[14] + ' skipping entry'));
+                //ApexPages.addmessage(new ApexPages.message(ApexPages.severity.WARNING,'Record Already Exists For: ' + fields[0]+ ' : ' + fields[13] + ',' + fields[14] + ' skipping entry'));
+                recData.Result__c = 'Duplicate';
+                update recData;
               
             }
             else
@@ -385,17 +392,33 @@ webservice static String loadCaseRecord(String theRecord) {
 
                         }
                     
-                        List<String> days = new List<String>();
+                         List<String> days = new List<String>();
                         
                        
                 
                             days = fields[68].split('/');
+                            Date collectionDate;
                             if(days.size()==3)
                             {
                                 
-                                Date collectionDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
+                                collectionDate = Date.newInstance(integer.valueof(days[2]), integer.valueof(days[0]),integer.valueof(days[1]));
                                 newCase.Specimen_Collection_Date__c = collectionDate;
                             }
+                            
+                            List< HAE_Case__c > LCTestCase = new List< HAE_Case__c >([Select Id, Event_ID__c, Specimen_Collection_Date__c, Primary_Individual__r.Last_Name__c, Primary_Individual__r.First_Name__c from HAE_Case__c where Primary_Individual__r.Last_Name__c=:fields[13] AND Primary_Individual__r.First_Name__c =:fields[14] AND Specimen_Collection_Date__c =:collectionDate AND Event_ID__c LIKE 'LC%']);  
+              
+                            if( LCTestCase.Size() > 0)
+                            {
+                               //There is a LCTestRecordMatch
+                               
+                               LCTestCase[0].Event_ID__c = eventId;
+                               update LCTestCase;
+                               CalloutException ex = new CalloutException();
+                               ex.setMessage('Matched To A LCTestRecord');
+                               throw ex;
+                               
+                            }
+            
                             
                             days = new List<String>();
                             days = fields[3].split('/');
@@ -423,9 +446,12 @@ webservice static String loadCaseRecord(String theRecord) {
                                 newIndividual.Date_of_Birth__c = dateOfBirth;
                             }
                               
+                            
+            
             
                             newCase.Event_ID__c = fields[0];
                             newCase.Case_Status__c = 'New';
+                            newCase.Case_Type__c = 'CEDRS';
                             newCase.CEDRS_Case_Status__c = fields[2];
                             newCase.Disease__c = fields[1];
                             newCase.Specimen__c = fields[74];
@@ -451,17 +477,33 @@ webservice static String loadCaseRecord(String theRecord) {
                             newCaseContact.Primary_Individual__c = True;
                             newCaseContact.Contact_Type__c = 'Case';
                             
-                            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.WARNING,'Inserting Records: ' + fields[0]+ ' : ' + fields[13] + ',' + fields[14]));
+                           // ApexPages.addmessage(new ApexPages.message(ApexPages.severity.WARNING,'Inserting Records: ' + fields[0]+ ' : ' + fields[13] + ',' + fields[14]));
                                   
                             
                             insert newCaseContact;
-                        
+                            
+                            recData.Result__c = 'Success';
+                            update recData;
                         
         
                      }
                      catch(Exception e)
                      {
-                     
+                         
+                         if(e.getMessage() == 'Matched To A LCTestRecord')
+                         {
+                             recData.Result__c = 'Matched LC Test Record';
+                         }
+                         else if(recData.TextLine__c=='",,,,,,,,,,No') 
+                         {
+                             recData.Result__c = 'Left Over';
+                         }
+                         else
+                         {
+                             recData.Result__c = 'Error';
+                         }
+                         
+                         update recData;
                      }
                  }
         }
@@ -478,7 +520,7 @@ webservice static String loadCaseRecord(String theRecord) {
 
 webservice static String loadHistoricalCaseRecord(String theRecord) {
 
-/* NO LONGER NEEDED 
+/* NO LONGER NEEDED
     String returnMsg ='';
     system.debug('Passed String: ' + theRecord);
     if(theRecord.length() > 10)
@@ -804,60 +846,7 @@ webservice static String loadCaseRecord_UniPath(String theRecord) {
               return returnMsg;
             }
 
-/*
-    webservice static void attachContactsToCase(String recId) {
-    
-        HAE_Contact_Review__c newContact = [Select Id, First_Name__c,Last_Name__c, Last_Exposure__c , Phone__c,City__c, Parent_or_Guardian_Email__c, State__c,Street__c, ZipCode__c, Date_of_Birth__c, EventID__c from HAE_Contact_Review__c where Id =:recId];
-        
-        List< HAE_Case__c > selectedCase = new List< HAE_Case__c >([Select Id from HAE_Case__c where Id=:newContact.EventID__c]);   
-        HAE_Individual__c newIndividual = new HAE_Individual__c();
-        HAE_Case_Contact__c newCaseContact = new HAE_Case_Contact__c();    
-        HAE_Case_Interview__c newInterview = new HAE_Case_Interview__c();
 
-        newIndividual.Date_of_Birth__c = newContact.Date_of_Birth__c;
-        newIndividual.Last_Name__c = newContact.Last_Name__c;
-        newIndividual.First_Name__c = newContact.First_Name__c;
-        newIndividual.Email_Address__c = newContact.Parent_or_Guardian_Email__c;          
-        newIndividual.Individual_Phone__c = newContact.Phone__c;
-        newIndividual.address1__c = newContact.Street__c ;
-        newIndividual.city__c = newContact.City__c;
-        newIndividual.State__c = newContact.State__c;
-        newIndividual.zip__c = newContact.ZipCode__c;
-        newIndividual.Date_of_Last_Exposure__c = newContact.Last_Exposure__c;
-        newIndividual.Monitoring_Type__c = 'Text';
-        newIndividual.Txt_Phone_1__c = true;
-        
-        insert newIndividual;
-                        
-        
-        newCaseContact.HAE_Individual__c = newIndividual.Id;
-        newCaseContact.HAE_Case__c = selectedCase[0].Id;
-        newCaseContact.Primary_Individual__c = False;
-        newCaseContact.Contact_Type__c = '';  //make a new field
-        
-        insert newCaseContact;
-        
-        newInterview.HAE_Case__c = selectedCase[0].Id;
-        newInterview.HAE_Individual__c = newIndividual.Id;
-        newInterview.Exposure_Date__c = newContact.Last_Exposure__c;
-
-        insert newInterview;
-        
-        newInterview.Interview_Status__C = 'Not Needed';
-        newInterview.Completed_Date__c = System.Today();
-        
-        update newInterview;
-        
-        
-        newContact.Imported__C = true;
-        update newContact;
-        
-        
-
-
-   }
-   
-   */
 
  @InvocableMethod(label='Attach To Case')
  webservice static void attachContactsToCaseWS(List <String> recId) {
@@ -898,23 +887,30 @@ webservice static String loadCaseRecord_UniPath(String theRecord) {
         newInterview.HAE_Case__c = selectedCase[0].Id;
         newInterview.HAE_Individual__c = newIndividual.Id;
         newInterview.Exposure_Date__c = newContact.Last_Exposure__c;
-        newInterview.Interview_Status__C = 'Not Needed';
-        newInterview.Interview_Not_Needed_Status__c = 'Electronically Contacted';
-        newInterview.Completed_Date__c = System.Today();
+
         
         insert newInterview;
         
+        String notificationType;
+        if (newContact.Notification_Type__c == null)
+        {
+            notificationType = 'Low';
+        }
+        else
+        {
+            notificationType = newContact.Notification_Type__c;
+        }
 
-
-
-
-        if(newIndividual.Email_Address__c!=null && (newContact.Notification_Type__c != 'High' || newContact.Notification_Type__c != 'HIGH'))
+        if(newIndividual.Email_Address__c!=null && (notificationType.toUpperCase() != 'HIGH'))
         {
             sendContactQuarantineEmail  theBatch = new sendContactQuarantineEmail();        
             theBatch.theId = newInterview.Id;
             
             ID theBatchJob = Database.executeBatch(theBatch,1);
             
+            newInterview.Interview_Status__C = 'Not Needed';
+            newInterview.Interview_Not_Needed_Status__c = 'Electronically Contacted';
+            newInterview.Completed_Date__c = System.Today();
             newInterview.LetterSent__c = true;
             newInterview.LetterSent_Date__c = System.now();
             newInterview.LetterSent_Type__c = 'Quarantine Letter - English';
@@ -929,6 +925,4 @@ webservice static String loadCaseRecord_UniPath(String theRecord) {
 
 
    }
-
-
 }

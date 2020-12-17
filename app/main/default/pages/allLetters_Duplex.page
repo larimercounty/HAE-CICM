@@ -1,0 +1,310 @@
+<apex:page standardController="HAE_Case_Interview__c" extensions="extAllLettersToSend" renderAs="pdf">
+<html>
+ <head>
+ <style>
+                @page {
+                    size: portrait;
+                    margin: 0.25in;
+                    @top-center {
+                        content: "";
+                }
+
+
+                @bottom-right {
+                    content: "Page " counter(page) " of " counter(pages);
+                    font-size: .6em;
+                }
+                @bottom-center{
+                    content: "";
+                    font-size: .6em;
+                }
+                @bottom-left{
+                    content: "Printed: {!CASE(Month(Today()),
+                                                1, "1",
+                                                2, "2",
+                                                3, "3",
+                                                4, "4",
+                                                5, "5",
+                                                6, "6",
+                                                7, "7",
+                                                8, "8",
+                                                9, "9",
+                                                10, "10",
+                                                11, "11",
+                                                12, "12",
+                                                "")}" '/' "{!Day(Today())}" '/' "{!Year(Today())}";
+                    font-size: .6em;
+                }
+                
+            }
+            .page-break {
+                display:block;
+                page-break-after:always;
+            }
+                body { font-size: 1.0em; }
+                h1 { margin: 0; font-size: 1.2em; font-weight: normal; }
+                hr.seperator { margin: 10px auto 5px quto; width: 100%; color: #000; background-color: #000; height:1px; border: none; }
+                h5 { margin: 0; font-size: .7em; font-weight: normal; }
+                p { margin-top: 10px; margin-bottom: 10px; }
+
+        </style>
+       </head>
+ <body>
+<apex:repeat var="l" value="{!Letters}">
+<apex:image url="{!$Resource.letterhead}" />
+    <br />
+    <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!l.HAE_Individual__r.First_Name__c} {!l.HAE_Individual__r.Last_Name__c}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!l.HAE_Individual__r.Address1__c}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!l.HAE_Individual__r.City__c}, {!l.HAE_Individual__r.State__c}&nbsp;&nbsp;{!l.HAE_Individual__r.Zip__c}<br />
+<br /><br /><br />
+<apex:outputText rendered="{!IF(l.Letter_Type_To_Send__c='IE',true,false)}" escape="false">
+    <div align="center">
+        <b>NOTICE OF PUBLIC HEALTH ISOLATION ORDER</b>
+    </div><br />
+ The Larimer County Department of Health and Environment (LCDHE) has determined that you have COVID-19. If you would like information on case definitions for COVID-19, visit https://larimer.org/COVID-19-Case-Info
+<br /><br />
+
+LCDHE requires you remain isolated pursuant to the legal authority set forth in § 25-1-506 (3)(b)(VI), Colorado Revised Statutes. Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to comply
+with the following requirements:
+<br />
+<ul>
+    <li>You shall cooperate with LCDHE and allow daily contact with health care professionals who are providing your care to assess
+    whether you continue to be infectious.</li>
+    <li>You shall remain at the address listed above (or other address approved by LCDHE) until:
+    <b>{!MONTH(l.Iso_Quar_Until__c)}/{!DAY(l.Iso_Quar_Until__c)}/{!YEAR(l.Iso_Quar_Until__c)}</b>. <br />
+    Additionally, you must be fever-free for the last 24 hours of your isolation period without the use of fever-reducing medications and have improvement in your symptoms.</li>
+</ul>
+LCDHE is tasked with protecting the health and welfare of the citizens of Colorado by investigating and controlling the causes
+of epidemic and communicable disease. This Public Health Isolation Order is necessary to control any potential transmission
+of disease to others. § 25-1-506 (3) (b) (VI), Colorado Revised Statutes. Immediate issuance of this Order is necessary for
+the preservation of public health, safety, or welfare, and observance of the requirements of the Administrative Procedure
+Act would be contrary to the public interest.<br /><br /><b>FAILURE TO COMPLY WITH THIS ORDER IS SUBJECT TO THE PENALTIES CONTAINED IN §25-1-514 and 25-1-516, COLORADO REVISED STATUTES,
+INCLUDING A FINE OF UP TO FIVE THOUSAND (5,000) DOLLARS AND IMPRISONMENT IN THE COUNTY JAIL FOR UP TO EIGHTEEN (18) MONTHS.</b>
+<br /><br />
+If you have questions about this isolation order, please contact the Joint Information Center at (970) 498-5500, or by email
+at <u>LarimerHealthFollowup@co.larimer.co.us</u>.
+<br />
+<br />
+<table width="100%">
+    <tr>
+        <td>
+            <apex:image url="{!$Resource.letterSignature}" height="75" width="200" /><br />
+            _______________________________<br />
+            Tom Gonzales, MPH, REHS<br />
+            Public Health Director<br />
+        </td>
+        <td align="right">
+            <br /><br />
+            <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!TODAY()}" /></apex:outputText></u><br />
+            Date
+        </td>
+    </tr>
+</table>
+<div style="display:block;page-break-after:always;"></div>&nbsp; 
+<div style="display:block;page-break-after:always;"></div>  
+</apex:outputText>
+
+<apex:outputText rendered="{!IF(l.Letter_Type_To_Send__c='QE',true,false)}" escape="false">
+ <div align="center">
+        <b>NOTICE OF PUBLIC HEALTH QUARANTINE ORDER</b>
+    </div>
+    <br /> The Larimer County Department of Public Health and Environment (LCDHE) has determined that you recently have been in close contact with an individual who has COVID-19. Based on this exposure, 
+    you have been identified as a person with a high risk of contracting COVID-19.<br />
+    <br />Effective immediately, to protect the public’s health and to prevent further spread of the disease, you are ordered to self-quarantine. 
+    Quarantine means separating an individual or group reasonably believed to have been exposed to a communicable disease, but who is/are not yet ill, from others who have not been exposed,
+    to prevent the possible spread of the communicable disease. You are further ordered to cooperate with LCDHE as indicated
+    below:
+    <br /><br />
+    <b>Follow the terms outlined in this Public Health Quarantine Order through {!MONTH(l.Quarantine_Until__c)}/{!DAY(l.Quarantine_Until__c)}/{!YEAR(l.Quarantine_Until__c)}. After this date, you may resume your normal activities in accordance with local guidelines. A negative test
+    result does <u>NOT</u> end the quarantine period early because it can take up to 14 days from the last exposure to become ill and/or test positive.</b>
+    <br/>
+    <br /><b>Health Monitoring</b>
+    <br />
+    <ul>
+        <li>You shall cooperate with health care professionals in the administration of necessary infection control actions and shall
+        allow daily contact with LCDHE to assess whether you have developed symptoms and may be infectious to others. If you need
+        to seek medical care for any reason, you must notify the healthcare provider that you are currently in quarantine due to
+        an exposure to COVID-19.</li>
+    </ul>
+    <b>Travel and Public Activites Restrictions
+    </b>
+    <ul>
+        <li>You shall not travel by airplane, ship, long-distance bus, or train</li>
+        <li>Any other travel must be coordinated with and approved by LCDHE</li>
+        <li>You shall separate yourself from others and avoid all public activities</li>
+        <li>You shall not use public transportation, such as light rail, bus, or taxi</li>
+        <li>You shall not go to school</li>
+        <li>Restrict visitors who do not have an essential need to be in the home</li>
+        <li>You shall not go to work. Working from a home office is permitted</li>
+        <li>If you do not have respiratory symptoms, LCDHE may authorize limited outdoor
+        activities (e.g. take a walk) as long as you maintain a minimum six-foot distance from any other individual.</li>
+    </ul>
+
+<div style="display:block;page-break-after:always;"></div>
+<!--<apex:image width="100%" url="{!$Resource.letterFooter}" /><br /> -->
+<br /><br /><br />
+
+LCDHE is tasked with protecting the health and welfare of the citizens of Colorado by investigating and controlling the causes
+of epidemic and communicable disease. This Public Health Isolation Order is necessary to control any potential transmission
+of disease to others. § 25-1-506 (3) (b) (VI), Colorado Revised Statutes. Immediate issuance of this Order is necessary for
+the preservation of public health, safety, or welfare, and observance of the requirements of the Administrative Procedure
+Act would be contrary to the public interest.
+<br />
+<br />
+<b>FAILURE TO COMPLY WITH THIS ORDER IS SUBJECT TO THE PENALTIES CONTAINED IN §25-1-514 and 25-1-516, COLORADO REVISED STATUTES,
+    INCLUDING A FINE OF UP TO FIVE THOUSAND (5,000) DOLLARS AND IMPRISONMENT IN THE COUNTY JAIL FOR UP TO EIGHTEEN (18) MONTHS.</b>
+    <br />
+    <br /> If you have questions about this order, please contact the Joint Information Center at (970) 498-5500, or
+    by email at
+    <u>LarimerHealthFollowup@co.larimer.co.us</u>.
+    <br />
+<br />
+<table width="100%">
+    <tr>
+        <td>
+            <apex:image url="{!$Resource.letterSignature}" height="75" width="200" /><br />
+            _______________________________<br />
+            Tom Gonzales, MPH, REHS<br />
+            Public Health Director<br />
+        </td>
+        <td align="right">
+            <br /><br />
+            <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!TODAY()}" /></apex:outputText></u><br />
+            Date
+        </td>
+    </tr>
+</table>
+<div style="display:block;page-break-after:always;"></div>  
+</apex:outputText>
+
+<apex:outputText rendered="{!IF(l.Letter_Type_To_Send__c='IS',true,false)}" escape="false">
+    <div align="center">
+        <b>AVISO DE ORDEN DE AISLAMIENTO DE SALUD PÚBLICA</b>
+    </div><br />
+El Departamento de Salud y Medio Ambiente del Condado de Larimer (LCDHE o "departamento de salud") ha determinado que usted
+es presuntamente positivo para la enfermedad del nuevo coronavirus de 2019, denominado en este documento "COVID-19". Debido
+a que ha desarrollado síntomas, LCDHE requiere que permanezca aislado de conformidad con la autoridad legal establecida en
+§ 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado.
+<br /><br />
+Con vigencia inmediata, para proteger la salud del público y evitar una mayor propagación de la enfermedad, se le ordena
+cumplir con los siguientes requisitos:
+<br />
+<ul>
+<li>Deberá permanecer en autoaislamiento hasta:<b>{!MONTH(l.Iso_Quar_Until__c)}/{!DAY(l.Iso_Quar_Until__c)}/{!YEAR(l.Iso_Quar_Until__c)}</b>.</li>
+<li>También debe estar libre de fiebre durante las últimas 24 horas de su período de aislamiento sin el
+    uso de medicamentos para reducir la fiebre y mejorar sus síntomas. </li>
+<li>Deberá cooperar con LCDHE y permitir el contacto
+    diario con profesionales de la salud que le brinden atención para evaluar si continúa siendo infeccioso.</li>
+</ul>
+ 
+    LCDHE tiene la tarea de proteger la salud y el bienestar de los ciudadanos de Colorado mediante la investigación y el control
+    de las causas de epidemias y enfermedades transmisibles. Esta Orden de aislamiento de salud pública es necesaria para controlar
+    cualquier posible transmisión de enfermedades a otros. § 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado. La emisión
+    inmediata de esta Orden es necesaria para la preservación de la salud pública, la seguridad o el bienestar, y el cumplimiento
+    de los requisitos de la Ley de Procedimiento Administrativo sería contrario al interés público. <br/><br/><b>EL INCUMPLIMIENTO DE ESTE
+    PEDIDO ESTÁ SUJETO A LAS SANCIONES CONTENIDAS EN §25-1-514 Y 25-1-516, COLORADO REVISÓ LOS ESTATUTOS, INCLUYENDO UNA MULTA
+    DE HASTA CINCO MIL (5,000) DÓLARES Y ENCARCELOS EN LA CÁRCEL DEL CONDADO POR UP A DIECIOCHO (18) MESES.</b><br /><br />
+
+Si tiene preguntas sobre esta orden de aislamiento, comuníquese con el Centro de información conjunta al (970) 498-5500,
+o por correo electrónico a <u>LarimerHealthFollowup@gmail.com</u>.
+<br />
+<br />
+<table width="100%">
+    <tr>
+        <td>
+            <apex:image url="{!$Resource.letterSignature}" height="75" width="200" /><br />
+            _______________________________<br />
+            Tom Gonzales, MPH, REHS<br />
+            Public Health Director<br />
+        </td>
+        <td align="right">
+            <br /><br />
+            <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!TODAY()}" /></apex:outputText></u><br />
+            Date
+        </td>
+    </tr>
+</table>
+<div style="display:block;page-break-after:always;"></div>&nbsp;
+<div style="display:block;page-break-after:always;"></div>
+  
+</apex:outputText>
+
+<apex:outputText rendered="{!IF(l.Letter_Type_To_Send__c='QS',true,false)}" escape="false">
+    <div align="center">
+        <b>AVISO DE ORDEN DE CUARENTENA DE SALUD PÚBLICA</b>
+    </div>
+    <br /> El Departamento de Salud Pública y Medio Ambiente del Condado de Larimer (LCDHE) ha determinado
+    que recientemente ha estado en contacto cercano con una persona que tiene COVID-19. En base a esta exposición, se le ha identificado como una persona con un alto riesgo de contraer COVID-19.<br />
+    <br />Con efecto inmediato, para proteger la salud pública y prevenir una mayor propagación de la enfermedad, se le ordena
+    auto-cuarentena. Cuarentena significa separar a un individuo o grupo que se cree razonablemente que ha estado expuesto a una enfermedad contagiosa, pero que aún no está enfermo, de otros que 
+    no han estado expuestos, para prevenir la posible propagación de la enfermedad contagiosa. Además, se le ordena cooperar con LCDHE como se indica a continuación:
+    <br />
+    <br />
+    <b>Siga los términos descritos en esta Orden de cuarentena de salud pública hasta el {!MONTH(l.Quarantine_Until__c)}/{!DAY(l.Quarantine_Until__c)}/{!YEAR(l.Quarantine_Until__c)}. 
+    Después de esta fecha, puede reanudar sus actividades normales de acuerdo con las pautas locales. 
+    Un resultado negativo de la prueba NO finaliza el período de cuarentena antes de tiempo porque puede tomar hasta 14 días desde la última exposición para enfermarse y / o dar positivo.
+    </b>
+    <br />
+    <b>Monitoreo de la salud</b>
+    <ul>
+        <li>Deberá cooperar con profesionales de la salud en la administración de las acciones necesarias de control de infecciones y deberá
+        permitir el contacto diario con LCDHE para evaluar si ha desarrollado síntomas y puede ser infeccioso para otros. Si necesita
+        buscar atención médica por cualquier motivo, debe notificar al proveedor de atención médica que se encuentra actualmente
+        en cuarentena debido a una exposición al COVID-19.</li>
+    </ul>
+    <b>Restricciones de viajes y actividades públicas
+    </b>
+    <ul>
+        <li>No debe viajar en avión, barco, autobús de larga distancia o tren.</li>
+        <li>Cualquier otro viaje debe ser coordinado y aprobado por LCDHE.</li>
+        <li>Debe separarse de los demás y evitar todas las actividades públicas.</li>
+        <li>No debe usar transporte público, como el tren ligero, autobús o taxi.</li>
+        <li>No irá a la escuela</li>
+        <li>Restringir a los visitantes que no tengan una necesidad esencial de estar en el hogar</li>
+        <li>No irá a trabajar. Se permite trabajar desde una oficina en casa.</li>
+        <li>Si no tiene síntomas respiratorios, LCDHE, puede autorizar actividades limitadas al aire libre (por ejemplo, dar un paseo) 
+        siempre que mantenga una distancia mínima de seis pies de cualquier otra persona.</li>
+    </ul>
+<div style="display:block;page-break-after:always;"></div>
+<!--<apex:image width="100%" url="{!$Resource.letterFooter}" /><br /> -->
+<br />
+<br />
+     
+<br /> LCDHE tiene la tarea de proteger la salud y el bienestar de los ciudadanos de Colorado mediante la investigación y el control
+de las causas de la epidemia y las enfermedades transmisibles. Esta Orden de Aislamiento de Salud Pública es necesaria para controlar
+cualquier transmisión potencial de enfermedades a otros. § 25-1-506 (3) (b) (VI), Estatutos Revisados de Colorado. La emisión
+inmediata de esta Orden es necesaria para la preservación de la salud, la seguridad o el bienestar públicos, y el cumplimiento
+de los requisitos de la Ley de Procedimiento Administrativo sería contrario al interés público.
+<br/>
+<br/>
+<b>EL INCUMPLIMIENTO DE ESTA SUJETO A LAS SANCIONES CONTENIDAS EN §25-1-514 y 25-1-516, ESTATUTOS REVISADOS DE COLORADO,
+    INCLUYENDO UNA MULTA DE HASTA CINCO MIL (5,000) DÓLARES Y ENCARCELAMIENTO EN LA CÁRCEL DEL CONDADO PARA ARRIBA HASTA DIECIOCHO (18)
+    MESES.</b>
+<br />
+<br /> Si tiene preguntas sobre este pedido, comuníquese con el Centro de información conjunta al (970) 498-5500 o por correo electrónico a
+<u>LarimerHealthFollowup@co.larimer.co.us</u>.
+<br />
+<br />
+<table width="100%">
+    <tr>
+        <td>
+            <apex:image url="{!$Resource.letterSignature}" height="75" width="200" /><br />
+            _______________________________<br />
+            Tom Gonzales, MPH, REHS<br />
+            Public Health Director<br />
+        </td>
+        <td align="right">
+            <br /><br />
+            <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!TODAY()}" /></apex:outputText></u><br />
+            Date
+        </td>
+    </tr>
+</table>
+<div style="display:block;page-break-after:always;"></div>  
+</apex:outputText>
+</apex:repeat>
+</body>
+</html>
+
+</apex:page>

@@ -1,8 +1,19 @@
 {
-	"id": "CICM_Mobile",
 	"lessVars": {},
-	"tempVars": {},
+	"webFonts": {},
+	"cssResources": [],
 	"baseTheme": "Classic",
 	"isMobile": false,
-	"themeSettings": {}
+	"themeSettings": {
+		"_id": "c9016a34-8525-466a-abc4-bc37d141dbf8"
+	},
+	"themeSettingsLocal": {
+		"_id": "c9016a34-8525-466a-abc4-bc37d141dbf8"
+	},
+	"timeStamp": 1606702371944,
+	"migrations": {
+		"millau": "1606702369158"
+	},
+	"id": "CICM_Mobile",
+	"initialized": true
 }

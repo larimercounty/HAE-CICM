@@ -122,7 +122,9 @@ at <u>LarimerHealthFollowup@co.larimer.co.us</u>.
         activities (e.g. take a walk) as long as you maintain a minimum six-foot distance from any other individual.</li>
     </ul>
 
-<apex:image width="100%" url="{!$Resource.letterFooter}" /><br /><br /><br />
+<div style="display:block;page-break-after:always;"></div>
+<!--<apex:image width="100%" url="{!$Resource.letterFooter}" /><br /> -->
+<br /><br /><br />
 
 LCDHE is tasked with protecting the health and welfare of the citizens of Colorado by investigating and controlling the causes
 of epidemic and communicable disease. This Public Health Isolation Order is necessary to control any potential transmission
@@ -207,8 +209,8 @@ o por correo electrónico a <u>LarimerHealthFollowup@gmail.com</u>.
         <li>Si no tiene síntomas respiratorios, LCDHE, puede autorizar actividades limitadas al aire libre (por ejemplo, dar un paseo) 
         siempre que mantenga una distancia mínima de seis pies de cualquier otra persona.</li>
     </ul>
-    <br /><br />
-<apex:image width="100%" url="{!$Resource.letterFooter}" /><br />
+<div style="display:block;page-break-after:always;"></div>
+<!--<apex:image width="100%" url="{!$Resource.letterFooter}" /><br /> -->
 <br />
 <br />
      
@@ -239,7 +241,7 @@ de los requisitos de la Ley de Procedimiento Administrativo sería contrario al 
         </td>
         <td align="right">
             <br /><br />
-            <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!l.LetterSent_Date__c}" /></apex:outputText></u><br />
+            <u><apex:outputText value="{0, date, MM/dd/yy}"><apex:param value="{!TODAY()}" /></apex:outputText></u><br />
             Date
         </td>
     </tr>

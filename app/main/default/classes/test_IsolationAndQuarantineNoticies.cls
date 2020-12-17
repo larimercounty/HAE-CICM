@@ -40,7 +40,7 @@ private class test_IsolationAndQuarantineNoticies{
         
         sendIndividualEmails.sendCorrectLetter(theInterview.Id );
         
-        HAE_Contact_Review__c newContact = new HAE_Contact_Review__c(First_Name__c='Joe',Last_Name__c='Test', Last_Exposure__c=System.Today() , Phone__c='3038345234',City__c='Fort Collins', Parent_or_Guardian_Email__c='schreujs@co.larimer.co.us', 
+        HAE_Contact_Review__c newContact = new HAE_Contact_Review__c(First_Name__c='Joe',Last_Name__c='Test', Notification_Type__c='low',Last_Exposure__c=System.Today() , Phone__c='3038345234',City__c='Fort Collins', Parent_or_Guardian_Email__c='schreujs@co.larimer.co.us', 
                                                                     State__c='CO',Street__c='100 West Oak', ZipCode__c='80524', Date_of_Birth__c=System.Today(), EventID__c=theCase.Id);
         
         insert newContact;

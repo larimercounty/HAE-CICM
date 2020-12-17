@@ -187,6 +187,7 @@
 	"baseTheme": "CleanGreen",
 	"isMobile": false,
 	"themeSettings": {
+		"_id": "e06e0265-da25-4c74-a256-47076a95e679",
 		"visualizations": {
 			"chart": {},
 			"geochart": {
@@ -202,9 +203,10 @@
 				"background": "#9bc6cf",
 				"nullColor": "#eee"
 			}
-		}
+		},
+		"_id": "e06e0265-da25-4c74-a256-47076a95e679"
 	},
-	"timeStamp": 1589922599434,
+	"timeStamp": 1606702371719,
 	"migrations": {
 		"millau": "1589922235546"
 	},

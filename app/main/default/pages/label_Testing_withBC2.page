@@ -1,0 +1,22 @@
+<apex:page standardcontroller="TestingSlot__c"  renderAs="PDF" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" >
+<html>
+<head>
+    <style>
+             @page:first
+
+           {
+                 margin:0.1in;
+                 size: 3.5in 1.1in;
+           }
+            
+        </style>
+        
+        </head>
+
+<body>
+<div style="font-size:0.80em">&nbsp;ID:{!TestingSlot__c.TestID__c}&nbsp;&nbsp;&nbsp;DOB: <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!TestingSlot__c.PatientDOB__c}" /></apex:outputText><br />
+<!-- Patient: {!TestingSlot__c.TestingRegistration__r.Last_Name__c}, {!TestingSlot__c.TestingRegistration__r.First_Name__c} {!TestingSlot__c.TestingRegistration__r.Middle_Name__c}<br />-->
+&nbsp;Patient: TestingTheBar, Code System<br />&nbsp;&nbsp;<SmartBarcode:BarCode128 codeValue="{!TestingSlot__c.TestID__c}" /></div>
+</body>
+</html>
+</apex:page>

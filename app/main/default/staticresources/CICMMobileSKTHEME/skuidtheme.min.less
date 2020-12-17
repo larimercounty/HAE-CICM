@@ -616,6 +616,7 @@
 @sk-tabset-tab-active-border-bottom: ;
 @sk-tabset-tab-active-margin-bottom: ;
 
+@sk-tabset-tab-hover-color: ;
 @sk-tabset-tab-hover-background: ;
 @sk-tabset-tab-hover-border-color: ;
 @sk-tabset-tab-hover-border: ;
@@ -2120,6 +2121,7 @@ div.nx-fileupload-status{
 	padding: 8px;
 	margin-left: 8px;
 	text-align: center;
+	box-sizing: content-box;
 	a {
 		color: @sk-page-link-color;
 		text-decoration: @sk-page-link-decoration;
@@ -2699,6 +2701,7 @@ input.nx-dt-dateinput {
 	font-size: 0.825em;
 	background: @sk-dialog-background;
 	.font(@sk-dialog-font);
+	box-sizing: content-box;
 
 	.ui-dialog-titlebar {
 		background: @sk-dialog-titlebar-background;
@@ -2742,6 +2745,7 @@ input.nx-dt-dateinput {
 
 	.ui-dialog-content {
 		padding: @sk-ui-dialog-content-padding;
+		box-sizing: content-box;
 	}
 
 	.ui-dialog-content > .ui-button {
@@ -4652,7 +4656,7 @@ div.ui-tooltip {
 				background: transparent;;
 				.font(@sk-tabset-tab-font);
 				&:hover,&:focus{
-					color: @sk-tabset-tab-color;
+					color: @sk-tabset-tab-hover-color;
 					font-weight: @sk-tabset-tab-font-weight;
 					text-decoration: none;
 				}
@@ -5815,7 +5819,8 @@ html body.sfdcBody {
 
 .sk-navigation > .sk-navigation-item{
 	&:hover, &:focus{
-		background: @sk-navigation-selected-background;	
+		background: @sk-navigation-selected-background;
+		color: @sk-navigation-selected-color;
 	}
 }
 

@@ -1,5 +1,7 @@
 <apex:page standardController="Document" extensions="CSVImportControllerCases">
-<div style="font-size:2em">Import New Covid Cases</div>
+<div style="font-size:2em">*NEW* Import New Covid Cases</div>
+<br />This update allows batch processing up to 2500 records per file
+<br />A file this large can take 15 minutes to process and send the result email to you
 <hr />
 <apex:messages />
     <apex:form id="theForm">

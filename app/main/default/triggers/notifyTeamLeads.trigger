@@ -3,7 +3,9 @@ trigger notifyTeamLeads on HAE_Case_Interview__c (after insert, after update) {
     
     for(HAE_Case_Interview__c newRec : trigger.new)
     {
-        if(newRec.Online__c == 'Yes')
+        //Probable Case Score above 2+, Or Primary Case Record
+    
+        if(newRec.Online__c == 'Yes' && (newRec.Probable_Case_Score__c > 1 || newRec.Primary_Case_Interview__c))
         {
             String subject;
             String school;
@@ -16,16 +18,16 @@ trigger notifyTeamLeads on HAE_Case_Interview__c (after insert, after update) {
             {
                 HAE_Location__c locRec = [SELECT Id, Location_Name__c FROM HAE_Location__c WHERE Id = :newRec.School_Location__c];
                 school = locRec.Location_Name__c;
-                subject = 'A student was flagged for having been infectious at ' + locRec.Location_Name__c + ' - See email for details';
+                subject = 'A student was flagged for having been at ' + locRec.Location_Name__c + ' - See email for details';
             }
             else  //No school provided
             {
-                subject = 'A student was flagged for having been infectious at school - See email for details';
+                subject = 'A student was flagged for having been at school - See email for details';
             }
             
             String body = 'Hello,';
             body += '\n<p/>';
-            body += 'CEDRS Case ID# - ' + '(' + caseRec.Event_ID__c + '), involving "' + indRec.Full_Name__c + '", has been identified as having attended school while infectious.';
+            body += 'CEDRS Case ID# - ' + '(' + caseRec.Event_ID__c + '), involving "' + indRec.Full_Name__c + '", has been identified as having attended school.';
             body += '\n<p/>Please review the Case as soon as you are able.';
             body += '\n<p/>System Link: https://larimerhealth.lightning.force.com/';
             body += '\n<p/>';

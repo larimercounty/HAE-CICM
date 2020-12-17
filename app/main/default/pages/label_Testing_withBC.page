@@ -1,34 +1,40 @@
-<apex:page standardcontroller="TestingSlot__c" renderAs="PDF" showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" >
-
-<script>
-$(document).ready(function () { 
-  window.print(); 
-});
-</script>
+<apex:page standardcontroller="TestingSlot__c" renderAs="pdf" showHeader="false" sidebar="false" standardStylesheets="true" applyHtmlTag="false" applyBodyTag="false" >
 <html>
+<apex:stylesheet value="{!URLFOR($Resource.barcode)}"/>
 <head>
     <style>
-              @page { size: 1in 2.5in; margin: 0.00in; }                
-            }
-            .page-break {
-                display:block;
-                page-break-after:always;
-            }
-                body { font-size: .5em; }
-                .blackBG{background-color: #000}
 
+             @page:first
+
+           {
+                 margin:0.1in;
+                 size: 3.5in 1.45in;
+      }
+           .blackbar
+           {
+               height:20px;
+               width :2px;
+           }
+           .whitebar
+           {
+               height:20px;
+               width :2px;
+           }
+           span
+           {
+               max-height:.5in !important;
+           }
+           
         </style>
-        
         </head>
 
-<body onload="window.print()">
-<img src="{!TestingSlot__c.barcodeURL__c}"/><br />
-ID:{!TestingSlot__c.TestID__c}
-&nbsp;&nbsp;&nbsp;DOB: <apex:outputText value="{0, date, MM/dd/yyyy}">
-                <apex:param value="{!TestingSlot__c.PatientDOB__c}" /> 
-</apex:outputText><br />
-<!-- Patient: {!TestingSlot__c.TestingRegistration__r.Last_Name__c}, {!TestingSlot__c.TestingRegistration__r.First_Name__c} {!TestingSlot__c.TestingRegistration__r.Middle_Name__c}<br />-->
-Patient: TestingTheBar, Code System
+
+
+<body>
+<div style="font-size:0.85em">&nbsp;&nbsp;ID:{!TestingSlot__c.TestID__c}&nbsp;&nbsp;&nbsp;DOB: <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!TestingSlot__c.PatientDOB__c}" /></apex:outputText><br />
+&nbsp;&nbsp;Patient: {!TestingSlot__c.TestingRegistration__r.Last_Name__c}, {!TestingSlot__c.TestingRegistration__r.First_Name__c} {!TestingSlot__c.TestingRegistration__r.Middle_Name__c}<br />
+<SmartBarcode:BarCode128 codeValue="{!TestingSlot__c.TestID__c}"/></div>
+
 </body>
 </html>
 </apex:page>

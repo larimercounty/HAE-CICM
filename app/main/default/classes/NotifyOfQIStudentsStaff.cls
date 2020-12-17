@@ -19,10 +19,12 @@ global class NotifyOfQIStudentsStaff implements Database.Batchable < sObject >
             
             List <HAE_Case_Interview__c> students = new List <HAE_Case_Interview__c>([Select Id,
                                                                                              HAE_Individual__r.Full_Name__c,
+                                                                                             HAE_Individual__r.Age__c,
                                                                                              Primary_Case_Interview__c,
                                                                                              Current_Symptoms__c,
                                                                                              Isolate_Until__c,
-                                                                                             Quarantine_Until__c
+                                                                                             Quarantine_Until__c,
+                                                                                             Iso_Quar_Until__c
                                                                                              FROM
                                                                                              HAE_Case_Interview__c
                                                                                              Where 
@@ -30,6 +32,8 @@ global class NotifyOfQIStudentsStaff implements Database.Batchable < sObject >
                                                                                                OR 
                                                                                                Quarantine_Until__c >= TODAY  
                                                                                              )
+                                                                                             AND 
+                                                                                               Iso_Quar_Until__c > TODAY
                                                                                              AND
                                                                                              (
                                                                                                Employeer_Location__c =:theLocation.Id
@@ -49,6 +53,8 @@ global class NotifyOfQIStudentsStaff implements Database.Batchable < sObject >
             OrgWideEmailAddress owea = [select Id from OrgWideEmailAddress where DisplayName = : 'Larimer County Health FollowUp'];
     
             String body ='Hello<br /><br />';
+            
+            
             body += 'Here is the list of individuals<br/><br/>';
             
             for(HAE_Case_Interview__c theCase : students)
@@ -58,18 +64,21 @@ global class NotifyOfQIStudentsStaff implements Database.Batchable < sObject >
                 
                 IF(theCase.Primary_Case_Interview__c || theCase.Current_Symptoms__c)
                 {
-                  theDateToUse = theCase.Isolate_Until__c;
+                  theDateToUse = theCase.Iso_Quar_Until__c;
                 }
                 else
                 {
-                  theDateToUse = theCase.Quarantine_Until__c;
+                  theDateToUse = theCase.Iso_Quar_Until__c;
                 }
                 
                 Datetime dt = datetime.newInstance(theDateToUse.year(), theDateToUse.month(),theDateToUse.day());
                 theDay = dt.format('MM/dd/YYYY');
 
-                body += theCase.HAE_Individual__r.Full_Name__c + ' until ' +theDay+ '<br />';
+                body += theCase.HAE_Individual__r.Full_Name__c + ' (Age: '+ theCase.HAE_Individual__r.Age__c +') until ' +theDay+ '<br />';
             }
+            
+            
+            if(!(students.size()>0)) {body += 'No Current Students Identified';}
             
             Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
      

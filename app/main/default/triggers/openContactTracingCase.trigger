@@ -11,8 +11,8 @@ trigger openContactTracingCase on TestingSlot__c (after update) {
            
            //Pull Up The Registration Record
            TestingRegistration__c theRegistration = [Select Id, First_Name__c, Last_Name__c, DOB__c, Email_Address__c, 
-                                                     Middle_Name__c, Address__c, City__c, State__c, Zip_Code__c,
-                                                     Gender__c, Race__c, Phone_Number__c,Ethnicity__c, Employer__c,School__c  
+                                                     Middle_Name__c, Address__c, City__c, State__c, Zip_Code__c, Date_of_Symptoms__c,School__r.Id,
+                                                     Gender__c, Race__c, Phone_Number__c,Ethnicity__c, Language__c, Employer__c,School__c  
                                                      from TestingRegistration__c where Id =: theTest.TestingRegistration__c limit:1];
            
            system.debug(theRegistration.Email_Address__c);
@@ -43,7 +43,11 @@ trigger openContactTracingCase on TestingSlot__c (after update) {
                
                If(theRegistration.Ethnicity__c == 'Hispanic' ) newIndividual.Ethnicity__c = 'Yes';
                If(theRegistration.Ethnicity__c == 'Not Hispanic' ) newIndividual.Ethnicity__c = 'No';
-
+               
+               if(theRegistration.Language__c == 'Spanish') newIndividual.Correspondence_Language__c = 'Spanish';
+               if(theRegistration.Language__c != 'Spanish') newIndividual.Correspondence_Language__c = 'English';
+               
+               
                newIndividual.Race__c = theRegistration.Race__c;
                newIndividual.Zip__c  = theRegistration.Zip_Code__c;
                newIndividual.Individual_Phone__c = theRegistration.Phone_Number__c;
@@ -57,7 +61,9 @@ trigger openContactTracingCase on TestingSlot__c (after update) {
                newCase.Specimen_Collection_Date__c = theTest.Test_Day__c;
                newCase.Reported_Date__c = system.today();
                newCase.Result_Date__c = system.today();
-               newCase.Specimen__c = 'RT-PCR';
+               if(theTest.Test_Type__c == null || theTest.Test_Type__c == 'BOTH') {newCase.Specimen__c = 'RT-PCR';}
+               else {newCase.Specimen__c = theTest.Test_Type__c;}
+               
                newCase.CEDRS_Case_Status__c = 'Confirmed';
                insert newCase; 
                    
@@ -71,16 +77,31 @@ trigger openContactTracingCase on TestingSlot__c (after update) {
                String theNote = 'New Case Added.';
                if(theRegistration.Employer__c != null) theNote += ' Employer: ' + theRegistration.Employer__c;
                if(theRegistration.School__c != null) theNote += ' School: ' + theRegistration.School__c;
-               
-               
-               
+              
                
                HAE_Case_Activity__c newNote = new HAE_Case_Activity__c();
                newNote.HAE_Individual__c = newIndividual.Id;
                newNote.HAE_Case__c = newCase.Id;
                newNote.Case_Note__c = theNote;
                insert newNote;
-           
+               
+               HAE_Case_Interview__c newInterview = new HAE_Case_Interview__c();
+               newInterview.Date_of_Symptoms__c = theRegistration.Date_of_Symptoms__c;
+               newInterview.HAE_Individual__c = newIndividual.Id;
+               newInterview.HAE_Case__c = newCase.Id;
+               newInterview.Primary_Case_Interview__c = True;
+               if(theRegistration.School__c != null) newInterview.School_Location__c = theRegistration.School__r.Id;
+               insert newInterview;
+               
+             /*             
+               //Send Isolation Order
+               if(theTest.Test_Type__c == 'BINAX')
+               {
+                  sendContactQuarantineEmail  theBatch = new sendContactQuarantineEmail();        
+                  theBatch.theId = newInterview.Id;
+                  ID theBatchJob = Database.executeBatch(theBatch,1);
+               }
+           */
            
            }
        
